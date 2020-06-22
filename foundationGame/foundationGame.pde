@@ -10,7 +10,7 @@ void setup() {
   size(1200,1200);
   //fullScreen();
   rectMode(CENTER);
-  player = new Player(Color.decode("#F7A01B"), 100, 100, 50, 5, 5);
+  player = new Player(Color.decode("#F7A01B"), 100, 100, 50, 5, 5, "foundation");
   objects.add(new Object("ellipse", 0, 0, 25, 0, Color.red));
   tools.add(new Tool("block", "rectangle", Color.green, 0, 0, 100, 100));
 }
