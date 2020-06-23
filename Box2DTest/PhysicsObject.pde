@@ -19,7 +19,9 @@ class PhysicsObject {
     BodyDef bd = new BodyDef();
     switch (bt) {
       case STATIC:    bd.type = BodyType.STATIC;
+      break;
       case DYNAMIC:   bd.type = BodyType.DYNAMIC;
+      break;
       case KINEMATIC: bd.type = BodyType.KINEMATIC;
     }
     bd.position.set(box2D.coordPixelsToWorld(pos_.x, pos_.y));

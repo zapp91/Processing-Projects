@@ -13,13 +13,13 @@ ArrayList<Box> boxes;
 Box2DProcessing box2d;    
 
 void setup() {
-  size(640, 360);
+  size(500, 500);
   // Initialize and create the Box2D world
   box2d = new Box2DProcessing(this);  
   box2d.createWorld();
-
-  // Create ArrayLists
+  
   boxes = new ArrayList<Box>();
+  boxes.add(new Box(width/2, height-2, width, 5, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5));
 }
 
 void draw() {
