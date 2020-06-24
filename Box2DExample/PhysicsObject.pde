@@ -1,22 +1,19 @@
-// The Nature of Code
-// Daniel Shiffman
-// http://natureofcode.com
-
-// A rectangular box
-class Box {
-  //  Instead of any of the usual variables, we will store a reference to a Box2D Body
+class PhysicsObject {
+  //Instead of any of the usual variables, we will store a reference to a Box2D Body
   Body body;      
 
   float x,y,w,h;
-  color colour;
+  color colour1;
+  color colour2;
   boolean rectCir;
 
-  Box(float x, float y, float w, float h, color colour, Box2DBodyType bt, float density, float friction, float restitution, boolean rectCir) {
+  PhysicsObject(float x, float y, float w, float h, color colour1, color colour2, Box2DBodyType bt, float density, float friction, float restitution, boolean rectCir) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
-    this.colour = colour;
+    this.colour1 = colour1;
+    this.colour2 = colour2;
     
     this.rectCir = rectCir;
 
@@ -65,12 +62,14 @@ class Box {
     push();
     translate(pos.x,pos.y);    // Using the Vec2 position and float angle to
     rotate(-a);                // translate and rotate the rectangle
-    fill(colour);
-    //strokeWeight(0);
+    fill(colour1);
     if (rectCir) {
       rect(0,0,w,h);
+      //setGradient(-int(w/2),-int(h/2),w,h, colour1, colour2, 2);
     } else {
       ellipse(0,0,w,w);
+      stroke(0);
+      strokeWeight(2);
       line(0,0,0,w/2);
     }
     pop();

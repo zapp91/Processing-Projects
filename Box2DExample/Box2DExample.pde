@@ -3,12 +3,17 @@
 // http://natureofcode.com
 
 import shiffman.box2d.*;
+import org.jbox2d.common.*;
+import org.jbox2d.dynamics.joints.*;
 import org.jbox2d.collision.shapes.*;
+import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.*;
 import org.jbox2d.dynamics.*;
+import org.jbox2d.dynamics.contacts.*;
 
-// A list for all of our rectangles
-ArrayList<Box> boxes;
+ArrayList<PhysicsObject> physicsObjects;
+ArrayList<Windmill> windmills;
+ArrayList<Car> cars;
 
 Box2DProcessing box2d;    
 
@@ -20,15 +25,24 @@ void setup() {
   box2d = new Box2DProcessing(this);  
   box2d.createWorld();
   
-  boxes = new ArrayList<Box>();
+  physicsObjects = new ArrayList<PhysicsObject>();
+  windmills = new ArrayList<Windmill>();
+  cars = new ArrayList<Car>();
+  
   //floor
-  boxes.add(new Box(width/2, height, width, 5, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, true));
+  physicsObjects.add(new PhysicsObject(width/2, height, width, 5, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, true));
+  //roof
+  physicsObjects.add(new PhysicsObject(width/2, 0, width, 5, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, true));
   //left wall
-  boxes.add(new Box(2, height/2, 2, height, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, true));
+  physicsObjects.add(new PhysicsObject(2, height/2, 2, height, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, true));
   //right wall
-  boxes.add(new Box(width-2, height/2, 2, height, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, true));
+  physicsObjects.add(new PhysicsObject(width-2, height/2, 2, height, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, true));
   //platform
-  boxes.add(new Box(width/2, height/1.5, width/4, 10, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, true));
+  physicsObjects.add(new PhysicsObject(width/2, height/1.5, width/4, 10, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, true));
+  
+  windmills.add(new Windmill(width*0.25, height/2));
+  windmills.add(new Windmill(width*0.50, height/2));
+  windmills.add(new Windmill(width*0.75, height/2));
 }
 
 void draw() {
@@ -38,9 +52,20 @@ void draw() {
   box2d.step();
 
   // Display all the boxes
-  for (Box b: boxes) {
-    b.display();
+  for (PhysicsObject p: physicsObjects) {
+    p.display();
   }
+  
+  // Display all the windmills
+  for (Windmill w: windmills) {
+    w.display();
+  }
+  
+  for (Car c: cars) {
+    c.display();
+  }
+
+  displayData();
   
   if (mousePressed) {
     mousePressed();
