@@ -33,28 +33,12 @@ class Windmill {
     // See box2d manual for more
     
 
-      // Create the joint
+    // Create the joint
     joint = (RevoluteJoint) box2d.world.createJoint(rjd);
   }
-
-  // Turn the motor on or off
-  void toggleMotor() {
-    joint.enableMotor(!joint.isMotorEnabled());
-  }
-
-  boolean motorOn() {
-    return joint.isMotorEnabled();
-  }
-
 
   void display() {
     box2.display();
     box1.display();
-
-    // Draw anchor just for debug
-    Vec2 anchor = box2d.coordWorldToPixels(box1.body.getWorldCenter());
-    fill(0);
-    noStroke();
-    ellipse(anchor.x, anchor.y, 8, 8);
   }
 }

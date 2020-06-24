@@ -1,41 +1,45 @@
 class Car {
 
+  RevoluteJoint joint1;
+  RevoluteJoint joint2;
   PhysicsObject p1;
   PhysicsObject p2;
+  PhysicsObject p3;
+  int randomNum;
 
   float len;
   // Chain constructor
   Car(float x, float y) {
-    len = 32;
+    p1 = new PhysicsObject(x-30, y+20, 30, 10, #FC7DC8, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, false); 
+    p2 = new PhysicsObject(x+30, y+20, 30, 10, #3BFF5D, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, false); 
+    p3 = new PhysicsObject(x, y, 60, 40, #FFFFFF, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, true); 
 
-    p1 = new PhysicsObject(x, y, 30, 1, #FFFFFF, randomColor(), Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, false);
-    p2 = new PhysicsObject(x+50, y, 30, 1, #FFFFFF, randomColor(), Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, false);
+    RevoluteJointDef rjd1 = new RevoluteJointDef();
+    RevoluteJointDef rjd2 = new RevoluteJointDef();
 
-    DistanceJointDef djd = new DistanceJointDef();
-    // Connection between previous particle and this one
-    djd.bodyA = p1.body;
-    djd.bodyB = p2.body;
-    // Equilibrium length
-    djd.length = box2d.scalarPixelsToWorld(len);
+    rjd1.initialize(p1.body, p3.body, p1.body.getWorldCenter());
+    rjd2.initialize(p2.body, p3.body, p2.body.getWorldCenter());
+
+    rjd1.motorSpeed = PI*4*randomNum;  // how fast?
+    rjd1.maxMotorTorque = 100000.0;    // how powerful?
+    rjd1.enableMotor = true;           // is it on?
     
-    // These properties affect how springy the joint is 
-    djd.frequencyHz = 5;  // Try a value less than 5 (0 for no elasticity)
-    djd.dampingRatio = 0.9; // Ranges between 0 and 1 (1 for no springiness)
+    // Turning on a motor (optional)
+    rjd2.motorSpeed = PI*4*randomNum;  // how fast?
+    rjd2.maxMotorTorque = 100000.0;    // how powerful?
+    rjd2.enableMotor = true;           // is it on?
 
-    // Make the joint.  Note we aren't storing a reference to the joint ourselves anywhere!
-    // We might need to someday, but for now it's ok
-    DistanceJoint dj = (DistanceJoint) box2d.world.createJoint(djd);
+    // There are many other properties you can set for a Revolute joint
+    // For example, you can limit its angle between a minimum and a maximum
+    // See box2d manual for more
+
+    joint1 = (RevoluteJoint) box2d.world.createJoint(rjd1);
+    joint2 = (RevoluteJoint) box2d.world.createJoint(rjd2);
   }
 
   void display() {
-    Vec2 pos1 = box2d.getBodyPixelCoord(p1.body);
-    Vec2 pos2 = box2d.getBodyPixelCoord(p2.body);
-    push();
-    stroke(255);
-    strokeWeight(2);
-    line(pos1.x,pos1.y,pos2.x,pos2.y);
-    pop();
     p1.display();
     p2.display();
+    p3.display();
   }
 }
