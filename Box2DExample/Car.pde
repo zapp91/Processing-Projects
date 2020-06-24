@@ -10,6 +10,9 @@ class Car {
   float len;
   // Chain constructor
   Car(float x, float y) {
+    
+    randomNum = randomPosNeg1();
+    
     p1 = new PhysicsObject(x-30, y+20, 30, 10, #FC7DC8, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, false); 
     p2 = new PhysicsObject(x+30, y+20, 30, 10, #3BFF5D, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, false); 
     p3 = new PhysicsObject(x, y, 60, 40, #FFFFFF, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, true); 
