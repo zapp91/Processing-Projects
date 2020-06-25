@@ -15,8 +15,8 @@ class Windmill {
   Windmill(float x, float y) {
 
     // Initialize positions of two boxes
-    box1 = new PhysicsObject(x, y, 200, 10, #FC7DC8, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, true); 
-    box2 = new PhysicsObject(x, y, 20, 10, #3BFF5D, #FC7DC8, Box2DBodyType.STATIC, 1, 0.3, 0.5, false); 
+    box1 = new PhysicsObject(x, y, 200, 10, #FC7DC8, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.RECTANGLE); 
+    box2 = new PhysicsObject(x, y, 20, 10, #3BFF5D, #FC7DC8, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.CIRCLE); 
 
     // Define joint as between two bodies
     RevoluteJointDef rjd = new RevoluteJointDef();

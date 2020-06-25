@@ -7,16 +7,17 @@ class Car {
   PhysicsObject p3;
   int randomNum;
 
-  float len;
-  // Chain constructor
   Car(float x, float y) {
     
     randomNum = randomPosNeg1();
     
-    p1 = new PhysicsObject(x-30, y+20, 30, 10, #FC7DC8, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, false); 
-    p2 = new PhysicsObject(x+30, y+20, 30, 10, #3BFF5D, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, false); 
-    p3 = new PhysicsObject(x, y, 60, 40, #FFFFFF, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, true); 
-
+    //p1 = new PhysicsObject(x-36, y+20, 20, 10, #FC7DC8, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CIRCLE); 
+    //p2 = new PhysicsObject(x+40, y+20, 20, 10, #3BFF5D, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CIRCLE); 
+    //p3 = new PhysicsObject(x-1, y+5, 120, 37, #FFFFFF, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CARBODY); 
+    p1 = new PhysicsObject(x-72, y+40, 40, 20, #464545, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CIRCLE); 
+    p2 = new PhysicsObject(x+80, y+40, 40, 20, #464545, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CIRCLE); 
+    p3 = new PhysicsObject(x-2, y+5, 240, 74, #FFFFFF, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CARBODY);
+    
     RevoluteJointDef rjd1 = new RevoluteJointDef();
     RevoluteJointDef rjd2 = new RevoluteJointDef();
 
@@ -44,5 +45,12 @@ class Car {
     p1.display();
     p2.display();
     p3.display();
+  }
+  
+  void destroy() {
+    box2d.destroyBody(p1.body);
+    box2d.destroyBody(p2.body);
+    box2d.destroyBody(p3.body);
+    //box2d.destroyJoint();
   }
 }

@@ -11,52 +11,59 @@ import org.jbox2d.common.*;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.*;
 
+ArrayList<PhysicsObject> worldStaticObjects;
 ArrayList<PhysicsObject> physicsObjects;
 ArrayList<Windmill> windmills;
 ArrayList<Car> cars;
 
 Box2DProcessing box2d;    
+PImage img;
 
 void setup() {
   fullScreen();
   rectMode(CENTER);
+  imageMode(CENTER);
   
   // Initialize and create the Box2D world
   box2d = new Box2DProcessing(this);  
   box2d.createWorld();
   
+  worldStaticObjects = new ArrayList<PhysicsObject>();
   physicsObjects = new ArrayList<PhysicsObject>();
   windmills = new ArrayList<Windmill>();
   cars = new ArrayList<Car>();
   
   //floor
-  physicsObjects.add(new PhysicsObject(width/2, height, width, 5, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, true));
+  worldStaticObjects.add(new PhysicsObject(width/2, height, width, 5, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   //roof
-  physicsObjects.add(new PhysicsObject(width/2, 0, width, 5, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, true));
+  worldStaticObjects.add(new PhysicsObject(width/2, 0, width, 5, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   //left wall
-  physicsObjects.add(new PhysicsObject(2, height/2, 2, height, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, true));
+  worldStaticObjects.add(new PhysicsObject(2, height/2, 2, height, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   //right wall
-  physicsObjects.add(new PhysicsObject(width-2, height/2, 2, height, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, true));
+  worldStaticObjects.add(new PhysicsObject(width-2, height/2, 2, height, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   //platform
-  physicsObjects.add(new PhysicsObject(width/2, height/1.5, width/4, 10, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, true));
+  worldStaticObjects.add(new PhysicsObject(width/2, height/1.5, width/4, 10, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   
   windmills.add(new Windmill(width*0.25, height/2));
   windmills.add(new Windmill(width*0.50, height/2));
   windmills.add(new Windmill(width*0.75, height/2));
+  
+  img = loadImage("dodge3.png");
 }
 
 void draw() {
   background(0);
-
-  // We must always step through time!
+  //box2d.step(1.0f/60,20,20);
   box2d.step();
 
-  // Display all the boxes
+  for (PhysicsObject w: worldStaticObjects) {
+    w.display();
+  }
+
   for (PhysicsObject p: physicsObjects) {
     p.display();
   }
-  
-  // Display all the windmills
+
   for (Windmill w: windmills) {
     w.display();
   }
@@ -67,7 +74,7 @@ void draw() {
 
   displayData();
   
-  if (mousePressed) {
-    mousePressed();
-  }
+  //if (mousePressed) {
+  //  mousePressed();
+  //}
 }

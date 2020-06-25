@@ -4,6 +4,12 @@ public enum Box2DBodyType {
     KINEMATIC
 }
 
+public enum Shape {
+    RECTANGLE,
+    CIRCLE,
+    CARBODY
+}
+
 boolean randomBool() {
   int num = -1 + (int)random(2) * 2;
   if (num == 1) {
@@ -15,6 +21,14 @@ boolean randomBool() {
 
 int randomPosNeg1() {
   return -1 + (int)random(2) * 2;
+}
+
+Shape randomShape() {
+  if (randomBool()){
+    return Shape.RECTANGLE;
+  } else {
+    return Shape.CIRCLE;
+  }
 }
 
 void setGradient(int x, int y, float w, float h, color c1, color c2, int axis ) {
@@ -45,11 +59,13 @@ void displayData() {
     textAlign(RIGHT);
     
     text(
-      "Physics Objects: ",
+      "Physics Objects: " + "\n" +
+      "Dodge Rams: ",
       width - 70, 20);
       
     text(
-      physicsObjects.size(),
+      physicsObjects.size() + "\n" +
+      cars.size(),
       width - 20, 20);
       
   pop();
@@ -57,4 +73,11 @@ void displayData() {
 
 color randomColor() {
   return color(int(random(0,255)), int(random(0,255)), int(random(0,255)));
+}
+
+void destroyObjects(ArrayList<PhysicsObject> po) {
+  for (PhysicsObject p: po) {
+    box2d.destroyBody(p.body);
+  }
+  po.clear();
 }
