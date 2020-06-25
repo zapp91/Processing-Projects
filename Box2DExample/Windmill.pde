@@ -25,7 +25,7 @@ class Windmill {
 
     // Turning on a motor (optional)
     rjd.motorSpeed = PI*4*randomPosNeg1();       // how fast?
-    rjd.maxMotorTorque = 100000.0; // how powerful?
+    rjd.maxMotorTorque = 1000000.0; // how powerful?
     rjd.enableMotor = true;      // is it on?
 
     // There are many other properties you can set for a Revolute joint

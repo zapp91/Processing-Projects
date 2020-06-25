@@ -59,11 +59,13 @@ void displayData() {
     textAlign(RIGHT);
     
     text(
-      "Physics Objects: " + "\n" +
+      "Frame Rate: \n" +
+      "Physics Objects: \n" +
       "Dodge Rams: ",
       width - 70, 20);
       
     text(
+      Math.round(frameRate) + "\n" +
       physicsObjects.size() + "\n" +
       cars.size(),
       width - 20, 20);
@@ -80,4 +82,11 @@ void destroyObjects(ArrayList<PhysicsObject> po) {
     box2d.destroyBody(p.body);
   }
   po.clear();
+}
+
+void destroyCars(ArrayList<Car> car) {
+  for (Car c: car) {
+    c.destroy();
+  }
+  car.clear();
 }

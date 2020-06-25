@@ -11,6 +11,7 @@ void mousePressed() {
 void keyPressed() {
   if (key == 'r' || key == 'R' ) {
     destroyObjects(physicsObjects);
+    destroyCars(cars);
     //physicsObjects.clear();
     //cars.clear();
   }

@@ -48,9 +48,10 @@ class Car {
   }
   
   void destroy() {
+    box2d.world.destroyJoint(joint1);
+    box2d.world.destroyJoint(joint2);
     box2d.destroyBody(p1.body);
     box2d.destroyBody(p2.body);
     box2d.destroyBody(p3.body);
-    //box2d.destroyJoint();
   }
 }

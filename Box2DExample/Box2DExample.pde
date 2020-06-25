@@ -11,22 +11,25 @@ import org.jbox2d.common.*;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.*;
 
+Box2DProcessing box2d;  
+Vec2 gravity;
+
+PImage img;
+
 ArrayList<PhysicsObject> worldStaticObjects;
 ArrayList<PhysicsObject> physicsObjects;
 ArrayList<Windmill> windmills;
 ArrayList<Car> cars;
-
-Box2DProcessing box2d;    
-PImage img;
 
 void setup() {
   fullScreen();
   rectMode(CENTER);
   imageMode(CENTER);
   
-  // Initialize and create the Box2D world
+  gravity = new Vec2(0.0f, -40.0f);
+
   box2d = new Box2DProcessing(this);  
-  box2d.createWorld();
+  box2d.createWorld(gravity);
   
   worldStaticObjects = new ArrayList<PhysicsObject>();
   physicsObjects = new ArrayList<PhysicsObject>();
@@ -74,7 +77,7 @@ void draw() {
 
   displayData();
   
-  //if (mousePressed) {
-  //  mousePressed();
-  //}
+  if (mousePressed) {
+    mousePressed();
+  }
 }
