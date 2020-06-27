@@ -9,10 +9,11 @@ void mousePressed() {
 }
 
 void keyPressed() {
-  if (key == 'r' || key == 'R' ) {
+  if (key == 'd' || key == 'D' ) {
     destroyObjects(physicsObjects);
     destroyCars(cars);
-    //physicsObjects.clear();
-    //cars.clear();
+  }
+  if (key == 'g' || key == 'G' ) {
+    changeGravity(random(40)*randomPosNeg1(), random(40)*randomPosNeg1());
   }
 }

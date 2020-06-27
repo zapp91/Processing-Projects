@@ -7,16 +7,8 @@ public enum Box2DBodyType {
 public enum Shape {
     RECTANGLE,
     CIRCLE,
+    TRIANGLE,
     CARBODY
-}
-
-boolean randomBool() {
-  int num = -1 + (int)random(2) * 2;
-  if (num == 1) {
-    return true;
-  } else {
-    return false;
-  }
 }
 
 int randomPosNeg1() {
@@ -24,10 +16,13 @@ int randomPosNeg1() {
 }
 
 Shape randomShape() {
-  if (randomBool()){
+  int num = rand.nextInt(3);
+  if (num == 0){
     return Shape.RECTANGLE;
-  } else {
+  } else if (num == 1) {
     return Shape.CIRCLE;
+  } else {
+    return Shape.TRIANGLE;
   }
 }
 
@@ -58,18 +53,30 @@ void displayData() {
     fill(255);
     textAlign(RIGHT);
     
-    text(
-      "Frame Rate: \n" +
-      "Physics Objects: \n" +
-      "Dodge Rams: ",
-      width - 70, 20);
-      
-    text(
-      Math.round(frameRate) + "\n" +
-      physicsObjects.size() + "\n" +
-      cars.size(),
-      width - 20, 20);
-      
+    text(   "Frame Rate: \n" +
+            "Gravity X: \n" +
+            "Gravity Y: \n" +
+            "Physics Objects: \n" +
+            "Dodge Rams: ",
+            width - 70, 20);
+            
+    text(   Math.round(frameRate) + "\n" +
+            nf(box2d.world.getGravity().x, 0, 1) + "\n" +
+            nf(box2d.world.getGravity().y, 0, 1) + "\n" +
+            physicsObjects.size() + "\n" +
+            cars.size()
+            ,width - 20, 20);
+  pop();
+}
+
+void displayHints() {
+  push();
+    fill(255);
+    textAlign(LEFT);
+    
+    text(   "Press [D] to Delete Objects. \n" +
+            "Press [G] to Change Gravity. \n"
+            ,20, 20);
   pop();
 }
 
@@ -89,4 +96,8 @@ void destroyCars(ArrayList<Car> car) {
     c.destroy();
   }
   car.clear();
+}
+
+void changeGravity(float x, float y) {
+  box2d.setGravity(x,y);
 }

@@ -22,9 +22,8 @@ class Windmill {
     RevoluteJointDef rjd = new RevoluteJointDef();
 
     rjd.initialize(box1.body, box2.body, box1.body.getWorldCenter());
-
     // Turning on a motor (optional)
-    rjd.motorSpeed = PI*4*randomPosNeg1();       // how fast?
+    rjd.motorSpeed = 12*randomPosNeg1();       // how fast?
     rjd.maxMotorTorque = 1000000.0; // how powerful?
     rjd.enableMotor = true;      // is it on?
 

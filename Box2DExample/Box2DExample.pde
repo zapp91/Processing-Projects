@@ -10,11 +10,13 @@ import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.*;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.*;
+import java.util.Random;
 
 Box2DProcessing box2d;  
 Vec2 gravity;
 
 PImage img;
+Random rand;
 
 ArrayList<PhysicsObject> worldStaticObjects;
 ArrayList<PhysicsObject> physicsObjects;
@@ -26,7 +28,8 @@ void setup() {
   rectMode(CENTER);
   imageMode(CENTER);
   
-  gravity = new Vec2(0.0f, -40.0f);
+  rand = new Random();
+  gravity = new Vec2(0.0f, -40); //real Earth gravity is -9.8. Prefer -40
 
   box2d = new Box2DProcessing(this);  
   box2d.createWorld(gravity);
@@ -56,8 +59,8 @@ void setup() {
 
 void draw() {
   background(0);
-  //box2d.step(1.0f/60,20,20);
-  box2d.step();
+  box2d.step(1.0f/60,20,20);
+  //box2d.step();
 
   for (PhysicsObject w: worldStaticObjects) {
     w.display();
@@ -76,8 +79,9 @@ void draw() {
   }
 
   displayData();
+  displayHints();
   
   if (mousePressed) {
-    mousePressed();
+    if (mouseButton == LEFT) mousePressed();
   }
 }
