@@ -75,7 +75,10 @@ void displayHints() {
     textAlign(LEFT);
     
     text(   "Press [D] to Delete Objects. \n" +
-            "Press [G] to Change Gravity. \n"
+            "Press [1] for Default Gravity. \n" +
+            "Press [2] for Earth Gravity. \n" +
+            "Press [3] for No Gravity. \n" +
+            "Press [4] for Random Gravity. \n"
             ,20, 20);
   pop();
 }
@@ -84,18 +87,21 @@ color randomColor() {
   return color(int(random(0,255)), int(random(0,255)), int(random(0,255)));
 }
 
-void destroyObjects(ArrayList<PhysicsObject> po) {
-  for (PhysicsObject p: po) {
+void destroyEntities() {
+  for (PhysicsObject p: physicsObjects) {
     box2d.destroyBody(p.body);
   }
-  po.clear();
-}
-
-void destroyCars(ArrayList<Car> car) {
-  for (Car c: car) {
+  for (Car c: cars) {
     c.destroy();
   }
-  car.clear();
+  physicsObjects.clear();
+  cars.clear();
+}
+
+void wakeUpBodies(ArrayList<PhysicsObject> po) {
+  for (PhysicsObject p: po) {
+    p.body.setAwake(true);
+  }
 }
 
 void changeGravity(float x, float y) {

@@ -10,10 +10,22 @@ void mousePressed() {
 
 void keyPressed() {
   if (key == 'd' || key == 'D' ) {
-    destroyObjects(physicsObjects);
-    destroyCars(cars);
+    destroyEntities();
   }
-  if (key == 'g' || key == 'G' ) {
+  if (key == '1') {
+    changeGravity(0,-40);
+    wakeUpBodies(physicsObjects);
+  }
+  if (key == '2') {
+    changeGravity(0,-9.8);
+    wakeUpBodies(physicsObjects);
+  }
+  if (key == '3') {
+    changeGravity(0,0);
+    wakeUpBodies(physicsObjects);
+  }
+  if (key == '4') {
     changeGravity(random(40)*randomPosNeg1(), random(40)*randomPosNeg1());
+    wakeUpBodies(physicsObjects);
   }
 }

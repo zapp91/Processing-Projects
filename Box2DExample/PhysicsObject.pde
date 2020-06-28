@@ -5,9 +5,15 @@ class PhysicsObject {
   float x,y,w,h;
   color colour1;
   color colour2;
+  ArrayList<ArrayList<Vec2>> vecArrays = new ArrayList<ArrayList<Vec2>>();
   Shape shape;
-
+  PImage img;
+  
   PhysicsObject(float x, float y, float w, float h, color colour1, color colour2, Box2DBodyType bt, float density, float friction, float restitution, Shape shape) {
+    this(x,y,w,h,colour1,colour2,bt,density,friction,restitution,shape,null);
+  }
+
+  PhysicsObject(float x, float y, float w, float h, color colour1, color colour2, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, PImage img) {
     this.x = x;
     this.y = y;
     this.w = w;
@@ -15,6 +21,7 @@ class PhysicsObject {
     this.colour1 = colour1;
     this.colour2 = colour2;
     this.shape = shape;
+    this.img = img;
 
     // Build Body
     BodyDef bd = new BodyDef();      
@@ -27,22 +34,31 @@ class PhysicsObject {
                       break;
       default:        println("Unknown Box2D Body Type!");
     }
+    
     bd.position.set(box2d.coordPixelsToWorld(x,y));
-    body = box2d.createBody(bd);
+    this.body = box2d.createBody(bd);
 
     FixtureDef fd = new FixtureDef();
     ArrayList<Vec2> vertices = new ArrayList<Vec2>();
 
-    switch (shape){
+    switch (shape) {
       case RECTANGLE:
                       PolygonShape ps = new PolygonShape();
                       ps.setAsBox(box2d.scalarPixelsToWorld(w/2), box2d.scalarPixelsToWorld(h/2));
                       fd.shape = ps;
+                      fd.density = density;
+                      fd.friction = friction;
+                      fd.restitution = restitution;     
+                      body.createFixture(fd);
                       break;
       case CIRCLE:
                       CircleShape cs = new CircleShape();
                       cs.m_radius = box2d.scalarPixelsToWorld(w/2);
                       fd.shape = cs;
+                      fd.density = density;
+                      fd.friction = friction;
+                      fd.restitution = restitution;     
+                      body.createFixture(fd);
                       break;
       case TRIANGLE:
                       vertices.add(box2d.vectorPixelsToWorld(new Vec2(0, h/2)));
@@ -52,30 +68,68 @@ class PhysicsObject {
                       PolygonShape t = new PolygonShape();
                       t.set(vertices.toArray(new Vec2[0]), vertices.size());
                       fd.shape = t;
+                      fd.density = density;
+                      fd.friction = friction;
+                      fd.restitution = restitution;     
+                      body.createFixture(fd);
                       break;
       case CARBODY:
-                      vertices.add(box2d.vectorPixelsToWorld(new Vec2(120, 35)));
-                      vertices.add(box2d.vectorPixelsToWorld(new Vec2(115, -10)));
-                      vertices.add(box2d.vectorPixelsToWorld(new Vec2(-118, -10)));
-                      vertices.add(box2d.vectorPixelsToWorld(new Vec2(-118, 30)));
+                      ArrayList<Vec2> body1 = new ArrayList<Vec2>(); 
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(110, 33)));
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(120, 30)));
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(116, -7)));
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(110, -10)));
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(65, -15)));
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(-37, -15)));
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(-37, 33))); 
+                      vecArrays.add(body1); 
+                
+                      ArrayList<Vec2> body2 = new ArrayList<Vec2>(); 
+                      body2.add(box2d.vectorPixelsToWorld(new Vec2(-37, -15)));
+                      body2.add(box2d.vectorPixelsToWorld(new Vec2(65, -15)));
+                      body2.add(box2d.vectorPixelsToWorld(new Vec2(32, -35)));
+                      body2.add(box2d.vectorPixelsToWorld(new Vec2(-33, -37)));
+                      vecArrays.add(body2); 
+                
+                      ArrayList<Vec2> body3 = new ArrayList<Vec2>(); 
+                      body3.add(box2d.vectorPixelsToWorld(new Vec2(-37, 33)));
+                      body3.add(box2d.vectorPixelsToWorld(new Vec2(-37, 15)));
+                      body3.add(box2d.vectorPixelsToWorld(new Vec2(-118, 15)));
+                      body3.add(box2d.vectorPixelsToWorld(new Vec2(-118, 27)));
+                      vecArrays.add(body3);     
                       
-                      PolygonShape carS = new PolygonShape();
-                      carS.set(vertices.toArray(new Vec2[0]), vertices.size());
-                      fd.shape = carS;
+                      ArrayList<Vec2> body4 = new ArrayList<Vec2>(); 
+                      body4.add(box2d.vectorPixelsToWorld(new Vec2(-118, 15)));
+                      body4.add(box2d.vectorPixelsToWorld(new Vec2(-110, 15)));
+                      body4.add(box2d.vectorPixelsToWorld(new Vec2(-110, -13)));
+                      body4.add(box2d.vectorPixelsToWorld(new Vec2(-118, -13)));
+                      vecArrays.add(body4);     
+                      
+                      for (ArrayList<Vec2> b: vecArrays) {
+                        println(b);
+                        PolygonShape pShape = new PolygonShape();
+                        pShape.set(b.toArray(new Vec2[0]), b.size());
+                        fd.shape = pShape;
+                        fd.density = density;
+                        fd.friction = friction;
+                        fd.restitution = restitution;          
+                        body.createFixture(fd);
+                      }
+                                              
+                      //vertices.add(box2d.vectorPixelsToWorld(new Vec2(120, 35)));
+                      //vertices.add(box2d.vectorPixelsToWorld(new Vec2(115, -10)));
+                      //vertices.add(box2d.vectorPixelsToWorld(new Vec2(-118, -10)));
+                      //vertices.add(box2d.vectorPixelsToWorld(new Vec2(-118, 30)));
+                      //PolygonShape carS = new PolygonShape();
+                      //carS.set(vertices.toArray(new Vec2[0]), vertices.size());
+                      //fd.shape = carS;
+                      
                       break;
       default:        println("Unknown Shape!");
     }
-
-    fd.density = density;
-    fd.friction = friction;
-    fd.restitution = restitution;
-
-    // Attach Fixture to Body               
-    body.createFixture(fd);
   }
 
   void display() {
-    // We need the Body’s position and angle
     Vec2 pos = box2d.getBodyPixelCoord(body);    
     float a = body.getAngle();
 
@@ -83,6 +137,7 @@ class PhysicsObject {
     translate(pos.x,pos.y);    // Using the Vec2 position and float angle to
     rotate(-a);                // translate and rotate the rectangle
     fill(colour1);
+    
     switch (shape){
       case RECTANGLE:
                       rect(0,0,w,h);
@@ -95,8 +150,7 @@ class PhysicsObject {
                       line(0,0,0,w/2);
                       break;
       case TRIANGLE:
-                      Fixture f = body.getFixtureList();
-                      PolygonShape ps = (PolygonShape) f.getShape();
+                      PolygonShape ps = (PolygonShape) body.getFixtureList().getShape();
                       beginShape();
                       for (int i = 0; i < ps.getVertexCount(); i++) {
                         Vec2 v = box2d.vectorWorldToPixels(ps.getVertex(i));
@@ -104,16 +158,23 @@ class PhysicsObject {
                       }
                       endShape(CLOSE);
                       break;
-      case CARBODY:
-                      //Fixture f = body.getFixtureList();
-                      //PolygonShape ps = (PolygonShape) f.getShape();
-                      //beginShape();
-                      //for (int i = 0; i < ps.getVertexCount(); i++) {
-                      //  Vec2 v = box2d.vectorWorldToPixels(ps.getVertex(i));
-                      //  vertex(v.x,v.y);
+      case CARBODY: 
+                      //for (ArrayList<Vec2> b: vecArrays) {
+                      //  beginShape();
+                      //  for (int i = 0; i < b.size(); i++) {
+                      //    Vec2 v = box2d.vectorWorldToPixels(b.get(i));
+                      //    vertex(v.x,v.y);
+                      //  }
+                      //  endShape(CLOSE);
                       //}
-                      //endShape(CLOSE);
-                      image(img, 0, 0, w, h);
+                      
+                      //Center Marker with Line for reference.
+                      //fill(#FF0000);
+                      //stroke(#FF0000);
+                      //strokeWeight(2);
+                      //ellipse(0,0,5,5);
+                      //line(0,0,100,100);
+                      
                       //for (int i = 0; i < ps.getVertexCount(); i++) {
                       //  Vec2 v = box2d.vectorWorldToPixels(ps.getVertex(i));
                       //  push();
@@ -125,6 +186,23 @@ class PhysicsObject {
                       break;
       default:        println("Unknown Shape!");
     }
+    
+    if(img != null) {
+      image(img, 0, 0, w, h);
+    }
+    
+    pop();
+  }
+
+  void displayTrunkShroud() {
+    Vec2 pos = box2d.getBodyPixelCoord(body);    
+    float a = body.getAngle();
+
+    push();
+    translate(pos.x,pos.y);
+    rotate(-a);
+    fill(#000000);
+    rect(-73,13,70,30);
     pop();
   }
 

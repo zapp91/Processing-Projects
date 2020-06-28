@@ -15,7 +15,8 @@ import java.util.Random;
 Box2DProcessing box2d;  
 Vec2 gravity;
 
-PImage img;
+PImage carBodyImage;
+PImage tireImage;
 Random rand;
 
 ArrayList<PhysicsObject> worldStaticObjects;
@@ -54,7 +55,8 @@ void setup() {
   windmills.add(new Windmill(width*0.50, height/2));
   windmills.add(new Windmill(width*0.75, height/2));
   
-  img = loadImage("dodge3.png");
+  carBodyImage = loadImage("dodge3.png");
+  tireImage = loadImage("tire.png");
 }
 
 void draw() {
@@ -73,6 +75,8 @@ void draw() {
   for (Windmill w: windmills) {
     w.display();
   }
+  
+  
   
   for (Car c: cars) {
     c.display();
