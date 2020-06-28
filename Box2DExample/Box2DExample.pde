@@ -13,11 +13,15 @@ import org.jbox2d.dynamics.contacts.*;
 import java.util.Random;
 
 Box2DProcessing box2d;  
+
+float gravityDirection;
+float gravityStrength;
 Vec2 gravity;
 
 PImage carBodyImage;
 PImage tireImage;
 Random rand;
+boolean showSkins;
 
 ArrayList<PhysicsObject> worldStaticObjects;
 ArrayList<PhysicsObject> physicsObjects;
@@ -28,9 +32,12 @@ void setup() {
   fullScreen();
   rectMode(CENTER);
   imageMode(CENTER);
+  shapeMode(CENTER);
   
   rand = new Random();
-  gravity = new Vec2(0.0f, -40); //real Earth gravity is -9.8. Prefer -40
+  gravityDirection = 0;
+  gravityStrength = 40;
+  gravity = gravityVector(gravityDirection, gravityStrength);
 
   box2d = new Box2DProcessing(this);  
   box2d.createWorld(gravity);
@@ -57,6 +64,7 @@ void setup() {
   
   carBodyImage = loadImage("dodge3.png");
   tireImage = loadImage("tire.png");
+  showSkins = true;
 }
 
 void draw() {
@@ -76,16 +84,19 @@ void draw() {
     w.display();
   }
   
-  
-  
   for (Car c: cars) {
     c.display();
   }
+  
+  displayGravityDial();
 
   displayData();
   displayHints();
   
   if (mousePressed) {
     if (mouseButton == LEFT) mousePressed();
+  }
+  if (keyPressed) {
+    if (keyCode == UP || keyCode == DOWN || keyCode == LEFT || keyCode == RIGHT ) keyPressed();
   }
 }

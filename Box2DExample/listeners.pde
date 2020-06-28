@@ -12,20 +12,60 @@ void keyPressed() {
   if (key == 'd' || key == 'D' ) {
     destroyEntities();
   }
+  if (key == 's' || key == 'S' ) {
+    if (showSkins)
+      showSkins = false;
+    else
+      showSkins = true;
+  }
   if (key == '1') {
-    changeGravity(0,-40);
+    //setGravityStrength(40);
+    gravityStrength = 40;
+    setGravity(gravityVector(gravityDirection,gravityStrength));
     wakeUpBodies(physicsObjects);
   }
   if (key == '2') {
-    changeGravity(0,-9.8);
+    //setGravityStrength(9.8);
+    gravityStrength = 9.8;
+    setGravity(gravityVector(gravityDirection,gravityStrength));
     wakeUpBodies(physicsObjects);
   }
   if (key == '3') {
-    changeGravity(0,0);
+    //setGravityStrength(100);
+    gravityStrength = 100;
+    setGravity(gravityVector(gravityDirection,gravityStrength));
     wakeUpBodies(physicsObjects);
   }
   if (key == '4') {
-    changeGravity(random(40)*randomPosNeg1(), random(40)*randomPosNeg1());
+    //setGravityDirection(0);
+    //setGravityStrength(0);
+    gravityDirection = 0;
+    gravityStrength = 0;
+    setGravity(gravityVector(gravityDirection,gravityStrength));
     wakeUpBodies(physicsObjects);
+  }
+  if (key == '5') {
+    //setGravityDirection(random(360));
+    //setGravityStrength(random(100));
+    gravityDirection = random(360);
+    gravityStrength = random(100);
+    setGravity(gravityVector(gravityDirection,gravityStrength));
+    wakeUpBodies(physicsObjects);
+  }
+  if (keyCode == UP) {
+    adjustGravityStrength(1);
+    setGravity(gravityVector(gravityDirection,gravityStrength));
+  }
+  if (keyCode == DOWN) {
+    adjustGravityStrength(-1);
+    setGravity(gravityVector(gravityDirection,gravityStrength));
+  }
+  if (keyCode == RIGHT) {
+    adjustGravityDirection(1);
+    setGravity(gravityVector(gravityDirection,gravityStrength));
+  }
+  if (keyCode == LEFT) {
+    adjustGravityDirection(-1);
+    setGravity(gravityVector(gravityDirection,gravityStrength));
   }
 }

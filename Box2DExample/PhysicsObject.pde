@@ -159,14 +159,16 @@ class PhysicsObject {
                       endShape(CLOSE);
                       break;
       case CARBODY: 
-                      //for (ArrayList<Vec2> b: vecArrays) {
-                      //  beginShape();
-                      //  for (int i = 0; i < b.size(); i++) {
-                      //    Vec2 v = box2d.vectorWorldToPixels(b.get(i));
-                      //    vertex(v.x,v.y);
-                      //  }
-                      //  endShape(CLOSE);
-                      //}
+                      if (!showSkins) {
+                        for (ArrayList<Vec2> b: vecArrays) {
+                          beginShape();
+                          for (int i = 0; i < b.size(); i++) {
+                            Vec2 v = box2d.vectorWorldToPixels(b.get(i));
+                            vertex(v.x,v.y);
+                          }
+                          endShape(CLOSE);
+                        }
+                      }
                       
                       //Center Marker with Line for reference.
                       //fill(#FF0000);
@@ -187,7 +189,7 @@ class PhysicsObject {
       default:        println("Unknown Shape!");
     }
     
-    if(img != null) {
+    if(showSkins && img != null) {
       image(img, 0, 0, w, h);
     }
     

@@ -37,7 +37,7 @@ class Car {
   }
 
   void display() {
-    p3.displayTrunkShroud();
+    if (showSkins) p3.displayTrunkShroud();
     wheel1.display();
     wheel2.display();
     p3.display();

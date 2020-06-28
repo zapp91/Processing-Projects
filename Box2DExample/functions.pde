@@ -54,15 +54,15 @@ void displayData() {
     textAlign(RIGHT);
     
     text(   "Frame Rate: \n" +
-            "Gravity X: \n" +
-            "Gravity Y: \n" +
+            "Gravity Direction: \n" +
+            "Gravity Strength: \n" +
             "Physics Objects: \n" +
-            "Dodge Rams: ",
+            "Trucks: ",
             width - 70, 20);
             
     text(   Math.round(frameRate) + "\n" +
-            nf(box2d.world.getGravity().x, 0, 1) + "\n" +
-            nf(box2d.world.getGravity().y, 0, 1) + "\n" +
+            nf(gravityDirection, 0, 1) + "\n" +
+            nf(gravityStrength, 0, 1) + "\n" +
             physicsObjects.size() + "\n" +
             cars.size()
             ,width - 20, 20);
@@ -74,11 +74,17 @@ void displayHints() {
     fill(255);
     textAlign(LEFT);
     
-    text(   "Press [D] to Delete Objects. \n" +
-            "Press [1] for Default Gravity. \n" +
-            "Press [2] for Earth Gravity. \n" +
-            "Press [3] for No Gravity. \n" +
-            "Press [4] for Random Gravity. \n"
+    text(   "LEFT CLICK to spawn Objects \n" +
+            "RIGHT CLICK to spawn Truck \n" +
+            "Press [D] to Delete Objects \n" +
+            "Press [S] to Show/Hide Skins \n" +
+            "Press [1] for Default Gravity Strength \n" +
+            "Press [2] for Earth Gravity Strength \n" +
+            "Press [3] for 100 Gravity Strength \n" +
+            "Press [4] for No Gravity Strength nor Direction \n" +
+            "Press [5] for Random Gravity and Direction \n" +
+            "Press UP ARROW or DOWN ARROW to change Gravity Strength \n" +
+            "Press LEFT ARROW or RIGHT RIGHT to change Gravity Direction \n"
             ,20, 20);
   pop();
 }
@@ -104,6 +110,61 @@ void wakeUpBodies(ArrayList<PhysicsObject> po) {
   }
 }
 
-void changeGravity(float x, float y) {
-  box2d.setGravity(x,y);
+void setGravity(Vec2 v) {
+  box2d.setGravity(v.x, v.y);
+}
+
+Vec2 gravityVector(float gravityAngle,float gravityStrength) {
+  return new Vec2(
+    (-1*gravityStrength * cos((gravityAngle+90)*PI/180)),
+    (-1*gravityStrength * sin((gravityAngle+90)*PI/180))
+  );
+}
+
+void displayGravityDial() {
+  Vec2 g = box2d.world.getGravity();
+  push();
+  translate(width/2,60);
+  ellipse(0,0,8,8);
+  noFill();
+  stroke(#FFFFFF);
+  strokeWeight(2);
+  ellipse(0,0,100,100);
+  stroke(#FF0000);
+  
+  if (g.x == 0 && g.y == 0) {
+    ellipse(0,0,40,40);
+  } else {
+    line(0,0,g.x/2,-1*g.y/2);
+    translate(g.x/2,-1*g.y/2);
+    rotate(atan2(-1*g.y/2,g.x/2));
+    fill(#FF0000);
+    beginShape();
+    vertex(3,0);
+    vertex(-9,6);
+    vertex(-7,0);
+    vertex(-9,-6);
+    endShape(CLOSE);
+  }
+  pop();
+}
+
+void adjustGravityDirection(float d) {
+  if (gravityDirection >= 360 && d >= 1) {
+    gravityDirection = 0;
+  } else if (gravityDirection <= 0 && d <= -1) {
+    gravityDirection = 360;
+  } else {
+    gravityDirection = gravityDirection + d;
+  }
+}
+
+void adjustGravityStrength(float s) {  
+  if (gravityStrength >= 150 && s >= 1) {
+    gravityStrength = 150;
+  } else if (gravityStrength <= 0 && s <= -1) {
+    gravityStrength = 0;
+  } else {
+    gravityStrength = gravityStrength + s;
+  }
 }
