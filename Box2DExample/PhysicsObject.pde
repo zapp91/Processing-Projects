@@ -8,12 +8,17 @@ class PhysicsObject {
   ArrayList<ArrayList<Vec2>> vecArrays = new ArrayList<ArrayList<Vec2>>();
   Shape shape;
   PImage img;
+  boolean flipImageOnX;
   
   PhysicsObject(float x, float y, float w, float h, color colour1, color colour2, Box2DBodyType bt, float density, float friction, float restitution, Shape shape) {
-    this(x,y,w,h,colour1,colour2,bt,density,friction,restitution,shape,null);
+    this(x,y,w,h,colour1,colour2,bt,density,friction,restitution,shape,null,false);
+  }
+  
+  PhysicsObject(float x, float y, float w, float h, color colour1, color colour2, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, PImage img) {
+    this(x,y,w,h,colour1,colour2,bt,density,friction,restitution,shape,img,false);
   }
 
-  PhysicsObject(float x, float y, float w, float h, color colour1, color colour2, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, PImage img) {
+  PhysicsObject(float x, float y, float w, float h, color colour1, color colour2, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, PImage img, boolean flipImageOnX) {
     this.x = x;
     this.y = y;
     this.w = w;
@@ -22,6 +27,8 @@ class PhysicsObject {
     this.colour2 = colour2;
     this.shape = shape;
     this.img = img;
+    this.flipImageOnX = flipImageOnX;
+    int posNeg1 = (flipImageOnX) ? -1 : 1;
 
     // Build Body
     BodyDef bd = new BodyDef();      
@@ -75,34 +82,34 @@ class PhysicsObject {
                       break;
       case CARBODY:
                       ArrayList<Vec2> body1 = new ArrayList<Vec2>(); 
-                      body1.add(box2d.vectorPixelsToWorld(new Vec2(110, 33)));
-                      body1.add(box2d.vectorPixelsToWorld(new Vec2(120, 30)));
-                      body1.add(box2d.vectorPixelsToWorld(new Vec2(116, -7)));
-                      body1.add(box2d.vectorPixelsToWorld(new Vec2(110, -10)));
-                      body1.add(box2d.vectorPixelsToWorld(new Vec2(65, -15)));
-                      body1.add(box2d.vectorPixelsToWorld(new Vec2(-37, -15)));
-                      body1.add(box2d.vectorPixelsToWorld(new Vec2(-37, 33))); 
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(110*posNeg1, 33)));
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(120*posNeg1, 30)));
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(116*posNeg1, -7)));
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(110*posNeg1, -10)));
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(65*posNeg1, -15)));
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(-37*posNeg1, -15)));
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(-37*posNeg1, 33))); 
                       vecArrays.add(body1); 
                 
                       ArrayList<Vec2> body2 = new ArrayList<Vec2>(); 
-                      body2.add(box2d.vectorPixelsToWorld(new Vec2(-37, -15)));
-                      body2.add(box2d.vectorPixelsToWorld(new Vec2(65, -15)));
-                      body2.add(box2d.vectorPixelsToWorld(new Vec2(32, -35)));
-                      body2.add(box2d.vectorPixelsToWorld(new Vec2(-33, -37)));
+                      body2.add(box2d.vectorPixelsToWorld(new Vec2(-37*posNeg1, -15)));
+                      body2.add(box2d.vectorPixelsToWorld(new Vec2(65*posNeg1, -15)));
+                      body2.add(box2d.vectorPixelsToWorld(new Vec2(32*posNeg1, -35)));
+                      body2.add(box2d.vectorPixelsToWorld(new Vec2(-33*posNeg1, -37)));
                       vecArrays.add(body2); 
                 
                       ArrayList<Vec2> body3 = new ArrayList<Vec2>(); 
-                      body3.add(box2d.vectorPixelsToWorld(new Vec2(-37, 33)));
-                      body3.add(box2d.vectorPixelsToWorld(new Vec2(-37, 15)));
-                      body3.add(box2d.vectorPixelsToWorld(new Vec2(-118, 15)));
-                      body3.add(box2d.vectorPixelsToWorld(new Vec2(-118, 27)));
+                      body3.add(box2d.vectorPixelsToWorld(new Vec2(-37*posNeg1, 33)));
+                      body3.add(box2d.vectorPixelsToWorld(new Vec2(-37*posNeg1, 15)));
+                      body3.add(box2d.vectorPixelsToWorld(new Vec2(-118*posNeg1, 15)));
+                      body3.add(box2d.vectorPixelsToWorld(new Vec2(-118*posNeg1, 27)));
                       vecArrays.add(body3);     
                       
                       ArrayList<Vec2> body4 = new ArrayList<Vec2>(); 
-                      body4.add(box2d.vectorPixelsToWorld(new Vec2(-118, 15)));
-                      body4.add(box2d.vectorPixelsToWorld(new Vec2(-110, 15)));
-                      body4.add(box2d.vectorPixelsToWorld(new Vec2(-110, -13)));
-                      body4.add(box2d.vectorPixelsToWorld(new Vec2(-118, -13)));
+                      body4.add(box2d.vectorPixelsToWorld(new Vec2(-118*posNeg1, 15)));
+                      body4.add(box2d.vectorPixelsToWorld(new Vec2(-110*posNeg1, 15)));
+                      body4.add(box2d.vectorPixelsToWorld(new Vec2(-110*posNeg1, -13)));
+                      body4.add(box2d.vectorPixelsToWorld(new Vec2(-118*posNeg1, -13)));
                       vecArrays.add(body4);     
                       
                       for (ArrayList<Vec2> b: vecArrays) {
@@ -190,6 +197,7 @@ class PhysicsObject {
     }
     
     if(showSkins && img != null) {
+      if (flipImageOnX) scale(-1,1);
       image(img, 0, 0, w, h);
     }
     
