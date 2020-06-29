@@ -62,8 +62,8 @@ void setup() {
   windmills.add(new Windmill(width*0.50, height/2));
   windmills.add(new Windmill(width*0.75, height/2));
   
-  carBodyImage = loadImage("dodge3.png");
-  tireImage = loadImage("tire.png");
+  carBodyImage = loadImage("dodge4.png");
+  tireImage = loadImage("tire2.png");
   showSkins = true;
 }
 
@@ -89,7 +89,6 @@ void draw() {
   }
   
   displayGravityDial();
-
   displayData();
   displayHints();
   
