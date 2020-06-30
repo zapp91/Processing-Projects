@@ -69,8 +69,8 @@ void setup() {
 
 void draw() {
   background(0);
-  box2d.step(1.0f/60,20,20);
-  //box2d.step();
+  //box2d.step(1.0f/60,20,20);
+  box2d.step();
 
   for (PhysicsObject w: worldStaticObjects) {
     w.display();
