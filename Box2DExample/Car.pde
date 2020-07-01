@@ -8,17 +8,17 @@ class Car {
   RevoluteJointDef rjd2;
   RevoluteJoint joint1;
   RevoluteJoint joint2;
-  boolean flipCar;
-  int posNeg1;
 
   Car(float x, float y) {
-    
-    flipCar = rand.nextBoolean();
-    posNeg1 = (flipCar) ? -1 : 1;
+    this(x,y,rand.nextBoolean());
+  }
+  Car(float x, float y, boolean flipCar) {
 
-    wheel1 = new PhysicsObject(x-70*posNeg1, y+35, 40, 40, #464545, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CIRCLE, tireImage, flipCar); 
-    wheel2 = new PhysicsObject(x+82*posNeg1, y+35, 40, 40, #464545, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CIRCLE, tireImage, flipCar); 
-    p3 = new PhysicsObject(x, y, 240, 74, #FFFFFF, #FC7DC8, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CARBODY, carBodyImage, flipCar);
+    int posNeg1 = (flipCar) ? -1 : 1;
+
+    wheel1 = new PhysicsObject(x-70*posNeg1, y+35, 40, 40, #464545, #FC7DC8, false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CIRCLE, tireImage, flipCar); 
+    wheel2 = new PhysicsObject(x+82*posNeg1, y+35, 40, 40, #464545, #FC7DC8, false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CIRCLE, tireImage, flipCar); 
+    p3 = new PhysicsObject(x, y, 240, 74, #FFFFFF, #FC7DC8, false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CARBODY, carBodyImage, flipCar);
     
     rjd1 = new RevoluteJointDef();
     rjd2 = new RevoluteJointDef();
@@ -46,8 +46,6 @@ class Car {
   }
   
   void destroy() {
-    box2d.world.destroyJoint(joint1);
-    box2d.world.destroyJoint(joint2);
     box2d.destroyBody(wheel1.body);
     box2d.destroyBody(wheel2.body);
     box2d.destroyBody(p3.body);

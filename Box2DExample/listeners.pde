@@ -1,8 +1,22 @@
 void mousePressed() {
   if (mouseButton == LEFT) {
-    physicsObjects.add(new PhysicsObject(mouseX, mouseY, random(5,75), random(5,75), randomColor(), randomColor(), Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, randomShape()));
+    switch(selectedToolInt){
+       case 0: physicsObjects.add(new PhysicsObject(mouseX, mouseY, random(5,75), random(5,75), randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, randomShape()));
+               break;
+       case 1: physicsObjects.add(new PhysicsObject(mouseX, mouseY, random(5,75), random(5,75), randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+               break;
+       case 2: physicsObjects.add(new PhysicsObject(mouseX, mouseY, random(5,75), random(5,75), randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CIRCLE));
+               break;
+       case 3: physicsObjects.add(new PhysicsObject(mouseX, mouseY, random(5,75), random(5,75), randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.TRIANGLE));
+               break;
+       case 4: cars.add(new Car(mouseX, mouseY, flipOnX));
+               break;
+       case 5: windmills.add(new Windmill(mouseX, mouseY, flipOnX));
+               break;
+       default: println("undefined selectedToolInt");
+    }
   } else if (mouseButton == RIGHT) {
-    cars.add(new Car(mouseX, mouseY));
+    
   } else {
     println("Mouse clicked but not left or right click.");
   }
@@ -11,6 +25,13 @@ void mousePressed() {
 void keyPressed() {
   if (key == 'd' || key == 'D' ) {
     destroyEntities();
+  }
+  if (key == 'r' || key == 'R' ) {
+    destroyEntities();
+    destroyWindmills();
+  }
+  if (key == 'e' || key == 'E' ) {
+    flipOnX = !flipOnX;
   }
   if (key == 's' || key == 'S' ) {
     if (showSkins)
@@ -67,5 +88,13 @@ void keyPressed() {
   if (keyCode == LEFT) {
     adjustGravityDirection(-1);
     setGravity(gravityVector(gravityDirection,gravityStrength));
+  }
+}
+
+void mouseWheel(MouseEvent event) {
+  if (event.getCount() > 0) {
+    adjustSelectedTool(1);
+  } else if (event.getCount() < 0) {
+    adjustSelectedTool(-1);
   }
 }

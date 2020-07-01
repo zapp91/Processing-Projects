@@ -22,6 +22,10 @@ PImage carBodyImage;
 PImage tireImage;
 Random rand;
 boolean showSkins;
+boolean flipOnX;
+
+int selectedToolInt;
+String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill"};
 
 ArrayList<PhysicsObject> worldStaticObjects;
 ArrayList<PhysicsObject> physicsObjects;
@@ -48,23 +52,21 @@ void setup() {
   cars = new ArrayList<Car>();
   
   //floor
-  worldStaticObjects.add(new PhysicsObject(width/2, height, width, 5, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  worldStaticObjects.add(new PhysicsObject(width/2, height, width, 5, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   //roof
-  worldStaticObjects.add(new PhysicsObject(width/2, 0, width, 5, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  worldStaticObjects.add(new PhysicsObject(width/2, 0, width, 5, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   //left wall
-  worldStaticObjects.add(new PhysicsObject(2, height/2, 2, height, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  worldStaticObjects.add(new PhysicsObject(2, height/2, 2, height, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   //right wall
-  worldStaticObjects.add(new PhysicsObject(width-2, height/2, 2, height, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  worldStaticObjects.add(new PhysicsObject(width-2, height/2, 2, height, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   //platform
-  worldStaticObjects.add(new PhysicsObject(width/2, height/1.5, width/4, 10, #FFFFFF, #FFFFFF, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
-  
-  windmills.add(new Windmill(width*0.25, height/2));
-  windmills.add(new Windmill(width*0.50, height/2));
-  windmills.add(new Windmill(width*0.75, height/2));
+  worldStaticObjects.add(new PhysicsObject(width/2, height/1.5, width/4, 10, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   
   carBodyImage = loadImage("dodge4.png");
   tireImage = loadImage("tire2.png");
   showSkins = true;
+  selectedToolInt = 0;
+  flipOnX = false;
 }
 
 void draw() {
@@ -88,13 +90,16 @@ void draw() {
     c.display();
   }
   
+  displaySelectedTool();
   displayGravityDial();
   displayData();
   displayHints();
+  displaySelectedObjectSilhouette(#9FFFFF);
   
-  if (mousePressed) {
+  if (selectedToolInt == 0 && mousePressed) {
     if (mouseButton == LEFT) mousePressed();
   }
+  
   if (keyPressed) {
     if (keyCode == UP || keyCode == DOWN || keyCode == LEFT || keyCode == RIGHT ) keyPressed();
   }

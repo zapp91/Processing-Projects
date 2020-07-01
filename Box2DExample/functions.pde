@@ -74,9 +74,11 @@ void displayHints() {
     fill(255);
     textAlign(LEFT);
     
-    text(   "LEFT CLICK to spawn Objects \n" +
-            "RIGHT CLICK to spawn Truck \n" +
-            "Press [D] to Delete Objects \n" +
+    text(   "Scroll to change Selected Tool \n" +
+            "LEFT CLICK to spawn Selected Tool \n" +
+            "Press [E] to Flip Object \n" +
+            "Press [D] to Delete Trucks and Physics Objects \n" +
+            "Press [R] to Reset Game \n" +
             "Press [S] to Show/Hide Skins \n" +
             "Press [1] for Default Gravity Strength \n" +
             "Press [2] for Earth Gravity Strength \n" +
@@ -104,6 +106,13 @@ void destroyEntities() {
   cars.clear();
 }
 
+void destroyWindmills() {
+  for (Windmill w: windmills) {
+    w.destroy();
+  }
+  windmills.clear();
+}
+
 void wakeUpBodies(ArrayList<PhysicsObject> po) {
   for (PhysicsObject p: po) {
     p.body.setAwake(true);
@@ -124,7 +133,7 @@ Vec2 gravityVector(float gravityAngle,float gravityStrength) {
 void displayGravityDial() {
   Vec2 g = box2d.world.getGravity();
   push();
-  translate(width/2,60);
+  translate(width/2,100);
   ellipse(0,0,8,8);
   noFill();
   stroke(#FFFFFF);
@@ -167,4 +176,89 @@ void adjustGravityStrength(float s) {
   } else {
     gravityStrength = gravityStrength + s;
   }
+}
+
+void adjustSelectedTool(int t) {
+  if (selectedToolInt >= selectedToolStrings.length-1 && t >= 1) {
+    selectedToolInt = 0;
+  } else if (selectedToolInt <= 0 && t <= -1) {
+    selectedToolInt = selectedToolStrings.length-1;
+  } else {
+    selectedToolInt = selectedToolInt + t;
+  }
+}
+
+void displaySelectedTool() {
+  push();
+  fill(255);
+  textAlign(CENTER);
+  
+  text(   "Selected Tool: " + selectedToolStrings[selectedToolInt] + "\n" +
+          "Reverse Object: " + flipOnX
+          ,width/2, 20);
+  pop();
+}
+
+void dashedCircle(float radius, int dashWidth, int dashSpacing) {
+    int steps = 200;
+    int dashPeriod = dashWidth + dashSpacing;
+    boolean lastDashed = false;
+    for(int i = 0; i < steps; i++) {
+      boolean curDashed = (i % dashPeriod) < dashWidth;
+      if(curDashed && !lastDashed) {
+        beginShape();
+      }
+      if(!curDashed && lastDashed) {
+        endShape();
+      }
+      if(curDashed) {
+        float theta = map(i, 0, steps, 0, TWO_PI);
+        vertex(cos(theta) * radius, sin(theta) * radius);
+      }
+      lastDashed = curDashed;
+    }
+    if(lastDashed) {
+      endShape();
+    }
+}
+
+void displaySelectedObjectSilhouette(color silColor) {
+  push();
+  translate(mouseX,mouseY);
+  noFill();
+  stroke(silColor);
+  strokeWeight(2);
+
+  switch(selectedToolInt){
+   case 0: 
+           break;
+   case 1: 
+           break;
+   case 2: 
+           break;
+   case 3: 
+           break;
+   case 4: beginShape();
+           vertex(50, 50);
+           vertex(50, -50);
+           vertex(-50, -50);
+           vertex(-50, 50);
+           endShape(CLOSE);
+           break;
+           
+   case 5: ellipse(0,0,200,200);
+           arc(0, 0, 100, 100, radians(270), radians(360));
+           arc(0, 0, 100, 100, PI / 2, 2 * PI / 2);
+           fill(silColor);
+           if (flipOnX) {
+             triangle(10, 50, -10, 40, -10, 60);
+             triangle(-10, -50, 10, -40, 10, -60);
+           } else {
+             triangle(50, 10, 40, -10, 60, -10);
+             triangle(-50, -10, -40, 10, -60, 10);
+           }
+           break;
+   default: println("undefined selectedToolInt");
+  }
+  pop();
 }

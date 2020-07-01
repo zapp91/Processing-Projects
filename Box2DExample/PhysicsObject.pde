@@ -5,27 +5,31 @@ class PhysicsObject {
   float x,y,w,h;
   color colour1;
   color colour2;
+  boolean noFill;
+  int strokeWeight;
   ArrayList<ArrayList<Vec2>> vecArrays = new ArrayList<ArrayList<Vec2>>();
   Shape shape;
   PImage img;
   boolean flipImageOnX;
   int posNeg1;
   
-  PhysicsObject(float x, float y, float w, float h, color colour1, color colour2, Box2DBodyType bt, float density, float friction, float restitution, Shape shape) {
-    this(x,y,w,h,colour1,colour2,bt,density,friction,restitution,shape,null,false);
+  PhysicsObject(float x, float y, float w, float h, color colour1, color colour2, boolean noFill, int strokeWeight, Box2DBodyType bt, float density, float friction, float restitution, Shape shape) {
+    this(x,y,w,h,colour1,colour2,noFill,strokeWeight,bt,density,friction,restitution,shape,null,false);
   }
   
-  PhysicsObject(float x, float y, float w, float h, color colour1, color colour2, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, PImage img) {
-    this(x,y,w,h,colour1,colour2,bt,density,friction,restitution,shape,img,false);
+  PhysicsObject(float x, float y, float w, float h, color colour1, color colour2, boolean noFill, int strokeWeight, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, PImage img) {
+    this(x,y,w,h,colour1,colour2,noFill,strokeWeight,bt,density,friction,restitution,shape,img,false);
   }
 
-  PhysicsObject(float x, float y, float w, float h, color colour1, color colour2, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, PImage img, boolean flipImageOnX) {
+  PhysicsObject(float x, float y, float w, float h, color colour1, color colour2, boolean noFill, int strokeWeight, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, PImage img, boolean flipImageOnX) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
     this.colour1 = colour1;
     this.colour2 = colour2;
+    this.noFill = noFill;
+    this.strokeWeight = strokeWeight;
     this.shape = shape;
     this.img = img;
     this.flipImageOnX = flipImageOnX;
@@ -144,6 +148,11 @@ class PhysicsObject {
     translate(pos.x,pos.y);    // Using the Vec2 position and float angle to
     rotate(-a);                // translate and rotate the rectangle
     fill(colour1);
+    if (noFill == true) noFill();
+    stroke(colour2);
+    strokeWeight(strokeWeight);
+    if (strokeWeight == 0) noStroke();
+    
     
     switch (shape){
       case RECTANGLE:
@@ -183,6 +192,10 @@ class PhysicsObject {
                       //strokeWeight(2);
                       //ellipse(0,0,5,5);
                       //line(0,0,100,100);
+                      
+                      //for(Fixture fixture : body.getFixtureList()){
+                         
+                      //}
                       
                       //for (int i = 0; i < ps.getVertexCount(); i++) {
                       //  Vec2 v = box2d.vectorWorldToPixels(ps.getVertex(i));
