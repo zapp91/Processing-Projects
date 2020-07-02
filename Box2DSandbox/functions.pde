@@ -8,7 +8,8 @@ public enum Shape {
     RECTANGLE,
     CIRCLE,
     TRIANGLE,
-    CARBODY
+    CARBODY,
+    FLOWER
 }
 
 int randomPosNeg1() {
@@ -223,6 +224,7 @@ void dashedCircle(float radius, int dashWidth, int dashSpacing) {
 }
 
 void displaySelectedObjectSilhouette(color silColor) {
+  
   push();
   translate(mouseX,mouseY);
   noFill();
@@ -230,20 +232,35 @@ void displaySelectedObjectSilhouette(color silColor) {
   strokeWeight(2);
 
   switch(selectedToolInt){
-   case 0: 
+   case 0: rect(-25,0,40,60);
+           ellipse(20,30,30,30);
+           triangle(20,-30,0,10,40,10);
            break;
-   case 1: 
+           
+   case 1: rect(0,0,60,50);
            break;
-   case 2: 
+           
+   case 2: ellipse(0,0,60,60);
            break;
-   case 3: 
+           
+   case 3: triangle(0, 30, -30, -30, 30, -30);
            break;
+           
    case 4: beginShape();
-           vertex(50, 50);
-           vertex(50, -50);
-           vertex(-50, -50);
-           vertex(-50, 50);
+           vertex(110*flipOnXInt,33);
+           vertex(120*flipOnXInt,30);
+           vertex(116*flipOnXInt,-7);
+           vertex(110*flipOnXInt,-10);
+           vertex(65*flipOnXInt,-15);
+           vertex(32*flipOnXInt,-35);
+           vertex(-33*flipOnXInt,-37);
+           vertex(-37*flipOnXInt,-15);
+           vertex(-118*flipOnXInt,-15);
+           vertex(-118*flipOnXInt,27);
+           vertex(-37*flipOnXInt,33);
            endShape(CLOSE);
+           ellipse(-70*flipOnXInt,35,40,40);
+           ellipse(82*flipOnXInt,35,40,40);
            break;
            
    case 5: ellipse(0,0,200,200);
@@ -260,5 +277,22 @@ void displaySelectedObjectSilhouette(color silColor) {
            break;
    default: println("undefined selectedToolInt");
   }
+  pop();
+}
+
+void drawPetal(int x_, int y_, color colour, float petalSize){
+  push();
+  noStroke();
+  fill(colour);
+  float a = 4;
+  beginShape();
+  for(int i=0; i<360; i++)
+  {
+    float x = x_ + cos( radians(i) ) * petalSize;
+    //The exponent a controls the shape of the curve
+    float y = y_ + sin( radians(i) ) * pow(sin(radians(i)/2), a) * petalSize;
+    vertex(x,y);
+  }
+  endShape();
   pop();
 }

@@ -23,6 +23,7 @@ PImage tireImage;
 Random rand;
 boolean showSkins;
 boolean flipOnX;
+int flipOnXInt;
 
 int selectedToolInt;
 String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill"};
@@ -67,12 +68,15 @@ void setup() {
   showSkins = true;
   selectedToolInt = 0;
   flipOnX = false;
+  flipOnXInt = 1;
 }
 
 void draw() {
   background(0);
   //box2d.step(1.0f/60,20,20);
   box2d.step();
+  
+  flipOnXInt = (flipOnX) ? -1 : 1;
 
   for (PhysicsObject w: worldStaticObjects) {
     w.display();
@@ -95,6 +99,8 @@ void draw() {
   displayData();
   displayHints();
   displaySelectedObjectSilhouette(#9FFFFF);
+  
+  //drawPetal(width/2, height/2, #1AD1E8, 50);
   
   if (selectedToolInt == 0 && mousePressed) {
     if (mouseButton == LEFT) mousePressed();

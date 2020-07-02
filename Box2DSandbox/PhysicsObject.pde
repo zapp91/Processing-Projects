@@ -87,33 +87,33 @@ class PhysicsObject {
                       break;
       case CARBODY:
                       ArrayList<Vec2> body1 = new ArrayList<Vec2>(); 
-                      body1.add(box2d.vectorPixelsToWorld(new Vec2(110*posNeg1, 33)));
-                      body1.add(box2d.vectorPixelsToWorld(new Vec2(120*posNeg1, 30)));
-                      body1.add(box2d.vectorPixelsToWorld(new Vec2(116*posNeg1, -7)));
-                      body1.add(box2d.vectorPixelsToWorld(new Vec2(110*posNeg1, -10)));
-                      body1.add(box2d.vectorPixelsToWorld(new Vec2(65*posNeg1, -15)));
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(110*posNeg1, 33))); //0
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(120*posNeg1, 30))); //1
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(116*posNeg1, -7))); //2
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(110*posNeg1, -10))); //3
+                      body1.add(box2d.vectorPixelsToWorld(new Vec2(65*posNeg1, -15))); //4
                       body1.add(box2d.vectorPixelsToWorld(new Vec2(-37*posNeg1, -15)));
                       body1.add(box2d.vectorPixelsToWorld(new Vec2(-37*posNeg1, 33))); 
                       vecArrays.add(body1); 
                 
                       ArrayList<Vec2> body2 = new ArrayList<Vec2>(); 
-                      body2.add(box2d.vectorPixelsToWorld(new Vec2(-37*posNeg1, -15)));
+                      body2.add(box2d.vectorPixelsToWorld(new Vec2(-37*posNeg1, -15))); //7
                       body2.add(box2d.vectorPixelsToWorld(new Vec2(65*posNeg1, -15)));
-                      body2.add(box2d.vectorPixelsToWorld(new Vec2(32*posNeg1, -35)));
-                      body2.add(box2d.vectorPixelsToWorld(new Vec2(-33*posNeg1, -37)));
+                      body2.add(box2d.vectorPixelsToWorld(new Vec2(32*posNeg1, -35))); //5
+                      body2.add(box2d.vectorPixelsToWorld(new Vec2(-33*posNeg1, -37))); //6
                       vecArrays.add(body2); 
                 
                       ArrayList<Vec2> body3 = new ArrayList<Vec2>(); 
                       body3.add(box2d.vectorPixelsToWorld(new Vec2(-37*posNeg1, 33)));
                       body3.add(box2d.vectorPixelsToWorld(new Vec2(-37*posNeg1, 15)));
                       body3.add(box2d.vectorPixelsToWorld(new Vec2(-118*posNeg1, 15)));
-                      body3.add(box2d.vectorPixelsToWorld(new Vec2(-118*posNeg1, 27)));
+                      body3.add(box2d.vectorPixelsToWorld(new Vec2(-118*posNeg1, 27))); //8
                       vecArrays.add(body3);     
                       
                       ArrayList<Vec2> body4 = new ArrayList<Vec2>(); 
-                      body4.add(box2d.vectorPixelsToWorld(new Vec2(-118*posNeg1, 15)));
+                      body4.add(box2d.vectorPixelsToWorld(new Vec2(-118*posNeg1, 15))); //10
                       body4.add(box2d.vectorPixelsToWorld(new Vec2(-110*posNeg1, 15)));
-                      body4.add(box2d.vectorPixelsToWorld(new Vec2(-110*posNeg1, -13)));
+                      body4.add(box2d.vectorPixelsToWorld(new Vec2(-110*posNeg1, -13))); //9
                       body4.add(box2d.vectorPixelsToWorld(new Vec2(-118*posNeg1, -13)));
                       vecArrays.add(body4);     
                       
@@ -125,17 +125,9 @@ class PhysicsObject {
                         fd.friction = friction;
                         fd.restitution = restitution;          
                         body.createFixture(fd);
-                      }
-                                              
-                      //vertices.add(box2d.vectorPixelsToWorld(new Vec2(120, 35)));
-                      //vertices.add(box2d.vectorPixelsToWorld(new Vec2(115, -10)));
-                      //vertices.add(box2d.vectorPixelsToWorld(new Vec2(-118, -10)));
-                      //vertices.add(box2d.vectorPixelsToWorld(new Vec2(-118, 30)));
-                      //PolygonShape carS = new PolygonShape();
-                      //carS.set(vertices.toArray(new Vec2[0]), vertices.size());
-                      //fd.shape = carS;
-                      
+                      } 
                       break;
+      case FLOWER:
       default:        println("Unknown Shape!");
     }
   }
@@ -193,18 +185,21 @@ class PhysicsObject {
                       //ellipse(0,0,5,5);
                       //line(0,0,100,100);
                       
-                      //for(Fixture fixture : body.getFixtureList()){
-                         
+                      //push();
+                      //fill(#FF0000);
+                      //textAlign(CENTER); 
+                      //if (!showSkins) {
+                      //  for (ArrayList<Vec2> b: vecArrays) {
+                      //    beginShape();
+                      //    for (int i = 0; i < b.size(); i++) {
+                      //      Vec2 v = box2d.vectorWorldToPixels(b.get(i));
+                      //      text(i,v.x,v.y);  //display a number on each vertice.
+                      //    }
+                      //    endShape(CLOSE);
+                      //  }
                       //}
-                      
-                      //for (int i = 0; i < ps.getVertexCount(); i++) {
-                      //  Vec2 v = box2d.vectorWorldToPixels(ps.getVertex(i));
-                      //  push();
-                      //  fill(#FF0000);
-                      //  textAlign(CENTER); 
-                      //  text(i,v.x,v.y);  //display a number on each vertice.
-                      //  pop();
-                      //}
+                      //pop();
+
                       break;
       default:        println("Unknown Shape!");
     }
