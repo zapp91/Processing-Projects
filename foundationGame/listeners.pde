@@ -43,6 +43,9 @@ void keyReleased() {
   if (key == 'd'  || key == 'D' ) {
     player.right = false;
   }
+  //if (key == 'x'  || key == 'X' ) {
+  //  player.right = false;
+  //}
   if (keyCode == 16) {
     player.sprint = false;
   }

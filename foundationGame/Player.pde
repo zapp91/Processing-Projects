@@ -7,13 +7,15 @@ class Player {
   int defaultSpeed;
   int sprintBoost;
   boolean up, down, left, right, sprint = false;
+  String activeTool;
 
-  Player(Color pColor,int x,int y,int size,int defaultSpeed,int sprintBoost) {
+  Player(Color pColor,int x,int y,int size,int defaultSpeed,int sprintBoost, String activeTool) {
     this.pColor = pColor;
     this.location = new PVector(x,y);
     this.size = size;
     this.defaultSpeed = defaultSpeed;
     this.sprintBoost = sprintBoost;
+    this.activeTool = activeTool;
   }
 
   void movePlayer() {
