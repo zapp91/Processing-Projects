@@ -13,6 +13,12 @@ class Turret {
     location = new PVector(random(width), random(height));
   }
   
+  Turret(int _size, color _colour, PVector _location) {
+    size = _size;
+    colour = _colour;
+    location = _location;
+  }
+  
   void updateTurret() {
     mouseAngle = atan2(mouseY - location.y, mouseX - location.x);
     //acceleration = PVector.random2D();

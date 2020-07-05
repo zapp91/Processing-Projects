@@ -7,10 +7,9 @@ void setup() {
   size(1000,1000);
   noCursor();
   rectMode(CENTER);
-  turrets.add(new Turret()); //<>//
-  turrets.add(new Turret());
-  turrets.add(new Turret());
-  turrets.add(new Turret());
+  while (turrets.size() < 10) {
+    turrets.add(new Turret());
+  } //<>//
 }
 
 void draw(){
@@ -20,7 +19,7 @@ void draw(){
   drawEntities();
   detectBulletCollision();
   removeDead();
-  //if (mousePressed) {
-  //  mousePressed();
-  //}
+  if (mousePressed) {
+    mousePressed();
+  }
 }
