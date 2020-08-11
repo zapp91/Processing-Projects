@@ -49,7 +49,7 @@ class PhysicsObject {
     }
     
     bd.position.set(box2d.coordPixelsToWorld(x,y));
-    bd.angle = angle;
+    bd.angle = -angle;
     this.body = box2d.createBody(bd);
 
     FixtureDef fd = new FixtureDef();

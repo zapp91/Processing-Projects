@@ -30,7 +30,7 @@ void mouseReleased() {
                                   mouseClickCords.y+(mouseY-mouseClickCords.y)/2, 
                                   dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY), 
                                   10, 
-                                  -atan2(mouseY - mouseClickCords.y, mouseX - mouseClickCords.x), 
+                                  atan2(mouseY - mouseClickCords.y, mouseX - mouseClickCords.x), 
                                   //radians(5),
                                   #FFFFFF, 
                                   #FFFFFF, 
