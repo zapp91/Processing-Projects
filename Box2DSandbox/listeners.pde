@@ -1,18 +1,19 @@
 void mousePressed() {
   if (mouseButton == LEFT) {
     switch(selectedToolInt){
-       case 0: physicsObjects.add(new PhysicsObject(mouseX, mouseY, random(5,75), random(5,75), randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, randomShape()));
+       case 0: physicsObjects.add(new PhysicsObject(mouseX, mouseY, random(5,75), random(5,75), 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, randomShape()));
                break;
-       case 1: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 50, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+       case 1: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 50, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.RECTANGLE));
                break;
-       case 2: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 60, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CIRCLE));
+       case 2: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 60, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CIRCLE));
                break;
-       case 3: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 60, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.TRIANGLE));
+       case 3: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 60, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.TRIANGLE));
                break;
        case 4: cars.add(new Car(mouseX, mouseY, flipOnX));
                break;
        case 5: windmills.add(new Windmill(mouseX, mouseY, flipOnX));
                break;
+       case 6: mouseClickCords = new Vec2(mouseX, mouseY);
        default: println("undefined selectedToolInt");
     }
   } else if (mouseButton == RIGHT) {
@@ -20,6 +21,28 @@ void mousePressed() {
   } else {
     println("Mouse clicked but not left or right click.");
   }
+}
+
+void mouseReleased() {
+  if(mouseClickCords != null) {
+    worldStaticObjects.add(new PhysicsObject(
+                                  mouseClickCords.x+(mouseX-mouseClickCords.x)/2, 
+                                  mouseClickCords.y+(mouseY-mouseClickCords.y)/2, 
+                                  dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY), 
+                                  10, 
+                                  -atan2(mouseY - mouseClickCords.y, mouseX - mouseClickCords.x), 
+                                  //radians(5),
+                                  #FFFFFF, 
+                                  #FFFFFF, 
+                                  false, 
+                                  0, 
+                                  Box2DBodyType.STATIC, 
+                                  1, 
+                                  0.3, 
+                                  0.5, 
+                                  Shape.RECTANGLE));
+  }
+  mouseClickCords = null;
 }
 
 void keyPressed() {

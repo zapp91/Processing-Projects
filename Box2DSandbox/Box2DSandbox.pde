@@ -1,5 +1,3 @@
-
-
 import shiffman.box2d.*;
 import org.jbox2d.common.*;
 import org.jbox2d.dynamics.joints.*;
@@ -24,7 +22,8 @@ boolean flipOnX;
 int flipOnXInt;
 
 int selectedToolInt;
-String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill"};
+String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Tool"};
+Vec2 mouseClickCords;
 
 ArrayList<PhysicsObject> worldStaticObjects;
 ArrayList<PhysicsObject> physicsObjects;
@@ -51,17 +50,16 @@ void setup() {
   cars = new ArrayList<Car>();
   
   //floor
-  worldStaticObjects.add(new PhysicsObject(width/2, height, width, 10, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  worldStaticObjects.add(new PhysicsObject(width/2, height, width, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   //roof
-  worldStaticObjects.add(new PhysicsObject(width/2, 0, width, 10, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  worldStaticObjects.add(new PhysicsObject(width/2, 0, width, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   //left wall
-  worldStaticObjects.add(new PhysicsObject(0, height/2, 10, height, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  worldStaticObjects.add(new PhysicsObject(0, height/2, 10, height, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   //right wall
-  worldStaticObjects.add(new PhysicsObject(width, height/2, 10, height, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
-  //platform
-  //worldStaticObjects.add(new PhysicsObject(width/2, height/1.5, width/4, 10, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  worldStaticObjects.add(new PhysicsObject(width, height/2, 10, height, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   
-  worldStaticObjects.add(new PhysicsObject(width/2, height/1.5, width/4, 10, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  //platform
+  //worldStaticObjects.add(new PhysicsObject(width/2, height/1.5, width/4, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
 
   
   carBodyImage = loadImage("dodge4.png");
@@ -102,7 +100,7 @@ void draw() {
   displaySelectedObjectSilhouette(#9FFFFF);
   
   //drawPetal(width/2, height/2, #1AD1E8, 50);
-  
+
   if (selectedToolInt == 0 && mousePressed) {
     if (mouseButton == LEFT) mousePressed();
   }

@@ -2,7 +2,7 @@ class PhysicsObject {
   //Instead of any of the usual variables, we will store a reference to a Box2D Body
   Body body;      
 
-  float x,y,w,h;
+  float x,y,w,h,angle;
   color colour1;
   color colour2;
   boolean noFill;
@@ -13,19 +13,20 @@ class PhysicsObject {
   boolean flipImageOnX;
   int posNeg1;
   
-  PhysicsObject(float x, float y, float w, float h, color colour1, color colour2, boolean noFill, int strokeWeight, Box2DBodyType bt, float density, float friction, float restitution, Shape shape) {
-    this(x,y,w,h,colour1,colour2,noFill,strokeWeight,bt,density,friction,restitution,shape,null,false);
+  PhysicsObject(float x, float y, float w, float h, float angle, color colour1, color colour2, boolean noFill, int strokeWeight, Box2DBodyType bt, float density, float friction, float restitution, Shape shape) {
+    this(x,y,w,h,angle,colour1,colour2,noFill,strokeWeight,bt,density,friction,restitution,shape,null,false);
   }
   
-  PhysicsObject(float x, float y, float w, float h, color colour1, color colour2, boolean noFill, int strokeWeight, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, PImage img) {
-    this(x,y,w,h,colour1,colour2,noFill,strokeWeight,bt,density,friction,restitution,shape,img,false);
+  PhysicsObject(float x, float y, float w, float h, float angle, color colour1, color colour2, boolean noFill, int strokeWeight, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, PImage img) {
+    this(x,y,w,h,angle,colour1,colour2,noFill,strokeWeight,bt,density,friction,restitution,shape,img,false);
   }
 
-  PhysicsObject(float x, float y, float w, float h, color colour1, color colour2, boolean noFill, int strokeWeight, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, PImage img, boolean flipImageOnX) {
+  PhysicsObject(float x, float y, float w, float h, float angle, color colour1, color colour2, boolean noFill, int strokeWeight, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, PImage img, boolean flipImageOnX) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
+    this.angle = angle;
     this.colour1 = colour1;
     this.colour2 = colour2;
     this.noFill = noFill;
@@ -48,6 +49,7 @@ class PhysicsObject {
     }
     
     bd.position.set(box2d.coordPixelsToWorld(x,y));
+    bd.angle = angle;
     this.body = box2d.createBody(bd);
 
     FixtureDef fd = new FixtureDef();

@@ -275,6 +275,10 @@ void displaySelectedObjectSilhouette(color silColor) {
              triangle(-50, -10, -40, 10, -60, 10);
            }
            break;
+   case 6: strokeWeight(10);
+           ellipse(0,0,1,1);
+           if(mouseClickCords != null) line(mouseClickCords.x-mouseX, mouseClickCords.y-mouseY, 0, 0);
+           break;
    default: println("undefined selectedToolInt");
   }
   pop();
