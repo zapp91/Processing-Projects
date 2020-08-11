@@ -58,15 +58,15 @@ void displayData() {
             "Gravity Direction: \n" +
             "Gravity Strength: \n" +
             "Physics Objects: \n" +
-            "Trucks: ",
-            width - 70, 20);
+            "Trucks: "
+            , width - 60, 20);
             
     text(   Math.round(frameRate) + "\n" +
             nf(gravityDirection, 0, 1) + "\n" +
             nf(gravityStrength, 0, 1) + "\n" +
             physicsObjects.size() + "\n" +
             cars.size()
-            ,width - 20, 20);
+            , width - 10, 20);
   pop();
 }
 
@@ -88,7 +88,7 @@ void displayHints() {
             "Press [5] for Random Gravity and Direction \n" +
             "Press UP ARROW or DOWN ARROW to change Gravity Strength \n" +
             "Press LEFT ARROW or RIGHT RIGHT to change Gravity Direction \n"
-            ,20, 20);
+            , 10, 20);
   pop();
 }
 

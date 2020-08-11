@@ -155,7 +155,7 @@ class PhysicsObject {
                       ellipse(0,0,w,w);
                       stroke(0);
                       strokeWeight(2);
-                      line(0,0,0,w/2);
+                      //line(0,0,0,w/2);
                       break;
       case TRIANGLE:
                       PolygonShape ps = (PolygonShape) body.getFixtureList().getShape();

@@ -1,6 +1,4 @@
-// The Nature of Code
-// Daniel Shiffman
-// http://natureofcode.com
+
 
 import shiffman.box2d.*;
 import org.jbox2d.common.*;
@@ -53,15 +51,18 @@ void setup() {
   cars = new ArrayList<Car>();
   
   //floor
-  worldStaticObjects.add(new PhysicsObject(width/2, height, width, 5, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  worldStaticObjects.add(new PhysicsObject(width/2, height, width, 10, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   //roof
-  worldStaticObjects.add(new PhysicsObject(width/2, 0, width, 5, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  worldStaticObjects.add(new PhysicsObject(width/2, 0, width, 10, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   //left wall
-  worldStaticObjects.add(new PhysicsObject(2, height/2, 2, height, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  worldStaticObjects.add(new PhysicsObject(0, height/2, 10, height, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   //right wall
-  worldStaticObjects.add(new PhysicsObject(width-2, height/2, 2, height, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  worldStaticObjects.add(new PhysicsObject(width, height/2, 10, height, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   //platform
+  //worldStaticObjects.add(new PhysicsObject(width/2, height/1.5, width/4, 10, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  
   worldStaticObjects.add(new PhysicsObject(width/2, height/1.5, width/4, 10, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+
   
   carBodyImage = loadImage("dodge4.png");
   tireImage = loadImage("tire2.png");
