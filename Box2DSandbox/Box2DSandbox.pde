@@ -52,13 +52,13 @@ void setup() {
   cars = new ArrayList<Car>();
   
   //floor, roof, left wall, right wall
-  boundaries.add(new PhysicsObject(width/2, height, width, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
-  boundaries.add(new PhysicsObject(width/2, 0, width, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
-  boundaries.add(new PhysicsObject(0, height/2, 10, height, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
-  boundaries.add(new PhysicsObject(width, height/2, 10, height, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  boundaries.add(new PhysicsObject(width/2, height, width, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.6, 0.5, Shape.RECTANGLE));
+  boundaries.add(new PhysicsObject(width/2, 0, width, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.6, 0.5, Shape.RECTANGLE));
+  boundaries.add(new PhysicsObject(0, height/2, 10, height, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.6, 0.5, Shape.RECTANGLE));
+  boundaries.add(new PhysicsObject(width, height/2, 10, height, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.6, 0.5, Shape.RECTANGLE));
   
   //platform
-  //boundaries.add(new PhysicsObject(width/2, height/1.5, width/4, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  //boundaries.add(new PhysicsObject(width/2, height/1.5, width/4, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.6, 0.5, Shape.RECTANGLE));
 
   
   carBodyImage = loadImage("dodge4.png");

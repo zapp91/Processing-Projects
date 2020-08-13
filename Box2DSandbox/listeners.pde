@@ -1,13 +1,13 @@
 void mousePressed() {
   if (mouseButton == LEFT) {
     switch(selectedToolInt){
-       case 0: physicsObjects.add(new PhysicsObject(mouseX, mouseY, random(5,75), random(5,75), 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, randomShape()));
+       case 0: physicsObjects.add(new PhysicsObject(mouseX, mouseY, random(5,75), random(5,75), 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.6, 0.5, randomShape()));
                break;
-       case 1: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 50, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+       case 1: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 50, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.6, 0.5, Shape.RECTANGLE));
                break;
-       case 2: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 60, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CIRCLE));
+       case 2: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 60, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.6, 0.5, Shape.CIRCLE));
                break;
-       case 3: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 60, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.TRIANGLE));
+       case 3: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 60, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.6, 0.5, Shape.TRIANGLE));
                break;
        case 4: cars.add(new Car(mouseX, mouseY, flipOnX));
                break;
@@ -38,7 +38,7 @@ void mouseReleased() {
                                   0, 
                                   Box2DBodyType.STATIC, 
                                   1, 
-                                  0.3, 
+                                  0.6, 
                                   0.5, 
                                   Shape.RECTANGLE));
   }

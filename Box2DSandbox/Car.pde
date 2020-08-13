@@ -16,8 +16,8 @@ class Car {
 
     int posNeg1 = (flipCar) ? -1 : 1;
 
-    wheel1 = new PhysicsObject(x-70*posNeg1, y+35, 40, 40, 0, #464545, #FC7DC8, false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CIRCLE, tireImage, flipCar); 
-    wheel2 = new PhysicsObject(x+82*posNeg1, y+35, 40, 40, 0, #464545, #FC7DC8, false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CIRCLE, tireImage, flipCar); 
+    wheel1 = new PhysicsObject(x-70*posNeg1, y+35, 40, 40, 0, #464545, #FC7DC8, false, 0, Box2DBodyType.DYNAMIC, 1, 0.6, 0.5, Shape.CIRCLE, tireImage, flipCar); 
+    wheel2 = new PhysicsObject(x+82*posNeg1, y+35, 40, 40, 0, #464545, #FC7DC8, false, 0, Box2DBodyType.DYNAMIC, 1, 0.6, 0.5, Shape.CIRCLE, tireImage, flipCar); 
     p3 = new PhysicsObject(x, y, 240, 74, 0, #FFFFFF, #FC7DC8, false, 0, Box2DBodyType.DYNAMIC, 1, 0.3, 0.5, Shape.CARBODY, carBodyImage, flipCar);
     
     rjd1 = new RevoluteJointDef();
