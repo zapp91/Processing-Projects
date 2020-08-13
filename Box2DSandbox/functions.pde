@@ -87,7 +87,8 @@ void displayHints() {
             "Press [4] for No Gravity Strength nor Direction \n" +
             "Press [5] for Random Gravity and Direction \n" +
             "Press UP ARROW or DOWN ARROW to change Gravity Strength \n" +
-            "Press LEFT ARROW or RIGHT RIGHT to change Gravity Direction \n"
+            "Press LEFT ARROW or RIGHT RIGHT to change Gravity Direction \n" +
+            "Press TAB to cancel the Draw Tool \n"
             , 10, 20);
   pop();
 }
@@ -197,29 +198,6 @@ void displaySelectedTool() {
   pop();
 }
 
-void dashedCircle(float radius, int dashWidth, int dashSpacing) {
-    int steps = 200;
-    int dashPeriod = dashWidth + dashSpacing;
-    boolean lastDashed = false;
-    for(int i = 0; i < steps; i++) {
-      boolean curDashed = (i % dashPeriod) < dashWidth;
-      if(curDashed && !lastDashed) {
-        beginShape();
-      }
-      if(!curDashed && lastDashed) {
-        endShape();
-      }
-      if(curDashed) {
-        float theta = map(i, 0, steps, 0, TWO_PI);
-        vertex(cos(theta) * radius, sin(theta) * radius);
-      }
-      lastDashed = curDashed;
-    }
-    if(lastDashed) {
-      endShape();
-    }
-}
-
 void displaySelectedObjectSilhouette(color silColor) {
   
   push();
@@ -227,6 +205,8 @@ void displaySelectedObjectSilhouette(color silColor) {
   noFill();
   stroke(silColor);
   strokeWeight(2);
+
+  if (selectedToolInt == 7) {cursor(HAND);} else {cursor(ARROW);}
 
   switch(selectedToolInt){
    case 0: rect(-25,0,40,60);
@@ -272,29 +252,17 @@ void displaySelectedObjectSilhouette(color silColor) {
              triangle(-50, -10, -40, 10, -60, 10);
            }
            break;
+           
    case 6: strokeWeight(10);
            ellipse(0,0,1,1);
            if(mouseClickCords != null) line(mouseClickCords.x-mouseX, mouseClickCords.y-mouseY, 0, 0);
            break;
+           
+   case 7: /* cursor is changed above */
+           break;
+           
    default: println("undefined selectedToolInt");
   }
-  pop();
-}
-
-void drawPetal(int x_, int y_, color colour, float petalSize){
-  push();
-  noStroke();
-  fill(colour);
-  float a = 4;
-  beginShape();
-  for(int i=0; i<360; i++)
-  {
-    float x = x_ + cos( radians(i) ) * petalSize;
-    //The exponent a controls the shape of the curve
-    float y = y_ + sin( radians(i) ) * pow(sin(radians(i)/2), a) * petalSize;
-    vertex(x,y);
-  }
-  endShape();
   pop();
 }
 

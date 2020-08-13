@@ -22,7 +22,7 @@ boolean flipOnX;
 int flipOnXInt;
 
 int selectedToolInt;
-String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Tool"};
+String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Tool", "Grab Tool"};
 Vec2 mouseClickCords;
 
 ArrayList<PhysicsObject> boundaries;
@@ -30,6 +30,8 @@ ArrayList<PhysicsObject> worldStaticObjects;
 ArrayList<PhysicsObject> physicsObjects;
 ArrayList<Windmill> windmills;
 ArrayList<Car> cars;
+
+Spring spring;
 
 void setup() {
   fullScreen();
@@ -51,16 +53,14 @@ void setup() {
   windmills = new ArrayList<Windmill>();
   cars = new ArrayList<Car>();
   
+  spring = new Spring();
+  
   //floor, roof, left wall, right wall
   boundaries.add(new PhysicsObject(width/2, height, width, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.6, 0.5, Shape.RECTANGLE));
   boundaries.add(new PhysicsObject(width/2, 0, width, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.6, 0.5, Shape.RECTANGLE));
   boundaries.add(new PhysicsObject(0, height/2, 10, height, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.6, 0.5, Shape.RECTANGLE));
   boundaries.add(new PhysicsObject(width, height/2, 10, height, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.6, 0.5, Shape.RECTANGLE));
-  
-  //platform
-  //boundaries.add(new PhysicsObject(width/2, height/1.5, width/4, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.6, 0.5, Shape.RECTANGLE));
 
-  
   carBodyImage = loadImage("dodge4.png");
   tireImage = loadImage("tire2.png");
   showSkins = true;
@@ -74,6 +74,8 @@ void draw() {
   //box2d.step(1.0f/60,20,20);
   box2d.step();
   
+  spring.update(mouseX,mouseY);
+  
   flipOnXInt = (flipOnX) ? -1 : 1;
 
   displayObjects();
@@ -82,8 +84,7 @@ void draw() {
   displayData();
   displayHints();
   displaySelectedObjectSilhouette(#9FFFFF);
-  
-  //drawPetal(width/2, height/2, #1AD1E8, 50);
+  spring.display();
 
   if (selectedToolInt == 0 && mousePressed) {
     if (mouseButton == LEFT) mousePressed();

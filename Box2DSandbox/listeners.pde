@@ -14,6 +14,10 @@ void mousePressed() {
        case 5: windmills.add(new Windmill(mouseX, mouseY, flipOnX));
                break;
        case 6: mouseClickCords = new Vec2(mouseX, mouseY);
+               break;
+       case 7: for (PhysicsObject p: physicsObjects) {if (p.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, p);}};
+               for (Car c: cars) {if (c.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, c);}};
+               break;
        default: println("undefined selectedToolInt");
     }
   } else if (mouseButton == RIGHT) {
@@ -24,14 +28,13 @@ void mousePressed() {
 }
 
 void mouseReleased() {
-  if(mouseClickCords != null) {
+  if(mouseClickCords != null && selectedToolInt == 6) {
     worldStaticObjects.add(new PhysicsObject(
                                   mouseClickCords.x+(mouseX-mouseClickCords.x)/2, 
                                   mouseClickCords.y+(mouseY-mouseClickCords.y)/2, 
                                   dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY), 
                                   10, 
-                                  atan2(mouseY - mouseClickCords.y, mouseX - mouseClickCords.x), 
-                                  //radians(5),
+                                  atan2(mouseY - mouseClickCords.y, mouseX - mouseClickCords.x),
                                   #FFFFFF, 
                                   #FFFFFF, 
                                   false, 
@@ -43,6 +46,7 @@ void mouseReleased() {
                                   Shape.RECTANGLE));
   }
   mouseClickCords = null;
+  spring.destroy();
 }
 
 void keyPressed() {
@@ -112,6 +116,9 @@ void keyPressed() {
   if (keyCode == LEFT) {
     adjustGravityDirection(-1);
     setGravity(gravityVector(gravityDirection,gravityStrength));
+  }
+  if (keyCode == TAB) {
+    mouseClickCords = null;
   }
 }
 

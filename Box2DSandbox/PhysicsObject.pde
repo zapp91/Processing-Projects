@@ -134,6 +134,10 @@ class PhysicsObject {
     }
   }
 
+  boolean contains(float x, float y) {
+    return body.getFixtureList().testPoint(box2d.coordPixelsToWorld(x, y));
+  }
+
   void display() {
     Vec2 pos = box2d.getBodyPixelCoord(body);    
     float a = body.getAngle();

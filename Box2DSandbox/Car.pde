@@ -12,6 +12,7 @@ class Car {
   Car(float x, float y) {
     this(x,y,rand.nextBoolean());
   }
+  
   Car(float x, float y, boolean flipCar) {
 
     int posNeg1 = (flipCar) ? -1 : 1;
@@ -36,6 +37,19 @@ class Car {
 
     joint1 = (RevoluteJoint) box2d.world.createJoint(rjd1);
     joint2 = (RevoluteJoint) box2d.world.createJoint(rjd2);
+  }
+
+  boolean contains(float x, float y) {
+    Vec2 worldPoint = box2d.coordPixelsToWorld(x, y);
+    
+    Fixture fixture = p3.body.getFixtureList();
+    boolean detectedCarBodyConnection = false;
+    while(fixture != null && !detectedCarBodyConnection) {
+      detectedCarBodyConnection = fixture.testPoint(worldPoint);
+      fixture = fixture.getNext();
+    }
+    
+    return (wheel1.body.getFixtureList().testPoint(worldPoint) || wheel2.body.getFixtureList().testPoint(worldPoint) || detectedCarBodyConnection);
   }
 
   void display() {
