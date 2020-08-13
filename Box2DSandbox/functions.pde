@@ -97,27 +97,24 @@ color randomColor() {
 }
 
 void destroyEntities() {
-  for (PhysicsObject p: physicsObjects) {
-    box2d.destroyBody(p.body);
-  }
-  for (Car c: cars) {
-    c.destroy();
-  }
+  for (PhysicsObject p: physicsObjects) {box2d.destroyBody(p.body);}
+  for (Car c: cars) {c.destroy();}
   physicsObjects.clear();
   cars.clear();
 }
 
+void destroyStaticObjects() {
+  for (PhysicsObject w: worldStaticObjects) {box2d.destroyBody(w.body);}
+  worldStaticObjects.clear();
+}
+
 void destroyWindmills() {
-  for (Windmill w: windmills) {
-    w.destroy();
-  }
+  for (Windmill w: windmills) {w.destroy();}
   windmills.clear();
 }
 
 void wakeUpBodies(ArrayList<PhysicsObject> po) {
-  for (PhysicsObject p: po) {
-    p.body.setAwake(true);
-  }
+  for (PhysicsObject p: po) {p.body.setAwake(true);}
 }
 
 void setGravity(Vec2 v) {
@@ -299,4 +296,12 @@ void drawPetal(int x_, int y_, color colour, float petalSize){
   }
   endShape();
   pop();
+}
+
+void displayObjects() {
+  for (PhysicsObject b: boundaries) {b.display();}
+  for (PhysicsObject w: worldStaticObjects) {w.display();}
+  for (PhysicsObject p: physicsObjects) {p.display();}
+  for (Windmill w: windmills) {w.display();}
+  for (Car c: cars) {c.display();}
 }

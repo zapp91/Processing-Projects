@@ -51,6 +51,7 @@ void keyPressed() {
   }
   if (key == 'r' || key == 'R' ) {
     destroyEntities();
+    destroyStaticObjects();
     destroyWindmills();
   }
   if (key == 'e' || key == 'E' ) {

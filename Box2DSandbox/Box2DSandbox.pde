@@ -25,6 +25,7 @@ int selectedToolInt;
 String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Tool"};
 Vec2 mouseClickCords;
 
+ArrayList<PhysicsObject> boundaries;
 ArrayList<PhysicsObject> worldStaticObjects;
 ArrayList<PhysicsObject> physicsObjects;
 ArrayList<Windmill> windmills;
@@ -44,22 +45,20 @@ void setup() {
   box2d = new Box2DProcessing(this);  
   box2d.createWorld(gravity);
   
+  boundaries = new ArrayList<PhysicsObject>();
   worldStaticObjects = new ArrayList<PhysicsObject>();
   physicsObjects = new ArrayList<PhysicsObject>();
   windmills = new ArrayList<Windmill>();
   cars = new ArrayList<Car>();
   
-  //floor
-  worldStaticObjects.add(new PhysicsObject(width/2, height, width, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
-  //roof
-  worldStaticObjects.add(new PhysicsObject(width/2, 0, width, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
-  //left wall
-  worldStaticObjects.add(new PhysicsObject(0, height/2, 10, height, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
-  //right wall
-  worldStaticObjects.add(new PhysicsObject(width, height/2, 10, height, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  //floor, roof, left wall, right wall
+  boundaries.add(new PhysicsObject(width/2, height, width, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  boundaries.add(new PhysicsObject(width/2, 0, width, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  boundaries.add(new PhysicsObject(0, height/2, 10, height, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  boundaries.add(new PhysicsObject(width, height/2, 10, height, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
   
   //platform
-  //worldStaticObjects.add(new PhysicsObject(width/2, height/1.5, width/4, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
+  //boundaries.add(new PhysicsObject(width/2, height/1.5, width/4, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.3, 0.5, Shape.RECTANGLE));
 
   
   carBodyImage = loadImage("dodge4.png");
@@ -77,22 +76,7 @@ void draw() {
   
   flipOnXInt = (flipOnX) ? -1 : 1;
 
-  for (PhysicsObject w: worldStaticObjects) {
-    w.display();
-  }
-
-  for (PhysicsObject p: physicsObjects) {
-    p.display();
-  }
-
-  for (Windmill w: windmills) {
-    w.display();
-  }
-  
-  for (Car c: cars) {
-    c.display();
-  }
-  
+  displayObjects();
   displaySelectedTool();
   displayGravityDial();
   displayData();
