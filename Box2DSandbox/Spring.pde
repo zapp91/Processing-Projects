@@ -8,8 +8,7 @@ class Spring {
 
   void update(float x, float y) {
     if (mouseJoint != null) {
-      Vec2 mouseWorld = box2d.coordPixelsToWorld(x,y);
-      mouseJoint.setTarget(mouseWorld);
+      mouseJoint.setTarget(box2d.coordPixelsToWorld(x,y));
     }
   }
 
@@ -36,6 +35,7 @@ class Spring {
       md.bodyB = box.body;
       Vec2 mp = box2d.coordPixelsToWorld(x,y);
       md.target.set(mp);
+      
       md.maxForce = 1000.0 * box.body.m_mass;
       md.frequencyHz = 5.0;
       md.dampingRatio = 0.9;

@@ -17,6 +17,7 @@ void mousePressed() {
                break;
        case 7: for (PhysicsObject p: physicsObjects) {if (p.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, p);}};
                for (Car c: cars) {if (c.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, c);}};
+               for (Windmill w: windmills) {if (w.box1.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, w.box1);}};
                break;
        default: println("undefined selectedToolInt");
     }
