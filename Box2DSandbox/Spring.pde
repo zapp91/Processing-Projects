@@ -21,7 +21,7 @@ class Spring {
       mouseJoint.getAnchorB(v2);
       v1 = box2d.coordWorldToPixels(v1);
       v2 = box2d.coordWorldToPixels(v2);
-      stroke(#FFE40F);
+      stroke(#FFEE6C);
       strokeWeight(2);
       line(v1.x,v1.y,v2.x,v2.y);
     }

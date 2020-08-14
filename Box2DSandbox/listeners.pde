@@ -53,6 +53,7 @@ void mouseReleased() {
 }
 
 void keyPressed() {
+  wakeUpBodies(physicsObjects);
   if (key == 'd' || key == 'D' ) {
     destroyEntities();
   }
@@ -74,19 +75,16 @@ void keyPressed() {
     //setGravityStrength(40);
     gravityStrength = 40;
     setGravity(gravityVector(gravityDirection,gravityStrength));
-    wakeUpBodies(physicsObjects);
   }
   if (key == '2') {
     //setGravityStrength(9.8);
     gravityStrength = 9.8;
     setGravity(gravityVector(gravityDirection,gravityStrength));
-    wakeUpBodies(physicsObjects);
   }
   if (key == '3') {
     //setGravityStrength(100);
     gravityStrength = 100;
     setGravity(gravityVector(gravityDirection,gravityStrength));
-    wakeUpBodies(physicsObjects);
   }
   if (key == '4') {
     //setGravityDirection(0);
@@ -94,7 +92,6 @@ void keyPressed() {
     gravityDirection = 0;
     gravityStrength = 0;
     setGravity(gravityVector(gravityDirection,gravityStrength));
-    wakeUpBodies(physicsObjects);
   }
   if (key == '5') {
     //setGravityDirection(random(360));
@@ -102,7 +99,6 @@ void keyPressed() {
     gravityDirection = random(360);
     gravityStrength = random(100);
     setGravity(gravityVector(gravityDirection,gravityStrength));
-    wakeUpBodies(physicsObjects);
   }
   if (keyCode == UP) {
     adjustGravityStrength(1);

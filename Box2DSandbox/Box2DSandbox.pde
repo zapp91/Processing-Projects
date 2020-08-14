@@ -34,8 +34,12 @@ ArrayList<Car> cars;
 Spring spring;
 
 void setup() {
-  fullScreen();
-  //size(2000,1000);
+  //fullScreen();
+  fullScreen(P2D);
+  //fullScreen(FX2D);
+  //size(2000,1000, P2D);  
+  smooth(4);
+  
   rectMode(CENTER);
   imageMode(CENTER);
   shapeMode(CENTER);

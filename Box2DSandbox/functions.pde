@@ -305,6 +305,8 @@ void displaySelectedObjectSilhouette(color silColor) {
            break;
            
    case 8: /* cursor is changed above */
+           stroke(#FF0000);
+           ellipse(0,0,30,30);
            break;
            
    default: println("undefined selectedToolInt");
