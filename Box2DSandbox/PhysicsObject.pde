@@ -183,29 +183,6 @@ class PhysicsObject {
                           endShape(CLOSE);
                         }
                       }
-                      
-                      //Center Marker with Line for reference.
-                      //fill(#FF0000);
-                      //stroke(#FF0000);
-                      //strokeWeight(2);
-                      //ellipse(0,0,5,5);
-                      //line(0,0,100,100);
-                      
-                      //push();
-                      //fill(#FF0000);
-                      //textAlign(CENTER); 
-                      //if (!showSkins) {
-                      //  for (ArrayList<Vec2> b: vecArrays) {
-                      //    beginShape();
-                      //    for (int i = 0; i < b.size(); i++) {
-                      //      Vec2 v = box2d.vectorWorldToPixels(b.get(i));
-                      //      text(i,v.x,v.y);  //display a number on each vertice.
-                      //    }
-                      //    endShape(CLOSE);
-                      //  }
-                      //}
-                      //pop();
-
                       break;
       default:        println("Unknown Shape!");
     }

@@ -97,6 +97,49 @@ color randomColor() {
   return color(int(random(0,255)), int(random(0,255)), int(random(0,255)));
 }
 
+void destroyClickedEntity() {
+  boolean objectClicked = false;
+  int objectIndex = 0;
+  
+  for (int i = 0; physicsObjects.size() > i && !objectClicked; i++) {
+    if(physicsObjects.get(i).contains(mouseX, mouseY)) {
+      objectClicked = true;
+      objectIndex = i;
+    }
+  };
+  if(objectClicked) {box2d.destroyBody(physicsObjects.get(objectIndex).body); physicsObjects.remove(objectIndex);};
+  objectClicked = false;
+  objectIndex = 0;
+  
+  for (int i = 0; worldStaticObjects.size() > i && !objectClicked; i++) {
+    if(worldStaticObjects.get(i).contains(mouseX, mouseY)) {
+      objectClicked = true;
+      objectIndex = i;
+    }
+  };
+  if(objectClicked) {box2d.destroyBody(worldStaticObjects.get(objectIndex).body); worldStaticObjects.remove(objectIndex);};
+  objectClicked = false;
+  objectIndex = 0;
+  
+  for (int i = 0; windmills.size() > i && !objectClicked; i++) {
+    if(windmills.get(i).box1.contains(mouseX, mouseY)) {
+      objectClicked = true;
+      objectIndex = i;
+    }
+  };
+  if(objectClicked) {windmills.get(objectIndex).destroy(); windmills.remove(objectIndex);};
+  objectClicked = false;
+  objectIndex = 0;
+  
+  for (int i = 0; cars.size() > i && !objectClicked; i++) {
+    if(cars.get(i).contains(mouseX, mouseY)) {
+      objectClicked = true;
+      objectIndex = i;
+    }
+  };
+  if(objectClicked) {cars.get(objectIndex).destroy(); cars.remove(objectIndex);};
+}
+
 void destroyEntities() {
   for (PhysicsObject p: physicsObjects) {box2d.destroyBody(p.body);}
   for (Car c: cars) {c.destroy();}
@@ -206,7 +249,7 @@ void displaySelectedObjectSilhouette(color silColor) {
   stroke(silColor);
   strokeWeight(2);
 
-  if (selectedToolInt == 7) {cursor(HAND);} else {cursor(ARROW);}
+  if (selectedToolInt == 7) {cursor(HAND);} else if (selectedToolInt == 8) {cursor(CROSS);} else {cursor(ARROW);}
 
   switch(selectedToolInt){
    case 0: rect(-25,0,40,60);
@@ -259,6 +302,9 @@ void displaySelectedObjectSilhouette(color silColor) {
            break;
            
    case 7: /* cursor is changed above */
+           break;
+           
+   case 8: /* cursor is changed above */
            break;
            
    default: println("undefined selectedToolInt");
