@@ -151,4 +151,12 @@ void mouseWheel(MouseEvent event) {
   } else if (event.getCount() < 0) {
     adjustSelectedTool(-1);
   }
+  
+  if (selectedToolInt == 7) {
+    cursor(HAND);
+  } else if (selectedToolInt == 8) {
+    cursor(CROSS);
+  } else {
+    cursor(ARROW);
+  }
 }

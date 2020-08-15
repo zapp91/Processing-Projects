@@ -249,8 +249,6 @@ void displaySelectedObjectSilhouette(color silColor) {
   stroke(silColor);
   strokeWeight(2);
 
-  if (selectedToolInt == 7) {cursor(HAND);} else if (selectedToolInt == 8) {cursor(CROSS);} else {cursor(ARROW);}
-
   switch(selectedToolInt){
    case 0: rect(-25,0,40,60);
            ellipse(20,30,30,30);
@@ -302,10 +300,10 @@ void displaySelectedObjectSilhouette(color silColor) {
            if(mouseClickCords != null) line(mouseClickCords.x-mouseX, mouseClickCords.y-mouseY, 0, 0);
            break;
            
-   case 7: /* cursor is changed above */
+   case 7: /* cursor is changed in scroll wheel listener */
            break;
            
-   case 8: /* cursor is changed above */
+   case 8: /* cursor is changed in scroll wheel listener */
            stroke(#FF0000);
            ellipse(0,0,30,30);
            break;
