@@ -20,7 +20,7 @@ class Windmill {
     
     // Initialize positions of two boxes
     box1 = new PhysicsObject(x, y, 200, 10, 0, #FC7DC8, #FC7DC8, false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.RECTANGLE); 
-    box2 = new PhysicsObject(x, y, 200, 10, 0, #FC7DC8, #FC7DC8, true, 0, Box2DBodyType.STATIC, 1, 0.4, 0.5, Shape.CIRCLE); 
+    box2 = new PhysicsObject(x, y, 200, 10, 0, #0F0F0F, #FC7DC8, false, 0, Box2DBodyType.STATIC, 1, 0.4, 0.5, Shape.CIRCLE); 
 
     box2.body.getFixtureList().setSensor(true);
     // Define joint as between two bodies
@@ -28,8 +28,8 @@ class Windmill {
 
     rjd.initialize(box1.body, box2.body, box1.body.getWorldCenter());
     // Turning on a motor (optional)
-    rjd.motorSpeed = 12*(reverseSpin == false ? 1 : -1);       // how fast?
-    rjd.maxMotorTorque = 1000000.0; // how powerful?
+    rjd.motorSpeed = 10*(reverseSpin == false ? 1 : -1);       // how fast?
+    rjd.maxMotorTorque = 120000.0; // how powerful?
     rjd.enableMotor = true;      // is it on?
     // There are many other properties you can set for a Revolute joint
     // For example, you can limit its angle between a minimum and a maximum

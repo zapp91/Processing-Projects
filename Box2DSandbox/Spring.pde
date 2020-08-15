@@ -44,15 +44,17 @@ class Spring {
     }
   }
   
-  void bind(float x, float y, Car car) {
+  void bind(float x, float y, Truck truck) {
     Vec2 worldPoint = box2d.coordPixelsToWorld(x, y);
-    if (car.wheel1.body.getFixtureList().testPoint(worldPoint)) {bind(x, y, car.wheel1);};
-    if (car.wheel2.body.getFixtureList().testPoint(worldPoint)) {bind(x, y, car.wheel2);};
+    if (truck.wheel1.body.getFixtureList().testPoint(worldPoint)) {bind(x, y, truck.wheel1);};
+    if (truck.wheel2.body.getFixtureList().testPoint(worldPoint)) {bind(x, y, truck.wheel2);};
     
-    Fixture fixture = car.p3.body.getFixtureList();
-    boolean detectedCarBodyConnection = false;
-    while(fixture != null && !detectedCarBodyConnection) {
-      if(fixture.testPoint(worldPoint)) {bind(x, y, car.p3);};
+    Fixture fixture = truck.p3.body.getFixtureList();
+    boolean detectedTruckBodyConnection = false;
+    while(fixture != null && !detectedTruckBodyConnection) {
+      if(fixture.testPoint(worldPoint)) {
+        bind(x, y, truck.p3);
+      };
       fixture = fixture.getNext();
     }
   }

@@ -9,14 +9,14 @@ void mousePressed() {
                break;
        case 3: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 60, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.TRIANGLE));
                break;
-       case 4: cars.add(new Car(mouseX, mouseY, flipOnX));
+       case 4: trucks.add(new Truck(mouseX, mouseY, flipOnX));
                break;
        case 5: windmills.add(new Windmill(mouseX, mouseY, flipOnX));
                break;
        case 6: mouseClickCords = new Vec2(mouseX, mouseY);
                break;
        case 7: for (PhysicsObject p: physicsObjects) {if (p.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, p);}};
-               for (Car c: cars) {if (c.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, c);}};
+               for (Truck t: trucks) {if (t.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, t);}};
                for (Windmill w: windmills) {if (w.box1.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, w.box1);}};
                break;
        case 8: destroyClickedEntity();

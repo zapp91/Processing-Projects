@@ -14,7 +14,7 @@ float gravityDirection;
 float gravityStrength;
 Vec2 gravity;
 
-PImage carBodyImage;
+PImage truckBodyImage;
 PImage tireImage;
 Random rand;
 boolean showSkins;
@@ -29,7 +29,7 @@ ArrayList<PhysicsObject> boundaries;
 ArrayList<PhysicsObject> worldStaticObjects;
 ArrayList<PhysicsObject> physicsObjects;
 ArrayList<Windmill> windmills;
-ArrayList<Car> cars;
+ArrayList<Truck> trucks;
 
 Spring spring;
 
@@ -56,7 +56,7 @@ void setup() {
   worldStaticObjects = new ArrayList<PhysicsObject>();
   physicsObjects = new ArrayList<PhysicsObject>();
   windmills = new ArrayList<Windmill>();
-  cars = new ArrayList<Car>();
+  trucks = new ArrayList<Truck>();
   
   spring = new Spring();
   
@@ -66,7 +66,7 @@ void setup() {
   boundaries.add(new PhysicsObject(0, height/2, 10, height, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.4, 0.5, Shape.RECTANGLE));
   boundaries.add(new PhysicsObject(width, height/2, 10, height, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.4, 0.5, Shape.RECTANGLE));
 
-  carBodyImage = loadImage("dodge4.png");
+  truckBodyImage = loadImage("dodge4.png");
   tireImage = loadImage("tire2.png");
   showSkins = true;
   selectedToolInt = 0;

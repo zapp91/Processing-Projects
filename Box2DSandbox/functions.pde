@@ -65,7 +65,7 @@ void displayData() {
             nf(gravityDirection, 0, 1) + "\n" +
             nf(gravityStrength, 0, 1) + "\n" +
             physicsObjects.size() + "\n" +
-            cars.size()
+            trucks.size()
             , width - 10, 20);
   pop();
 }
@@ -131,20 +131,20 @@ void destroyClickedEntity() {
   objectClicked = false;
   objectIndex = 0;
   
-  for (int i = 0; cars.size() > i && !objectClicked; i++) {
-    if(cars.get(i).contains(mouseX, mouseY)) {
+  for (int i = 0; trucks.size() > i && !objectClicked; i++) {
+    if(trucks.get(i).contains(mouseX, mouseY)) {
       objectClicked = true;
       objectIndex = i;
     }
   };
-  if(objectClicked) {cars.get(objectIndex).destroy(); cars.remove(objectIndex);};
+  if(objectClicked) {trucks.get(objectIndex).destroy(); trucks.remove(objectIndex);};
 }
 
 void destroyEntities() {
   for (PhysicsObject p: physicsObjects) {box2d.destroyBody(p.body);}
-  for (Car c: cars) {c.destroy();}
+  for (Truck t: trucks) {t.destroy();}
   physicsObjects.clear();
-  cars.clear();
+  trucks.clear();
 }
 
 void destroyStaticObjects() {
@@ -296,8 +296,9 @@ void displaySelectedObjectSilhouette(color silColor) {
            }
            break;
            
-   case 6: strokeWeight(10);
-           ellipse(0,0,1,1);
+   case 6: ellipse(0,0,10,10);
+           strokeWeight(10);
+           strokeCap(SQUARE);
            if(mouseClickCords != null) line(mouseClickCords.x-mouseX, mouseClickCords.y-mouseY, 0, 0);
            break;
            
@@ -315,9 +316,9 @@ void displaySelectedObjectSilhouette(color silColor) {
 }
 
 void displayObjects() {
+  for (Windmill w: windmills) {w.display();}
   for (PhysicsObject b: boundaries) {b.display();}
   for (PhysicsObject w: worldStaticObjects) {w.display();}
   for (PhysicsObject p: physicsObjects) {p.display();}
-  for (Windmill w: windmills) {w.display();}
-  for (Car c: cars) {c.display();}
+  for (Truck t: trucks) {t.display();}
 }
