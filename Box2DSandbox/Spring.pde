@@ -8,6 +8,15 @@ class Spring {
 
   void update(float x, float y) {
     if (mouseJoint != null) {
+      //Vec2 anchorBCords = new Vec2(0,0);
+      //mouseJoint.getAnchorB(anchorBCords);
+      
+      //float mouseDistance = dist(mouseJoint.getTarget().x, mouseJoint.getTarget().y, anchorBCords.x, anchorBCords.y);
+      //println(mouseDistance);
+      //println(mouseJoint.getMaxForce());
+      //println((1000.0 * mouseJoint.getBodyB().m_mass) * (mouseDistance/100 + 1));
+      
+      //mouseJoint.setMaxForce( (1000.0 * mouseJoint.getBodyB().m_mass) * (mouseDistance/10 + 1));
       mouseJoint.setTarget(box2d.coordPixelsToWorld(x,y));
     }
   }
