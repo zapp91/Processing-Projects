@@ -1,6 +1,6 @@
 void mousePressed() {
   if (mouseButton == LEFT) {
-    switch(selectedToolInt){
+    switch(selectedToolInt) {
        case 0: physicsObjects.add(new PhysicsObject(mouseX, mouseY, random(5,75), random(5,75), 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, randomShape()));
                break;
        case 1: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 50, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.RECTANGLE));
@@ -21,6 +21,8 @@ void mousePressed() {
                break;
        case 8: destroyClickedEntity();
                break;
+       case 9: mouseClickCords = new Vec2(mouseX, mouseY);
+               break;
        default: println("undefined selectedToolInt");
     }
   } else if (mouseButton == RIGHT) {
@@ -31,22 +33,44 @@ void mousePressed() {
 }
 
 void mouseReleased() {
-  if(mouseClickCords != null && selectedToolInt == 6) {
-    worldStaticObjects.add(new PhysicsObject(
-                                  mouseClickCords.x+(mouseX-mouseClickCords.x)/2, 
-                                  mouseClickCords.y+(mouseY-mouseClickCords.y)/2, 
-                                  dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY), 
-                                  10, 
-                                  atan2(mouseY - mouseClickCords.y, mouseX - mouseClickCords.x),
-                                  #FFFFFF, 
-                                  #FFFFFF, 
-                                  false, 
-                                  0, 
-                                  Box2DBodyType.STATIC, 
-                                  1, 
-                                  0.6, 
-                                  0.5, 
-                                  Shape.RECTANGLE));
+  if(mouseClickCords != null) {
+    switch(selectedToolInt) {
+       case 6: worldStaticObjects.add(new PhysicsObject(
+                                    mouseClickCords.x+(mouseX-mouseClickCords.x)/2, 
+                                    mouseClickCords.y+(mouseY-mouseClickCords.y)/2, 
+                                    dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY), 
+                                    10, 
+                                    atan2(mouseY - mouseClickCords.y, mouseX - mouseClickCords.x),
+                                    #FFFFFF, 
+                                    #FFFFFF, 
+                                    false, 
+                                    0, 
+                                    Box2DBodyType.STATIC, 
+                                    1, 
+                                    0.6, 
+                                    0.5, 
+                                    Shape.RECTANGLE));
+               break;
+       case 9: if (!(abs(mouseClickCords.x - mouseX) == 0 || abs(mouseClickCords.y - mouseY) == 0)) {
+                 physicsObjects.add(new PhysicsObject(
+                                          mouseClickCords.x+(mouseX-mouseClickCords.x)/2, 
+                                          mouseClickCords.y+(mouseY-mouseClickCords.y)/2, 
+                                          abs(mouseClickCords.x - mouseX), 
+                                          abs(mouseClickCords.y - mouseY), 
+                                          0,
+                                          randomColor(), 
+                                          randomColor(), 
+                                          false, 
+                                          0, 
+                                          Box2DBodyType.DYNAMIC, 
+                                          1, 
+                                          0.6, 
+                                          0.5, 
+                                          Shape.RECTANGLE));
+               }
+               break;
+       default: println("undefined selectedToolInt");
+    }
   }
   mouseClickCords = null;
   spring.destroy();

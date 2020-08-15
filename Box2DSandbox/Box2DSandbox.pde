@@ -22,7 +22,7 @@ boolean flipOnX;
 int flipOnXInt;
 
 int selectedToolInt;
-String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Tool", "Grab Tool", "Delete Tool"};
+String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Tool", "Grab Tool", "Delete Tool", "Draw Square"};
 Vec2 mouseClickCords;
 
 ArrayList<PhysicsObject> boundaries;
