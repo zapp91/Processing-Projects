@@ -314,7 +314,12 @@ void displaySelectedObjectSilhouette(color silColor) {
            };
            break;
            
-   default: println("undefined selectedToolInt");
+   case 10: ellipse(0,0,10,10);
+           if(!(mouseClickCords == null || abs(mouseClickCords.x-mouseX) == 0 || abs(mouseClickCords.y-mouseY) == 0)) {
+             ellipse((mouseClickCords.x-mouseX)/2, (mouseClickCords.y-mouseY)/2, abs(mouseClickCords.x-mouseX), abs(mouseClickCords.x-mouseX));
+           };
+           break;
+   default: println("undefined selectedToolInt (silhouette function)");
   }
   pop();
 }

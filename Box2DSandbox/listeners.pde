@@ -23,7 +23,9 @@ void mousePressed() {
                break;
        case 9: mouseClickCords = new Vec2(mouseX, mouseY);
                break;
-       default: println("undefined selectedToolInt");
+       case 10: mouseClickCords = new Vec2(mouseX, mouseY);
+               break;
+       default: println("undefined selectedToolInt (mousePressed function)");
     }
   } else if (mouseButton == RIGHT) {
     
@@ -69,7 +71,25 @@ void mouseReleased() {
                                           Shape.RECTANGLE));
                }
                break;
-       default: println("undefined selectedToolInt");
+       case 10: if (!(abs(mouseClickCords.x - mouseX) == 0 || abs(mouseClickCords.y - mouseY) == 0)) {
+                 physicsObjects.add(new PhysicsObject(
+                                          mouseClickCords.x+(mouseX-mouseClickCords.x)/2, 
+                                          mouseClickCords.y+(mouseY-mouseClickCords.y)/2, 
+                                          abs(mouseClickCords.x - mouseX), 
+                                          abs(mouseClickCords.y - mouseY), 
+                                          0,
+                                          randomColor(), 
+                                          randomColor(), 
+                                          false, 
+                                          0, 
+                                          Box2DBodyType.DYNAMIC, 
+                                          1, 
+                                          0.6, 
+                                          0.5, 
+                                          Shape.CIRCLE));
+               }
+               break;
+       default: println("undefined selectedToolInt (mouseReleased function)");
     }
   }
   mouseClickCords = null;
