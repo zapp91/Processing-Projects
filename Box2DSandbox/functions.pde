@@ -76,7 +76,9 @@ void displayHints() {
     textAlign(LEFT);
     
     text(   "Scroll to change Selected Tool \n" +
-            "LEFT CLICK to spawn Selected Tool \n" +
+            "LEFT CLICK to use Selected Tool \n" +
+            "Press [SHIFT] to toggle the Grab Tool \n" +
+            "Press [CTRL] to toggle Delete Tool \n" +
             "Press [E] to Flip Object \n" +
             "Press [D] to Delete Trucks and Physics Objects \n" +
             "Press [R] to Reset Game \n" +
@@ -84,7 +86,7 @@ void displayHints() {
             "Press [1] for Default Gravity Strength \n" +
             "Press [2] for Earth Gravity Strength \n" +
             "Press [3] for 100 Gravity Strength \n" +
-            "Press [4] for No Gravity Strength nor Direction \n" +
+            "Press [4] for Zero Gravity \n" +
             "Press [5] for Random Gravity and Direction \n" +
             "Press UP ARROW or DOWN ARROW to change Gravity Strength \n" +
             "Press LEFT ARROW or RIGHT RIGHT to change Gravity Direction \n" +
@@ -235,7 +237,15 @@ void displaySelectedTool() {
   fill(255);
   textAlign(CENTER);
   
-  text(   "Selected Tool: " + selectedToolStrings[selectedToolInt] + "\n" +
+  if (grabMode) {
+    currentTool = "Grab Tool";
+  } else if (deleteMode) {
+    currentTool = "Delete Tool";
+  } else {
+    currentTool = selectedToolStrings[selectedToolInt];
+  }
+  
+  text(   "Selected Tool: " + currentTool + "\n" +
           "Reverse Object: " + flipOnX
           ,width/2, 20);
   pop();
@@ -248,81 +258,77 @@ void displaySelectedObjectSilhouette(color silColor) {
   noFill();
   stroke(silColor);
   strokeWeight(2);
-
-  switch(selectedToolInt){
-   case 0: rect(-25,0,40,60);
-           ellipse(20,30,30,30);
-           triangle(20,-30,0,10,40,10);
-           break;
-           
-   case 1: rect(0,0,60,50);
-           break;
-           
-   case 2: ellipse(0,0,60,60);
-           break;
-           
-   case 3: triangle(0, 30, -30, -30, 30, -30);
-           break;
-           
-   case 4: beginShape();
-           vertex(110*flipOnXInt,33);
-           vertex(120*flipOnXInt,30);
-           vertex(116*flipOnXInt,-7);
-           vertex(110*flipOnXInt,-10);
-           vertex(65*flipOnXInt,-15);
-           vertex(32*flipOnXInt,-35);
-           vertex(-33*flipOnXInt,-37);
-           vertex(-37*flipOnXInt,-15);
-           vertex(-118*flipOnXInt,-15);
-           vertex(-118*flipOnXInt,27);
-           vertex(-37*flipOnXInt,33);
-           endShape(CLOSE);
-           ellipse(-70*flipOnXInt,35,40,40);
-           ellipse(82*flipOnXInt,35,40,40);
-           break;
-           
-   case 5: ellipse(0,0,200,200);
-           arc(0, 0, 100, 100, radians(270), radians(360));
-           arc(0, 0, 100, 100, PI / 2, 2 * PI / 2);
-           fill(silColor);
-           if (flipOnX) {
-             triangle(10, 50, -10, 40, -10, 60);
-             triangle(-10, -50, 10, -40, 10, -60);
-           } else {
-             triangle(50, 10, 40, -10, 60, -10);
-             triangle(-50, -10, -40, 10, -60, 10);
-           }
-           break;
-           
-   case 6: fill(silColor);
-           ellipse(0,0,10,10);
-           strokeWeight(10);
-           strokeCap(SQUARE);
-           if(mouseClickCords != null) {
-             line(mouseClickCords.x-mouseX, mouseClickCords.y-mouseY, 0, 0);
-           }
-           break;
-           
-   case 7: /* cursor is changed in scroll wheel listener */
-           break;
-           
-   case 8: /* cursor is changed in scroll wheel listener */
-           stroke(#FF0000);
-           ellipse(0,0,30,30);
-           break;
-           
-   case 9: rect(0,0,10,10);
-           if(!(mouseClickCords == null || abs(mouseClickCords.x-mouseX) == 0 || abs(mouseClickCords.y-mouseY) == 0)) {
-             rect((mouseClickCords.x-mouseX)/2, (mouseClickCords.y-mouseY)/2, abs(mouseClickCords.x-mouseX), abs(mouseClickCords.y-mouseY));
-           }
-           break;
-           
-   case 10: ellipse(0,0,10,10);
-            if(!(mouseClickCords == null || abs(mouseClickCords.x-mouseX) == 0 || abs(mouseClickCords.y-mouseY) == 0)) {
-              ellipse((mouseClickCords.x-mouseX)/2, (mouseClickCords.y-mouseY)/2, dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY), dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY));
-            }
-            break;
-   default: println("undefined selectedToolInt (silhouette function)");
+  
+  if(!deleteMode && !grabMode) {
+    switch(selectedToolInt){
+     case 0: rect(-25,0,40,60);
+             ellipse(20,30,30,30);
+             triangle(20,-30,0,10,40,10);
+             break;
+             
+     case 1: rect(0,0,60,50);
+             break;
+             
+     case 2: ellipse(0,0,60,60);
+             break;
+             
+     case 3: triangle(0, 30, -30, -30, 30, -30);
+             break;
+             
+     case 4: beginShape();
+             vertex(110*flipOnXInt,33);
+             vertex(120*flipOnXInt,30);
+             vertex(116*flipOnXInt,-7);
+             vertex(110*flipOnXInt,-10);
+             vertex(65*flipOnXInt,-15);
+             vertex(32*flipOnXInt,-35);
+             vertex(-33*flipOnXInt,-37);
+             vertex(-37*flipOnXInt,-15);
+             vertex(-118*flipOnXInt,-15);
+             vertex(-118*flipOnXInt,27);
+             vertex(-37*flipOnXInt,33);
+             endShape(CLOSE);
+             ellipse(-70*flipOnXInt,35,40,40);
+             ellipse(82*flipOnXInt,35,40,40);
+             break;
+             
+     case 5: ellipse(0,0,200,200);
+             arc(0, 0, 100, 100, radians(270), radians(360));
+             arc(0, 0, 100, 100, PI / 2, 2 * PI / 2);
+             fill(silColor);
+             if (flipOnX) {
+               triangle(10, 50, -10, 40, -10, 60);
+               triangle(-10, -50, 10, -40, 10, -60);
+             } else {
+               triangle(50, 10, 40, -10, 60, -10);
+               triangle(-50, -10, -40, 10, -60, 10);
+             }
+             break;
+             
+     case 6: fill(silColor);
+             ellipse(0,0,10,10);
+             strokeWeight(10);
+             strokeCap(SQUARE);
+             if(mouseClickCords != null) {
+               line(mouseClickCords.x-mouseX, mouseClickCords.y-mouseY, 0, 0);
+             }
+             break;        
+     case 7: rect(0,0,10,10);
+             if(!(mouseClickCords == null || abs(mouseClickCords.x-mouseX) == 0 || abs(mouseClickCords.y-mouseY) == 0)) {
+               rect((mouseClickCords.x-mouseX)/2, (mouseClickCords.y-mouseY)/2, abs(mouseClickCords.x-mouseX), abs(mouseClickCords.y-mouseY));
+             }
+             break;
+             
+     case 8: ellipse(0,0,10,10);
+             if(!(mouseClickCords == null || abs(mouseClickCords.x-mouseX) == 0 || abs(mouseClickCords.y-mouseY) == 0)) {
+               ellipse((mouseClickCords.x-mouseX)/2, (mouseClickCords.y-mouseY)/2, dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY), dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY));
+             }
+             break;
+     default: println("undefined selectedToolInt (silhouette function)");
+    }
+  } else if (deleteMode) {
+    stroke(#FF0000);
+    ellipse(0,0,30,30);
   }
   pop();
 }

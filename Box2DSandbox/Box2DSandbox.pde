@@ -20,9 +20,12 @@ Random rand;
 boolean showSkins;
 boolean flipOnX;
 int flipOnXInt;
+boolean deleteMode;
+boolean grabMode;
+String currentTool;
 
 int selectedToolInt;
-String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Tool", "Grab Tool", "Delete Tool", "Draw Square", "Draw Circle"};
+String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Tool", "Draw Square", "Draw Circle"};
 Vec2 mouseClickCords;
 
 ArrayList<PhysicsObject> boundaries;
@@ -72,6 +75,8 @@ void setup() {
   selectedToolInt = 0;
   flipOnX = false;
   flipOnXInt = 1;
+  deleteMode = false;
+  grabMode = false;
 }
 
 void draw() {

@@ -1,31 +1,35 @@
 void mousePressed() {
   if (mouseButton == LEFT) {
-    switch(selectedToolInt) {
-       case 0: physicsObjects.add(new PhysicsObject(mouseX, mouseY, random(5,75), random(5,75), 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, randomShape()));
-               break;
-       case 1: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 50, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.RECTANGLE));
-               break;
-       case 2: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 60, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.CIRCLE));
-               break;
-       case 3: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 60, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.TRIANGLE));
-               break;
-       case 4: trucks.add(new Truck(mouseX, mouseY, flipOnX));
-               break;
-       case 5: windmills.add(new Windmill(mouseX, mouseY, flipOnX));
-               break;
-       case 6: mouseClickCords = new Vec2(mouseX, mouseY);
-               break;
-       case 7: for (PhysicsObject p: physicsObjects) {if (p.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, p);}};
-               for (Truck t: trucks) {if (t.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, t);}};
-               for (Windmill w: windmills) {if (w.box1.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, w.box1);}};
-               break;
-       case 8: destroyClickedEntity();
-               break;
-       case 9: mouseClickCords = new Vec2(mouseX, mouseY);
-               break;
-       case 10: mouseClickCords = new Vec2(mouseX, mouseY);
-               break;
-       default: println("undefined selectedToolInt (mousePressed function)");
+    if(!deleteMode && !grabMode) {
+      switch(selectedToolInt) {
+         case 0: physicsObjects.add(new PhysicsObject(mouseX, mouseY, random(5,75), random(5,75), 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, randomShape()));
+                 break;
+         case 1: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 50, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.RECTANGLE));
+                 break;
+         case 2: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 60, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.CIRCLE));
+                 break;
+         case 3: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 60, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.TRIANGLE));
+                 break;
+         case 4: trucks.add(new Truck(mouseX, mouseY, flipOnX));
+                 break;
+         case 5: windmills.add(new Windmill(mouseX, mouseY, flipOnX));
+                 break;
+         case 6: mouseClickCords = new Vec2(mouseX, mouseY);
+                 break;
+         case 7: mouseClickCords = new Vec2(mouseX, mouseY);
+                 break;
+         case 8: mouseClickCords = new Vec2(mouseX, mouseY);
+                 break;
+         default: println("undefined selectedToolInt (mousePressed function)");
+      }
+    } else if (deleteMode) {
+      destroyClickedEntity();
+    } else if (grabMode) {
+      for (PhysicsObject p: physicsObjects) {if (p.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, p);}};
+      for (Truck t: trucks) {if (t.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, t);}};
+      for (Windmill w: windmills) {if (w.box1.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, w.box1);}};
+    } else {
+      println("Left Mouse clicked but don't know what to do. [mousePressed()]");
     }
   } else if (mouseButton == RIGHT) {
     
@@ -35,7 +39,7 @@ void mousePressed() {
 }
 
 void mouseReleased() {
-  if(mouseClickCords != null) {
+  if(!(mouseClickCords == null || deleteMode || grabMode)) {
     switch(selectedToolInt) {
        case 6: worldStaticObjects.add(new PhysicsObject(
                                     mouseClickCords.x+(mouseX-mouseClickCords.x)/2, 
@@ -53,7 +57,7 @@ void mouseReleased() {
                                     0.5, 
                                     Shape.RECTANGLE));
                break;
-       case 9: if (!(abs(mouseClickCords.x - mouseX) == 0 || abs(mouseClickCords.y - mouseY) == 0)) {
+       case 7: if (!(abs(mouseClickCords.x - mouseX) == 0 || abs(mouseClickCords.y - mouseY) == 0)) {
                  physicsObjects.add(new PhysicsObject(
                                           mouseClickCords.x+(mouseX-mouseClickCords.x)/2, 
                                           mouseClickCords.y+(mouseY-mouseClickCords.y)/2, 
@@ -71,7 +75,7 @@ void mouseReleased() {
                                           Shape.RECTANGLE));
                }
                break;
-       case 10: if (!(abs(mouseClickCords.x - mouseX) == 0 || abs(mouseClickCords.y - mouseY) == 0)) {
+       case 8: if (!(abs(mouseClickCords.x - mouseX) == 0 || abs(mouseClickCords.y - mouseY) == 0)) {
                  physicsObjects.add(new PhysicsObject(
                                           mouseClickCords.x+(mouseX-mouseClickCords.x)/2, 
                                           mouseClickCords.y+(mouseY-mouseClickCords.y)/2, 
@@ -163,20 +167,30 @@ void keyPressed() {
   if (keyCode == TAB) {
     mouseClickCords = null;
   }
+  if (keyCode == SHIFT) {
+    deleteMode = false;
+    grabMode = !grabMode;
+    cursor(HAND);
+  }
+  if (keyCode == CONTROL) {
+    grabMode = false;
+    deleteMode = !deleteMode;
+    cursor(CROSS);
+  }
+  if (!grabMode && !deleteMode) {
+    cursor(ARROW);
+  }
 }
 
 void mouseWheel(MouseEvent event) {
+  grabMode = false;
+  deleteMode = false;
+  
   if (event.getCount() > 0) {
     adjustSelectedTool(1);
   } else if (event.getCount() < 0) {
     adjustSelectedTool(-1);
   }
-  
-  if (selectedToolInt == 7) {
-    cursor(HAND);
-  } else if (selectedToolInt == 8) {
-    cursor(CROSS);
-  } else {
-    cursor(ARROW);
-  }
+
+  cursor(ARROW);
 }
