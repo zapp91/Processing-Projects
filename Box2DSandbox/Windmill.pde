@@ -29,7 +29,7 @@ class Windmill {
     rjd.initialize(box1.body, box2.body, box1.body.getWorldCenter());
     // Turning on a motor (optional)
     rjd.motorSpeed = 10*(reverseSpin == false ? 1 : -1);       // how fast?
-    rjd.maxMotorTorque = 120000.0; // how powerful?
+    rjd.maxMotorTorque = 140000.0; // how powerful?
     rjd.enableMotor = true;      // is it on?
     // There are many other properties you can set for a Revolute joint
     // For example, you can limit its angle between a minimum and a maximum

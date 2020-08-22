@@ -24,7 +24,7 @@ void mousePressed() {
       }
     } else if (deleteMode) {
       destroyClickedEntity();
-    } else if (grabMode) {
+    } else if (grabMode && spring.mouseJoint == null) {
       for (PhysicsObject p: physicsObjects) {if (p.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, p);}};
       for (Truck t: trucks) {if (t.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, t);}};
       for (Windmill w: windmills) {if (w.box1.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, w.box1);}};
@@ -169,11 +169,13 @@ void keyPressed() {
   }
   if (keyCode == SHIFT) {
     deleteMode = false;
+    mouseClickCords = null;
     grabMode = !grabMode;
     cursor(HAND);
   }
   if (keyCode == CONTROL) {
     grabMode = false;
+    mouseClickCords = null;
     deleteMode = !deleteMode;
     cursor(CROSS);
   }
