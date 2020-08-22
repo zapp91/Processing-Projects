@@ -155,9 +155,10 @@ class PhysicsObject {
     switch (shape){
       case RECTANGLE:
                       push();
-                      translate(width/2/500,height/2/500);
-                      scale(dist(pos.x, pos.y , width/2, height/2)/500);
-                      fill(50);
+                      translate((-pos.x+width/2)*0.50,(-pos.y+height/2)*0.50);
+                      scale(.50);
+                      //scale(dist(pos.x, pos.y , width/2, height/2));
+                      //fill(50);
                       rect(0,0,w,h);
                       pop();
                       rect(0,0,w,h);
