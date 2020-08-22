@@ -294,10 +294,13 @@ void displaySelectedObjectSilhouette(color silColor) {
            }
            break;
            
-   case 6: ellipse(0,0,10,10);
+   case 6: fill(silColor);
+           ellipse(0,0,10,10);
            strokeWeight(10);
            strokeCap(SQUARE);
-           if(mouseClickCords != null) line(mouseClickCords.x-mouseX, mouseClickCords.y-mouseY, 0, 0);
+           if(mouseClickCords != null) {
+             line(mouseClickCords.x-mouseX, mouseClickCords.y-mouseY, 0, 0);
+           }
            break;
            
    case 7: /* cursor is changed in scroll wheel listener */
@@ -311,17 +314,27 @@ void displaySelectedObjectSilhouette(color silColor) {
    case 9: rect(0,0,10,10);
            if(!(mouseClickCords == null || abs(mouseClickCords.x-mouseX) == 0 || abs(mouseClickCords.y-mouseY) == 0)) {
              rect((mouseClickCords.x-mouseX)/2, (mouseClickCords.y-mouseY)/2, abs(mouseClickCords.x-mouseX), abs(mouseClickCords.y-mouseY));
-           };
+           }
            break;
            
    case 10: ellipse(0,0,10,10);
-           if(!(mouseClickCords == null || abs(mouseClickCords.x-mouseX) == 0 || abs(mouseClickCords.y-mouseY) == 0)) {
-             ellipse((mouseClickCords.x-mouseX)/2, (mouseClickCords.y-mouseY)/2, abs(mouseClickCords.x-mouseX), abs(mouseClickCords.x-mouseX));
-           };
-           break;
+            if(!(mouseClickCords == null || abs(mouseClickCords.x-mouseX) == 0 || abs(mouseClickCords.y-mouseY) == 0)) {
+              ellipse((mouseClickCords.x-mouseX)/2, (mouseClickCords.y-mouseY)/2, dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY), dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY));
+            }
+            break;
    default: println("undefined selectedToolInt (silhouette function)");
   }
   pop();
+}
+
+void displayCancelInstructions() {
+  if(mouseClickCords != null) {
+    push();
+        textAlign(CENTER);
+        fill(#FF0000);
+        text( "Press [TAB] to cancel", width/2, height - 20);
+    pop();
+  }
 }
 
 void displayObjects() {

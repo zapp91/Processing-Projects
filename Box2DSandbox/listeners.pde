@@ -75,8 +75,8 @@ void mouseReleased() {
                  physicsObjects.add(new PhysicsObject(
                                           mouseClickCords.x+(mouseX-mouseClickCords.x)/2, 
                                           mouseClickCords.y+(mouseY-mouseClickCords.y)/2, 
-                                          abs(mouseClickCords.x - mouseX), 
-                                          abs(mouseClickCords.y - mouseY), 
+                                          dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY), 
+                                          dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY), //unused for Circle Physics Objects
                                           0,
                                           randomColor(), 
                                           randomColor(), 

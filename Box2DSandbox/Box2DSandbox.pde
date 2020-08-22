@@ -89,6 +89,7 @@ void draw() {
   displayData();
   displayHints();
   displaySelectedObjectSilhouette(#9FFFFF);
+  displayCancelInstructions();
   spring.display();
 
   if (selectedToolInt == 0 && mousePressed) {
