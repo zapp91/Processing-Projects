@@ -154,8 +154,14 @@ class PhysicsObject {
     
     switch (shape){
       case RECTANGLE:
+                      push();
+                      translate(-pos.x/500,-pos.y/500);
+                      scale(dist(pos.x, pos.y , width/2, height/2)/500);
+                      fill(50);
                       rect(0,0,w,h);
-                      //setGradient(-int(w/2),-int(h/2),w,h, colour1, colour2, 2);
+                      pop();
+                      rect(0,0,w,h);
+                      setGradient(-int(w/2),-int(h/2),w,h, colour1, colour2, 2);
                       break;
       case CIRCLE:
                       ellipse(0,0,w,w);
@@ -194,7 +200,11 @@ class PhysicsObject {
     
     pop();
   }
-
+  
+  void display(int numOfLevels, float levelDialation) {
+    
+  }
+  
   void displayTrunkShroud() {
     Vec2 pos = box2d.getBodyPixelCoord(body);    
     float a = body.getAngle();
