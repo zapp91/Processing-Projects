@@ -142,15 +142,14 @@ class PhysicsObject {
     display(1);
   }
   
-  void display(float scaleFactor) {
+  void display(float opacityScaleFactor) {
     Vec2 pos = box2d.getBodyPixelCoord(body);    
     float a = body.getAngle();
 
     push();
-    scale(scaleFactor);
     translate(pos.x-width/2,pos.y-height/2);    // Using the Vec2 position and float angle to
     rotate(-a);                // translate and rotate the rectangle
-    fill(colour1);
+    fill(colour1, 255*opacityScaleFactor);
     if (noFill == true) noFill();
     stroke(colour2);
     strokeWeight(strokeWeight);
@@ -161,7 +160,7 @@ class PhysicsObject {
       case RECTANGLE:
  
                       rect(0,0,w,h);
-                      setGradient(-int(w/2),-int(h/2),w,h, colour1, colour2, 2);
+                      //setGradient(-int(w/2),-int(h/2),w,h, colour1, colour2, 2); //generate this as a Graphic variable instead and add a showGraphic boolean.
                       break;
       case CIRCLE:
                       ellipse(0,0,w,w);
@@ -199,10 +198,6 @@ class PhysicsObject {
     }
     
     pop();
-  }
-  
-  void display(int numOfLevels, float levelDialation) {
-    
   }
   
   void displayTrunkShroud() {

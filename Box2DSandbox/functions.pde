@@ -30,6 +30,7 @@ Shape randomShape() {
 void setGradient(int x, int y, float w, float h, color c1, color c2, int axis ) {
 
   noFill();
+  strokeWeight(1);
 
   if (axis == 1) {  // Top to bottom gradient
     for (int i = y; i <= y+h; i++) {
@@ -347,16 +348,17 @@ void displayObjects() {
   push();
   translate(width/2, height/2);
   
-  push();
-  for (int i = 2; i <= numOfDisplayLevels; i++) {
-    scale(scaleFactor);
-    for (Windmill w: windmills) {w.display();}
-    for (PhysicsObject b: boundaries) {b.display();}
-    for (PhysicsObject w: worldStaticObjects) {w.display();}
-    for (PhysicsObject p: physicsObjects) {p.display();}
-    for (Truck t: trucks) {t.display();}
+  for (int i = numOfDisplayLevels - 1; i >= 1; i--) {
+    push();
+    println(i, Math.pow(scaleFactor, i));
+    scale((float)Math.pow(scaleFactor, i));
+    for (Windmill w: windmills) {w.display(scaleFactor/i);}
+    for (PhysicsObject b: boundaries) {b.display(scaleFactor/i);}
+    for (PhysicsObject w: worldStaticObjects) {w.display(scaleFactor/i);}
+    for (PhysicsObject p: physicsObjects) {p.display(scaleFactor/i);}
+    for (Truck t: trucks) {t.display(scaleFactor/i);}
+    pop();
   }
-  pop();
   
   for (Windmill w: windmills) {w.display();}
   for (PhysicsObject b: boundaries) {b.display();}

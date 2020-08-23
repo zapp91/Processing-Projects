@@ -24,8 +24,11 @@ boolean deleteMode;
 boolean grabMode;
 String currentTool;
 
-int numOfDisplayLevels = 3;
-float scaleFactor = 0.5;
+//int numOfDisplayLevels = 10;
+//float scaleFactor = 0.997;
+
+int numOfDisplayLevels = 10;
+float scaleFactor = 0.80;
 
 int selectedToolInt;
 String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Tool", "Draw Square", "Draw Circle"};
@@ -67,10 +70,10 @@ void setup() {
   spring = new Spring();
   
   //floor, roof, left wall, right wall
-  boundaries.add(new PhysicsObject(width/2, height, width, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.4, 0.5, Shape.RECTANGLE));
-  boundaries.add(new PhysicsObject(width/2, 0, width, 10, 0, #4BFF00, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.4, 0.5, Shape.RECTANGLE));
-  boundaries.add(new PhysicsObject(0, height/2, 10, height, 0, #00FFF9, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.4, 0.5, Shape.RECTANGLE));
-  boundaries.add(new PhysicsObject(width, height/2, 10, height, 0, #7A08FF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.4, 0.5, Shape.RECTANGLE));
+  boundaries.add(new PhysicsObject(width/2, height, width+10, 10, 0, #FFFFFF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.4, 0.5, Shape.RECTANGLE));
+  boundaries.add(new PhysicsObject(width/2, 0, width+10, 10, 0, #4BFF00, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.4, 0.5, Shape.RECTANGLE));
+  boundaries.add(new PhysicsObject(0, height/2, 10, height+10, 0, #00FFF9, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.4, 0.5, Shape.RECTANGLE));
+  boundaries.add(new PhysicsObject(width, height/2, 10, height+10, 0, #7A08FF, #FFFFFF, false, 0, Box2DBodyType.STATIC, 1, 0.4, 0.5, Shape.RECTANGLE));
 
   truckBodyImage = loadImage("dodge4.png");
   tireImage = loadImage("tire2.png");
