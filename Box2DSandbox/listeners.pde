@@ -189,6 +189,8 @@ void keyPressed() {
 void mouseWheel(MouseEvent event) {
   grabMode = false;
   deleteMode = false;
+  mouseClickCords = null;
+  spring.destroy();
   
   if (event.getCount() > 0) {
     adjustSelectedTool(1);

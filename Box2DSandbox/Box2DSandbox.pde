@@ -100,7 +100,7 @@ void draw() {
   displayCancelInstructions();
   spring.display();
 
-  if (selectedToolInt == 0 || grabMode || deleteMode && mousePressed) {
+  if ((selectedToolInt == 0 || grabMode || deleteMode) && mousePressed) {
     if (mouseButton == LEFT) mousePressed();
   } else if(spring.mouseJoint != null) {
     spring.destroy();
