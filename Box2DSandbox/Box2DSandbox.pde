@@ -24,7 +24,7 @@ boolean deleteMode;
 boolean grabMode;
 String currentTool;
 
-int numOfDisplayLevels = 20;
+int numOfDisplayLevels = 10;
 float scaleFactor = 0.996;
 
 int selectedToolInt;
@@ -102,6 +102,8 @@ void draw() {
 
   if (selectedToolInt == 0 || grabMode || deleteMode && mousePressed) {
     if (mouseButton == LEFT) mousePressed();
+  } else if(spring.mouseJoint != null) {
+    spring.destroy();
   }
   
   if (keyPressed) {

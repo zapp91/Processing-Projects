@@ -170,12 +170,14 @@ void keyPressed() {
   if (keyCode == SHIFT) {
     deleteMode = false;
     mouseClickCords = null;
+    spring.destroy();
     grabMode = !grabMode;
     cursor(HAND);
   }
   if (keyCode == CONTROL) {
     grabMode = false;
     mouseClickCords = null;
+    spring.destroy();
     deleteMode = !deleteMode;
     cursor(CROSS);
   }
