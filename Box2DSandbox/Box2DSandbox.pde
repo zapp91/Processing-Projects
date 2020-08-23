@@ -24,11 +24,8 @@ boolean deleteMode;
 boolean grabMode;
 String currentTool;
 
-//int numOfDisplayLevels = 10;
-//float scaleFactor = 0.997;
-
-int numOfDisplayLevels = 10;
-float scaleFactor = 0.80;
+int numOfDisplayLevels = 20;
+float scaleFactor = 0.996;
 
 int selectedToolInt;
 String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Tool", "Draw Square", "Draw Circle"};
