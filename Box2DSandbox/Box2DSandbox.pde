@@ -107,7 +107,7 @@ void draw() {
   displayHints();
   push();
   translate(mouseX,mouseY);
-  displaySelectedObjectSilhouette(#9FFFFF, 1.0);
+  displaySelectedObjectSilhouette(#9FFFFF, 1.0, false);
   pop();
   displayCancelInstructions();
   spring.display();

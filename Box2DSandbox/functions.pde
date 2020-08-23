@@ -213,7 +213,7 @@ void displayToolBar() {
   rect(0,0, 70, 70);
   scale(0.5);
   fill(255);
-  displaySelectedObjectSilhouette(#9FFFFF, 0.5);
+  displaySelectedObjectSilhouette(#9FFFFF, 0.5, true);
   pop();
 }
 
@@ -247,7 +247,7 @@ void adjustSelectedTool(int t) {
   }
 }
 
-void displaySelectedObjectSilhouette(color silColor, float scalingFactor) {
+void displaySelectedObjectSilhouette(color silColor, float scalingFactor, boolean isDynamic) {
   
   push();
   //translate(mouseX,mouseY);
@@ -307,18 +307,18 @@ void displaySelectedObjectSilhouette(color silColor, float scalingFactor) {
              ellipse(0,0,10,10);
              strokeWeight(10);
              strokeCap(SQUARE);
-             if(mouseClickCords != null) {
+             if(mouseClickCords != null && !isDynamic) {
                line(mouseClickCords.x-mouseX, mouseClickCords.y-mouseY, 0, 0);
              }
              break;        
      case 7: rect(0,0,10,10);
-             if(!(mouseClickCords == null || abs(mouseClickCords.x-mouseX) == 0 || abs(mouseClickCords.y-mouseY) == 0)) {
+             if(!(mouseClickCords == null || abs(mouseClickCords.x-mouseX) == 0 || abs(mouseClickCords.y-mouseY) == 0 || isDynamic)) {
                rect((mouseClickCords.x-mouseX)/2, (mouseClickCords.y-mouseY)/2, abs(mouseClickCords.x-mouseX), abs(mouseClickCords.y-mouseY));
              }
              break;
              
      case 8: ellipse(0,0,10,10);
-             if(!(mouseClickCords == null || abs(mouseClickCords.x-mouseX) == 0 || abs(mouseClickCords.y-mouseY) == 0)) {
+             if(!(mouseClickCords == null || abs(mouseClickCords.x-mouseX) == 0 || abs(mouseClickCords.y-mouseY) == 0 || isDynamic)) {
                ellipse((mouseClickCords.x-mouseX)/2, (mouseClickCords.y-mouseY)/2, dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY), dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY));
              }
              break;
