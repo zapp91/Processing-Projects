@@ -24,6 +24,9 @@ boolean deleteMode;
 boolean grabMode;
 String currentTool;
 
+int numOfDisplayLevels = 3;
+float scaleFactor = 0.5;
+
 int selectedToolInt;
 String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Tool", "Draw Square", "Draw Circle"};
 Vec2 mouseClickCords;

@@ -344,16 +344,24 @@ void displayCancelInstructions() {
 }
 
 void displayObjects() {
-  float scaleFactor = 0.5;
-  for (Windmill w: windmills) {w.display(scaleFactor);}
-  for (PhysicsObject b: boundaries) {b.display(scaleFactor);}
-  for (PhysicsObject w: worldStaticObjects) {w.display(scaleFactor);}
-  for (PhysicsObject p: physicsObjects) {p.display(scaleFactor);}
-  for (Truck t: trucks) {t.display(scaleFactor);}
+  push();
+  translate(width/2, height/2);
+  
+  push();
+  for (int i = 2; i <= numOfDisplayLevels; i++) {
+    scale(scaleFactor);
+    for (Windmill w: windmills) {w.display();}
+    for (PhysicsObject b: boundaries) {b.display();}
+    for (PhysicsObject w: worldStaticObjects) {w.display();}
+    for (PhysicsObject p: physicsObjects) {p.display();}
+    for (Truck t: trucks) {t.display();}
+  }
+  pop();
   
   for (Windmill w: windmills) {w.display();}
   for (PhysicsObject b: boundaries) {b.display();}
   for (PhysicsObject w: worldStaticObjects) {w.display();}
   for (PhysicsObject p: physicsObjects) {p.display();}
   for (Truck t: trucks) {t.display();}
+  pop();
 }
