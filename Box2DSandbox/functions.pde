@@ -209,13 +209,20 @@ void displayToolBar() {
   textAlign(CENTER);
   text(currentTool + "\n" + "Reverse Object: " + flipOnX , 0, 50);
   
-  for (int i = 1; i >= 5; i++) {
-    
-  }
+  //for (int i = 1; i <= 10; i++) {
+  //  scale(scaleFactor);
+  //  push();
+  //  if (i%2==0) {translate(100-100/i, 0);} else {translate(-100+100/i, 0);};
+  //  pop();
+  //  fill(0);
+  //  stroke(#FF0000);
+  //  rect(0 ,0, 70, 70);
+  //  fill(255);
+  //  displaySelectedObjectSilhouette(#9FFFFF, 0.5, true);
+  //}
   fill(0);
   stroke(#FF0000);
   rect(0,0, 70, 70);
-  //scale(0.5);
   fill(255);
   displaySelectedObjectSilhouette(#9FFFFF, 0.5, true);
   pop();
@@ -267,13 +274,16 @@ void displaySelectedObjectSilhouette(color silColor, float scalingFactor, boolea
              triangle(20,-30,0,10,40,10);
              break;
              
-     case 1: rect(0,0,60,50);
+     case 1: if (isDynamic) scale(scalingFactor/0.75);
+             rect(0,0,60,50);
              break;
              
-     case 2: ellipse(0,0,60,60);
+     case 2: if (isDynamic) scale(scalingFactor/0.75);
+             ellipse(0,0,60,60);
              break;
              
-     case 3: triangle(0, 30, -30, -30, 30, -30);
+     case 3: if (isDynamic) scale(scalingFactor/0.75);
+             triangle(0, 30, -30, -30, 30, -30);
              break;
              
      case 4: if (isDynamic) scale(scalingFactor/2);
@@ -308,7 +318,7 @@ void displaySelectedObjectSilhouette(color silColor, float scalingFactor, boolea
              }
              break;
              
-     case 6: if (isDynamic) scale(1/scalingFactor);
+     case 6: if (isDynamic) scale(scalingFactor/0.25);
              fill(silColor);
              ellipse(0,0,10,10);
              strokeWeight(10);
@@ -317,14 +327,14 @@ void displaySelectedObjectSilhouette(color silColor, float scalingFactor, boolea
                line(mouseClickCords.x-mouseX, mouseClickCords.y-mouseY, 0, 0);
              }
              break;        
-     case 7: if (isDynamic) scale(1/scalingFactor);
+     case 7: if (isDynamic) scale(scalingFactor/0.25);
              rect(0,0,10,10);
              if(!(mouseClickCords == null || abs(mouseClickCords.x-mouseX) == 0 || abs(mouseClickCords.y-mouseY) == 0 || isDynamic)) {
                rect((mouseClickCords.x-mouseX)/2, (mouseClickCords.y-mouseY)/2, abs(mouseClickCords.x-mouseX), abs(mouseClickCords.y-mouseY));
              }
              break;
              
-     case 8: if (isDynamic) scale(1/scalingFactor);
+     case 8: if (isDynamic) scale(scalingFactor/0.25);
              ellipse(0,0,10,10);
              if(!(mouseClickCords == null || abs(mouseClickCords.x-mouseX) == 0 || abs(mouseClickCords.y-mouseY) == 0 || isDynamic)) {
                ellipse((mouseClickCords.x-mouseX)/2, (mouseClickCords.y-mouseY)/2, dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY), dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY));
