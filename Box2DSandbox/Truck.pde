@@ -51,12 +51,16 @@ class Truck {
     
     return (wheel1.body.getFixtureList().testPoint(worldPoint) || wheel2.body.getFixtureList().testPoint(worldPoint) || detectedTruckBodyConnection);
   }
-
+  
   void display() {
+    display(1);
+  }
+
+  void display(float scaleFactor) {
     if (showSkins) p3.displayTrunkShroud();
-    wheel1.display();
-    wheel2.display();
-    p3.display();
+    wheel1.display(scaleFactor);
+    wheel2.display(scaleFactor);
+    p3.display(scaleFactor);
   }
   
   void destroy() {

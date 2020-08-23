@@ -41,8 +41,16 @@ class Windmill {
   }
 
   void display() {
-    box2.display();
-    box1.display();
+    display(1, 1);
+  }
+  
+  void display(float darknessFactor) {
+    display(darknessFactor, 1);
+  }
+
+  void display(float darknessFactor, float opacityFactor) {
+    box2.display(darknessFactor, opacityFactor/20);
+    box1.display(darknessFactor);
   }
   
   void destroy() {

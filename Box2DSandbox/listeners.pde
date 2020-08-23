@@ -29,7 +29,7 @@ void mousePressed() {
       for (Truck t: trucks) {if (t.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, t);}};
       for (Windmill w: windmills) {if (w.box1.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, w.box1);}};
     } else {
-      println("Left Mouse clicked but don't know what to do. [mousePressed()]");
+      //do nothing
     }
   } else if (mouseButton == RIGHT) {
     
@@ -170,12 +170,14 @@ void keyPressed() {
   if (keyCode == SHIFT) {
     deleteMode = false;
     mouseClickCords = null;
+    spring.destroy();
     grabMode = !grabMode;
     cursor(HAND);
   }
   if (keyCode == CONTROL) {
     grabMode = false;
     mouseClickCords = null;
+    spring.destroy();
     deleteMode = !deleteMode;
     cursor(CROSS);
   }

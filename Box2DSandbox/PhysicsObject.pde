@@ -139,13 +139,22 @@ class PhysicsObject {
   }
 
   void display() {
+    display(1, 1);
+  }
+  
+  void display(float darknessScaleFactor) {
+    display(darknessScaleFactor, 1);
+  }
+  
+  void display(float darknessScaleFactor, float opacityScaleFactor) {
     Vec2 pos = box2d.getBodyPixelCoord(body);    
     float a = body.getAngle();
 
     push();
-    translate(pos.x,pos.y);    // Using the Vec2 position and float angle to
+    translate(pos.x-width/2,pos.y-height/2);    // Using the Vec2 position and float angle to
     rotate(-a);                // translate and rotate the rectangle
-    fill(colour1);
+    //fill(colour1, 255*opacityScaleFactor);
+    fill(lerpColor(0, lerpColor(#000000, colour1, darknessScaleFactor), opacityScaleFactor));
     if (noFill == true) noFill();
     stroke(colour2);
     strokeWeight(strokeWeight);
@@ -154,8 +163,9 @@ class PhysicsObject {
     
     switch (shape){
       case RECTANGLE:
+ 
                       rect(0,0,w,h);
-                      //setGradient(-int(w/2),-int(h/2),w,h, colour1, colour2, 2);
+                      //setGradient(-int(w/2),-int(h/2),w,h, colour1, colour2, 2); //generate this as a Graphic variable instead and add a showGraphic boolean.
                       break;
       case CIRCLE:
                       ellipse(0,0,w,w);
@@ -194,13 +204,13 @@ class PhysicsObject {
     
     pop();
   }
-
+  
   void displayTrunkShroud() {
     Vec2 pos = box2d.getBodyPixelCoord(body);    
     float a = body.getAngle();
 
     push();
-    translate(pos.x,pos.y);
+    translate(pos.x -width/2, pos.y -height/2);
     rotate(-a);
     fill(#000000);
     rect(-73*posNeg1,13,70,30);
