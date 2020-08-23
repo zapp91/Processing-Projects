@@ -344,6 +344,13 @@ void displayCancelInstructions() {
 }
 
 void displayObjects() {
+  float scaleFactor = 0.5;
+  for (Windmill w: windmills) {w.display(scaleFactor);}
+  for (PhysicsObject b: boundaries) {b.display(scaleFactor);}
+  for (PhysicsObject w: worldStaticObjects) {w.display(scaleFactor);}
+  for (PhysicsObject p: physicsObjects) {p.display(scaleFactor);}
+  for (Truck t: trucks) {t.display(scaleFactor);}
+  
   for (Windmill w: windmills) {w.display();}
   for (PhysicsObject b: boundaries) {b.display();}
   for (PhysicsObject w: worldStaticObjects) {w.display();}

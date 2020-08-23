@@ -139,11 +139,16 @@ class PhysicsObject {
   }
 
   void display() {
+    display(1);
+  }
+  void display(float scaleFactor) {
     Vec2 pos = box2d.getBodyPixelCoord(body);    
     float a = body.getAngle();
 
     push();
-    translate(pos.x,pos.y);    // Using the Vec2 position and float angle to
+    translate(width/2, height/2);
+    scale(scaleFactor);
+    translate(pos.x-width/2,pos.y-height/2);    // Using the Vec2 position and float angle to
     rotate(-a);                // translate and rotate the rectangle
     fill(colour1);
     if (noFill == true) noFill();
@@ -154,13 +159,13 @@ class PhysicsObject {
     
     switch (shape){
       case RECTANGLE:
-                      push();
-                      translate((-pos.x+width/2)*0.50,(-pos.y+height/2)*0.50);
-                      scale(.50);
-                      //scale(dist(pos.x, pos.y , width/2, height/2));
-                      //fill(50);
-                      rect(0,0,w,h);
-                      pop();
+                      //push();
+                      //translate((-pos.x+width/2)*0.50,(-pos.y+height/2)*0.50);
+                      //scale(.50);
+                      ////scale(dist(pos.x, pos.y , width/2, height/2));
+                      ////fill(50);
+                      //rect(0,0,w,h);
+                      //pop();
                       rect(0,0,w,h);
                       setGradient(-int(w/2),-int(h/2),w,h, colour1, colour2, 2);
                       break;

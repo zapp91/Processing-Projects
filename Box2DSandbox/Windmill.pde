@@ -41,8 +41,12 @@ class Windmill {
   }
 
   void display() {
-    box2.display();
-    box1.display();
+    display(1);
+  }
+
+  void display(float scaleFactor) {
+    box2.display(scaleFactor);
+    box1.display(scaleFactor);
   }
   
   void destroy() {
