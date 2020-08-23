@@ -16,6 +16,8 @@ Vec2 gravity;
 
 PImage truckBodyImage;
 PImage tireImage;
+PImage handImage;
+
 Random rand;
 boolean showSkins;
 boolean flipOnX;
@@ -75,6 +77,8 @@ void setup() {
 
   truckBodyImage = loadImage("dodge4.png");
   tireImage = loadImage("tire2.png");
+  handImage = loadImage("hand-cursor-inverted.png");
+  
   showSkins = true;
   selectedToolInt = 0;
   flipOnX = false;

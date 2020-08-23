@@ -303,7 +303,8 @@ void displaySelectedObjectSilhouette(color silColor, float scalingFactor, boolea
              }
              break;
              
-     case 6: fill(silColor);
+     case 6: if (isDynamic) scale(1/scalingFactor);
+             fill(silColor);
              ellipse(0,0,10,10);
              strokeWeight(10);
              strokeCap(SQUARE);
@@ -311,13 +312,15 @@ void displaySelectedObjectSilhouette(color silColor, float scalingFactor, boolea
                line(mouseClickCords.x-mouseX, mouseClickCords.y-mouseY, 0, 0);
              }
              break;        
-     case 7: rect(0,0,10,10);
+     case 7: if (isDynamic) scale(1/scalingFactor);
+             rect(0,0,10,10);
              if(!(mouseClickCords == null || abs(mouseClickCords.x-mouseX) == 0 || abs(mouseClickCords.y-mouseY) == 0 || isDynamic)) {
                rect((mouseClickCords.x-mouseX)/2, (mouseClickCords.y-mouseY)/2, abs(mouseClickCords.x-mouseX), abs(mouseClickCords.y-mouseY));
              }
              break;
              
-     case 8: ellipse(0,0,10,10);
+     case 8: if (isDynamic) scale(1/scalingFactor);
+             ellipse(0,0,10,10);
              if(!(mouseClickCords == null || abs(mouseClickCords.x-mouseX) == 0 || abs(mouseClickCords.y-mouseY) == 0 || isDynamic)) {
                ellipse((mouseClickCords.x-mouseX)/2, (mouseClickCords.y-mouseY)/2, dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY), dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY));
              }
@@ -325,8 +328,17 @@ void displaySelectedObjectSilhouette(color silColor, float scalingFactor, boolea
      default: println("undefined selectedToolInt (silhouette function)");
     }
   } else if (deleteMode) {
+    if (isDynamic) scale(1/scalingFactor);
     stroke(#FF0000);
     ellipse(0,0,30,30);
+    if (isDynamic) { 
+      stroke(#FFFFFF);
+      line(-10,0,10,0);
+      line(0,-10,0, 10);
+    }
+  } else if (grabMode && isDynamic) {
+    scale(scalingFactor);
+    image(handImage, 0, 0);
   }
   pop();
 }
