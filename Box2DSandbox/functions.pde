@@ -208,10 +208,14 @@ void displayToolBar() {
   translate(width/2, 45);
   textAlign(CENTER);
   text(currentTool + "\n" + "Reverse Object: " + flipOnX , 0, 50);
+  
+  for (int i = 1; i >= 5; i++) {
+    
+  }
   fill(0);
   stroke(#FF0000);
   rect(0,0, 70, 70);
-  scale(0.5);
+  //scale(0.5);
   fill(255);
   displaySelectedObjectSilhouette(#9FFFFF, 0.5, true);
   pop();
@@ -257,7 +261,8 @@ void displaySelectedObjectSilhouette(color silColor, float scalingFactor, boolea
   
   if(!deleteMode && !grabMode) {
     switch(selectedToolInt){
-     case 0: rect(-25,0,40,60);
+     case 0: if (isDynamic) scale(scalingFactor);
+             rect(-25,0,40,60);
              ellipse(20,30,30,30);
              triangle(20,-30,0,10,40,10);
              break;
@@ -271,7 +276,7 @@ void displaySelectedObjectSilhouette(color silColor, float scalingFactor, boolea
      case 3: triangle(0, 30, -30, -30, 30, -30);
              break;
              
-     case 4: scale(scalingFactor);
+     case 4: if (isDynamic) scale(scalingFactor/2);
              beginShape();
              vertex(110*flipOnXInt,33);
              vertex(120*flipOnXInt,30);
@@ -289,7 +294,7 @@ void displaySelectedObjectSilhouette(color silColor, float scalingFactor, boolea
              ellipse(82*flipOnXInt,35,40,40);
              break;
              
-     case 5: scale(scalingFactor);
+     case 5: if (isDynamic) scale(scalingFactor/2);
              ellipse(0,0,200,200);
              arc(0, 0, 100, 100, radians(270), radians(360));
              arc(0, 0, 100, 100, PI / 2, 2 * PI / 2);
@@ -328,7 +333,7 @@ void displaySelectedObjectSilhouette(color silColor, float scalingFactor, boolea
      default: println("undefined selectedToolInt (silhouette function)");
     }
   } else if (deleteMode) {
-    if (isDynamic) scale(1/scalingFactor);
+    if (isDynamic) scale(scalingFactor * 2);
     stroke(#FF0000);
     ellipse(0,0,30,30);
     if (isDynamic) { 
@@ -337,7 +342,7 @@ void displaySelectedObjectSilhouette(color silColor, float scalingFactor, boolea
       line(0,-10,0, 10);
     }
   } else if (grabMode && isDynamic) {
-    scale(scalingFactor);
+    scale(scalingFactor/2);
     image(handImage, 0, 0);
   }
   pop();
