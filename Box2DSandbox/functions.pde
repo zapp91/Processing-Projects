@@ -178,7 +178,7 @@ Vec2 gravityVector(float gravityAngle,float gravityStrength) {
 void displayGravityDial() {
   Vec2 g = box2d.world.getGravity();
   push();
-  translate(width/2,100);
+  translate(width/2,170);
   ellipse(0,0,8,8);
   noFill();
   stroke(#FFFFFF);
@@ -200,6 +200,20 @@ void displayGravityDial() {
     vertex(-9,-6);
     endShape(CLOSE);
   }
+  pop();
+}
+
+void displayToolBar() {
+  push();
+  translate(width/2, 45);
+  textAlign(CENTER);
+  text(currentTool + "\n" + "Reverse Object: " + flipOnX , 0, 50);
+  fill(0);
+  stroke(#FF0000);
+  rect(0,0, 70, 70);
+  scale(0.5);
+  fill(255);
+  displaySelectedObjectSilhouette(#9FFFFF, 0.5);
   pop();
 }
 
@@ -233,29 +247,10 @@ void adjustSelectedTool(int t) {
   }
 }
 
-void displaySelectedTool() {
-  push();
-  fill(255);
-  textAlign(CENTER);
-  
-  if (grabMode) {
-    currentTool = "Grab Tool";
-  } else if (deleteMode) {
-    currentTool = "Delete Tool";
-  } else {
-    currentTool = selectedToolStrings[selectedToolInt];
-  }
-  
-  text(   "Selected Tool: " + currentTool + "\n" +
-          "Reverse Object: " + flipOnX
-          ,width/2, 20);
-  pop();
-}
-
-void displaySelectedObjectSilhouette(color silColor) {
+void displaySelectedObjectSilhouette(color silColor, float scalingFactor) {
   
   push();
-  translate(mouseX,mouseY);
+  //translate(mouseX,mouseY);
   noFill();
   stroke(silColor);
   strokeWeight(2);
@@ -276,7 +271,8 @@ void displaySelectedObjectSilhouette(color silColor) {
      case 3: triangle(0, 30, -30, -30, 30, -30);
              break;
              
-     case 4: beginShape();
+     case 4: scale(scalingFactor);
+             beginShape();
              vertex(110*flipOnXInt,33);
              vertex(120*flipOnXInt,30);
              vertex(116*flipOnXInt,-7);
@@ -293,7 +289,8 @@ void displaySelectedObjectSilhouette(color silColor) {
              ellipse(82*flipOnXInt,35,40,40);
              break;
              
-     case 5: ellipse(0,0,200,200);
+     case 5: scale(scalingFactor);
+             ellipse(0,0,200,200);
              arc(0, 0, 100, 100, radians(270), radians(360));
              arc(0, 0, 100, 100, PI / 2, 2 * PI / 2);
              fill(silColor);
@@ -332,6 +329,16 @@ void displaySelectedObjectSilhouette(color silColor) {
     ellipse(0,0,30,30);
   }
   pop();
+}
+
+void updateCurrentToolVar() {
+  if (grabMode) {
+    currentTool = "Grab Tool";
+  } else if (deleteMode) {
+    currentTool = "Delete Tool";
+  } else {
+    currentTool = selectedToolStrings[selectedToolInt];
+  }
 }
 
 void displayCancelInstructions() {

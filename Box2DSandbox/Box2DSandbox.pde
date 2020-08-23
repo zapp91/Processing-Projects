@@ -98,14 +98,21 @@ void draw() {
   
   flipOnXInt = (flipOnX) ? -1 : 1;
 
+  updateCurrentToolVar();
+  
   displayObjects();
-  displaySelectedTool();
   displayGravityDial();
+  displayToolBar();
   displayData();
   displayHints();
-  displaySelectedObjectSilhouette(#9FFFFF);
+  push();
+  translate(mouseX,mouseY);
+  displaySelectedObjectSilhouette(#9FFFFF, 1.0);
+  pop();
   displayCancelInstructions();
   spring.display();
+ 
+  
 
   if ((selectedToolInt == 0 || grabMode || deleteMode) && mousePressed) {
     if (mouseButton == LEFT) mousePressed();
