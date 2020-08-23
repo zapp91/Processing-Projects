@@ -351,7 +351,6 @@ void displayObjects() {
   
   for (int i = numOfDisplayLevels - 1; i >= 1; i--) {
     push();
-    println(i, Math.pow(scaleFactor, i));
     scaleValue = (float)Math.pow(scaleFactor, i);
     scale(scaleValue);           //changes objects size and location
     scaleValue = scaleValue/1.5; //changes objects darkness and opacity.
