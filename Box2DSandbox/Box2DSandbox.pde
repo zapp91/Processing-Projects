@@ -26,6 +26,7 @@ String currentTool;
 
 int numOfDisplayLevels = 10;
 float scaleFactor = 0.996;
+int runTime = 0;
 
 int selectedToolInt;
 String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Tool", "Draw Square", "Draw Circle"};
@@ -86,6 +87,12 @@ void draw() {
   background(0);
   //box2d.step(1.0f/60,20,20);
   box2d.step();
+  
+  //runTime++;
+  //scaleFactor = scaleFactor - 0.0001;
+  //if (runTime % 7 == 0) {
+  //  numOfDisplayLevels--;
+  //}
   
   spring.update(mouseX,mouseY);
   
