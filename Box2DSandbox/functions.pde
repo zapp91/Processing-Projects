@@ -56,19 +56,23 @@ void displayData() {
     textAlign(RIGHT);
     
     text(   "Frame Rate: \n" +
-            "Gravity Direction: \n" +
-            "Gravity Strength: \n" +
             "Physics Objects: \n" +
             "Trucks:\n" +
+            "\n" +
+            "Gravity Direction: \n" +
+            "Gravity Strength: \n" +
+            "\n" +
             "Display Levels: \n" +
             "Scale Factor: "
             , width - 60, 20);
             
     text(   Math.round(frameRate) + "\n" +
-            nf(gravityDirection, 0, 1) + "\n" +
-            nf(gravityStrength, 0, 1) + "\n" +
             physicsObjects.size() + "\n" +
             trucks.size() + "\n" +
+            "\n" +
+            nf(gravityDirection, 0, 1) + "\n" +
+            nf(gravityStrength, 0, 1) + "\n" +
+            "\n" +
             numOfDisplayLevels + "\n" +
             String.format("%.3f", scaleFactor)
             , width - 10, 20);
@@ -94,7 +98,9 @@ void displayHints() {
             "Press [4] for Zero Gravity \n" +
             "Press [5] for Random Gravity and Direction \n" +
             "Press UP ARROW or DOWN ARROW to change Gravity Strength \n" +
-            "Press LEFT ARROW or RIGHT RIGHT to change Gravity Direction \n"
+            "Press LEFT ARROW or RIGHT RIGHT to change Gravity Direction \n" +
+            "Press [+] and [-] to change number of display levels \n" +
+            "Press [/] and [*] to change scaling of display levels \n"
             , 10, 20);
   pop();
 }
