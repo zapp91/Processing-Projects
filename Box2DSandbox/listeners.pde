@@ -109,6 +109,8 @@ void keyPressed() {
     destroyEntities();
     destroyStaticObjects();
     destroyWindmills();
+    numOfDisplayLevels = 12;
+    scaleFactor = 0.998;
   }
   if (key == 'e' || key == 'E' ) {
     flipOnX = !flipOnX;
