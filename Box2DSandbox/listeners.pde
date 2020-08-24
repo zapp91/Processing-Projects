@@ -181,6 +181,18 @@ void keyPressed() {
     deleteMode = !deleteMode;
     cursor(CROSS);
   }
+  if (key == '/') {
+    adjustScaleFactor(-0.001);
+  }
+  if (key == '*') {
+    adjustScaleFactor(0.001);
+  }
+  if (key == '-') {
+    adjustDisplayLevel(-1);
+  }
+  if (key == '+') {
+    adjustDisplayLevel(1);
+  }
   if (!grabMode && !deleteMode) {
     cursor(ARROW);
   }

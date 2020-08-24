@@ -59,14 +59,18 @@ void displayData() {
             "Gravity Direction: \n" +
             "Gravity Strength: \n" +
             "Physics Objects: \n" +
-            "Trucks: "
+            "Trucks:\n" +
+            "Display Levels: \n" +
+            "Scale Factor: "
             , width - 60, 20);
             
     text(   Math.round(frameRate) + "\n" +
             nf(gravityDirection, 0, 1) + "\n" +
             nf(gravityStrength, 0, 1) + "\n" +
             physicsObjects.size() + "\n" +
-            trucks.size()
+            trucks.size() + "\n" +
+            numOfDisplayLevels + "\n" +
+            String.format("%.3f", scaleFactor)
             , width - 10, 20);
   pop();
 }
@@ -90,8 +94,7 @@ void displayHints() {
             "Press [4] for Zero Gravity \n" +
             "Press [5] for Random Gravity and Direction \n" +
             "Press UP ARROW or DOWN ARROW to change Gravity Strength \n" +
-            "Press LEFT ARROW or RIGHT RIGHT to change Gravity Direction \n" +
-            "Press TAB to cancel the Draw Tool \n"
+            "Press LEFT ARROW or RIGHT RIGHT to change Gravity Direction \n"
             , 10, 20);
   pop();
 }
@@ -208,18 +211,6 @@ void displayToolBar() {
   translate(width/2, 45);
   textAlign(CENTER);
   text(currentTool + "\n" + "Reverse Object: " + flipOnX , 0, 50);
-  
-  //for (int i = 1; i <= 10; i++) {
-  //  scale(scaleFactor);
-  //  push();
-  //  if (i%2==0) {translate(100-100/i, 0);} else {translate(-100+100/i, 0);};
-  //  pop();
-  //  fill(0);
-  //  stroke(#FF0000);
-  //  rect(0 ,0, 70, 70);
-  //  fill(255);
-  //  displaySelectedObjectSilhouette(#9FFFFF, 0.5, true);
-  //}
   fill(0);
   stroke(#FF0000);
   rect(0,0, 70, 70);
@@ -255,6 +246,22 @@ void adjustSelectedTool(int t) {
     selectedToolInt = selectedToolStrings.length-1;
   } else {
     selectedToolInt = selectedToolInt + t;
+  }
+}
+
+void adjustDisplayLevel(int l) {
+  if (l >= 1) {
+    numOfDisplayLevels++;
+  } else if (!(numOfDisplayLevels <= 1) && l <= -1) {
+    numOfDisplayLevels--;
+  }
+}
+
+void adjustScaleFactor(float s) {
+  if (!(scaleFactor >= 0.999) && s >= 0.001) {
+    scaleFactor = scaleFactor + 0.001;
+  } else if (!(scaleFactor <= 0.001) && s <= -0.001) {
+    scaleFactor = scaleFactor - 0.001;
   }
 }
 

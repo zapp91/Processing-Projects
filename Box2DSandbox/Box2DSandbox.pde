@@ -31,7 +31,7 @@ float scaleFactor = 0.996;
 int runTime = 0;
 
 int selectedToolInt;
-String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Tool", "Draw Square", "Draw Circle"};
+String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Line", "Draw Square", "Draw Circle"};
 Vec2 mouseClickCords;
 
 ArrayList<PhysicsObject> boundaries;
@@ -125,6 +125,6 @@ void draw() {
   }
   
   if (keyPressed) {
-    if (keyCode == UP || keyCode == DOWN || keyCode == LEFT || keyCode == RIGHT ) keyPressed();
+    if (keyCode == UP || keyCode == DOWN || keyCode == LEFT || keyCode == RIGHT || key == '/' /* / */ || key == '*' /* * */ || key == '-' /* - */ || key == '+' /* + */) keyPressed();
   }
 }
