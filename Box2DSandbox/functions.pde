@@ -209,12 +209,38 @@ void displayGravityDial() {
 void displayToolBar() {
   push();
   translate(width/2, 45);
-  textAlign(CENTER);
-  text(currentTool + "\n" + "Reverse Object: " + flipOnX , 0, 50);
+  
+  for (int i = 1; i <= selectedToolStrings.length/2; i++) {
+    adjustSelectedTool(1);
+    offsetToolIntAndDisplaySilhouette(i);
+  }
+  for (int i = 1; i <= selectedToolStrings.length/2; i++) {
+    adjustSelectedTool(-1);
+  }
+  for (int i = 1; i <= selectedToolStrings.length/2; i++) {
+    adjustSelectedTool(-1);
+    offsetToolIntAndDisplaySilhouette(-i);
+  }
+  for (int i = 1; i <= selectedToolStrings.length/2; i++) {
+    adjustSelectedTool(1);
+  }
+  
   fill(0);
   stroke(#FF0000);
   rect(0,0, 70, 70);
   fill(255);
+  displaySelectedObjectSilhouette(#9FFFFF, 0.5, true);
+  
+  textAlign(CENTER);
+  text(currentTool + "\n" + "Reverse Object: " + flipOnX , 0, 50);
+  
+  pop();
+}
+
+void offsetToolIntAndDisplaySilhouette(int posNegMultiplier) {
+  push();
+  translate(posNegMultiplier * 70,0);
+  scale(0.80);
   displaySelectedObjectSilhouette(#9FFFFF, 0.5, true);
   pop();
 }
