@@ -210,19 +210,21 @@ void displayToolBar() {
   push();
   translate(width/2, 45);
   
-  for (int i = 1; i <= selectedToolStrings.length/2; i++) {
-    adjustSelectedTool(1);
-    offsetToolIntAndDisplaySilhouette(i);
-  }
-  for (int i = 1; i <= selectedToolStrings.length/2; i++) {
-    adjustSelectedTool(-1);
-  }
-  for (int i = 1; i <= selectedToolStrings.length/2; i++) {
-    adjustSelectedTool(-1);
-    offsetToolIntAndDisplaySilhouette(-i);
-  }
-  for (int i = 1; i <= selectedToolStrings.length/2; i++) {
-    adjustSelectedTool(1);
+  if(!grabMode && !deleteMode) {
+    for (int i = 1; i <= selectedToolStrings.length/2; i++) {
+      adjustSelectedTool(1);
+      offsetToolIntAndDisplaySilhouette(i);
+    }
+    for (int i = 1; i <= selectedToolStrings.length/2; i++) {
+      adjustSelectedTool(-1);
+    }
+    for (int i = 1; i <= selectedToolStrings.length/2; i++) {
+      adjustSelectedTool(-1);
+      offsetToolIntAndDisplaySilhouette(-i);
+    }
+    for (int i = 1; i <= selectedToolStrings.length/2; i++) {
+      adjustSelectedTool(1);
+    }
   }
   
   fill(0);
