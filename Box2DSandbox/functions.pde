@@ -242,7 +242,7 @@ void displayToolBar() {
 void offsetToolIntAndDisplaySilhouette(int posNegMultiplier) {
   push();
   translate(posNegMultiplier * 70,0);
-  scale(0.80);
+  //scale(0.80);
   displaySelectedObjectSilhouette(#9FFFFF, 0.5, true);
   pop();
 }

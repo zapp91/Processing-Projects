@@ -26,8 +26,8 @@ boolean deleteMode;
 boolean grabMode;
 String currentTool;
 
-int numOfDisplayLevels = 10;
-float scaleFactor = 0.996;
+int numOfDisplayLevels = 12;
+float scaleFactor = 0.999;
 int runTime = 0;
 
 int selectedToolInt;

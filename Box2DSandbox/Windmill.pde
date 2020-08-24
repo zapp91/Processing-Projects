@@ -49,7 +49,7 @@ class Windmill {
   }
 
   void display(float darknessFactor, float opacityFactor) {
-    box2.display(darknessFactor, opacityFactor/10);
+    box2.display(darknessFactor, opacityFactor/20);
     box1.display(darknessFactor);
   }
   
