@@ -1,17 +1,3 @@
-public enum Box2DBodyType {
-    STATIC,
-    DYNAMIC,
-    KINEMATIC
-}
-
-public enum Shape {
-    RECTANGLE,
-    CIRCLE,
-    TRIANGLE,
-    CARBODY,
-    FLOWER
-}
-
 int randomPosNeg1() {
   return -1 + (int)random(2) * 2;
 }

@@ -2,13 +2,13 @@ void mousePressed() {
   if (mouseButton == LEFT) {
     if(!deleteMode && !grabMode) {
       switch(selectedToolInt) {
-         case 0: physicsObjects.add(new PhysicsObject(mouseX, mouseY, random(5,75), random(5,75), 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, randomShape()));
+         case 0: physicsObjects.add(new PhysicsObject(mouseX, mouseY, random(5,75), random(5,75), 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, randomShape(), 1));
                  break;
-         case 1: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 50, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.RECTANGLE));
+         case 1: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 50, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.RECTANGLE, 1));
                  break;
-         case 2: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 60, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.CIRCLE));
+         case 2: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 60, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.CIRCLE, 1));
                  break;
-         case 3: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 60, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.TRIANGLE));
+         case 3: physicsObjects.add(new PhysicsObject(mouseX, mouseY, 60, 60, 0, randomColor(), randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.TRIANGLE, 1));
                  break;
          case 4: trucks.add(new Truck(mouseX, mouseY, flipOnX));
                  break;
@@ -55,7 +55,8 @@ void mouseReleased() {
                                     1, 
                                     0.6, 
                                     0.5, 
-                                    Shape.RECTANGLE));
+                                    Shape.RECTANGLE,
+                                    -1));
                break;
        case 7: if (!(abs(mouseClickCords.x - mouseX) == 0 || abs(mouseClickCords.y - mouseY) == 0)) {
                  physicsObjects.add(new PhysicsObject(
@@ -72,7 +73,8 @@ void mouseReleased() {
                                           1, 
                                           0.6, 
                                           0.5, 
-                                          Shape.RECTANGLE));
+                                          Shape.RECTANGLE,
+                                          1));
                }
                break;
        case 8: if (!(abs(mouseClickCords.x - mouseX) == 0 || abs(mouseClickCords.y - mouseY) == 0)) {
@@ -90,7 +92,8 @@ void mouseReleased() {
                                           1, 
                                           0.6, 
                                           0.5, 
-                                          Shape.CIRCLE));
+                                          Shape.CIRCLE,
+                                          1));
                }
                break;
        default: println("undefined selectedToolInt (mouseReleased function)");

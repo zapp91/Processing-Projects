@@ -12,16 +12,17 @@ class PhysicsObject {
   PImage img;
   boolean flipImageOnX;
   int posNeg1;
+  int collisionGroup;
   
-  PhysicsObject(float x, float y, float w, float h, float angle, color colour1, color colour2, boolean noFill, int strokeWeight, Box2DBodyType bt, float density, float friction, float restitution, Shape shape) {
-    this(x,y,w,h,angle,colour1,colour2,noFill,strokeWeight,bt,density,friction,restitution,shape,null,false);
+  PhysicsObject(float x, float y, float w, float h, float angle, color colour1, color colour2, boolean noFill, int strokeWeight, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, int collisionGroup) {
+    this(x,y,w,h,angle,colour1,colour2,noFill,strokeWeight,bt,density,friction,restitution,shape,collisionGroup,null,false);
   }
   
-  PhysicsObject(float x, float y, float w, float h, float angle, color colour1, color colour2, boolean noFill, int strokeWeight, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, PImage img) {
-    this(x,y,w,h,angle,colour1,colour2,noFill,strokeWeight,bt,density,friction,restitution,shape,img,false);
+  PhysicsObject(float x, float y, float w, float h, float angle, color colour1, color colour2, boolean noFill, int strokeWeight, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, int collisionGroup, PImage img) {
+    this(x,y,w,h,angle,colour1,colour2,noFill,strokeWeight,bt,density,friction,restitution,shape,collisionGroup,img,false);
   }
 
-  PhysicsObject(float x, float y, float w, float h, float angle, color colour1, color colour2, boolean noFill, int strokeWeight, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, PImage img, boolean flipImageOnX) {
+  PhysicsObject(float x, float y, float w, float h, float angle, color colour1, color colour2, boolean noFill, int strokeWeight, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, int collisionGroup, PImage img, boolean flipImageOnX) {
     this.x = x;
     this.y = y;
     this.w = w;
@@ -62,7 +63,8 @@ class PhysicsObject {
                       fd.shape = ps;
                       fd.density = density;
                       fd.friction = friction;
-                      fd.restitution = restitution;     
+                      fd.restitution = restitution;   
+                      fd.filter.groupIndex = collisionGroup;
                       body.createFixture(fd);
                       break;
       case CIRCLE:
@@ -72,6 +74,7 @@ class PhysicsObject {
                       fd.density = density;
                       fd.friction = friction;
                       fd.restitution = restitution;     
+                      fd.filter.groupIndex = collisionGroup;
                       body.createFixture(fd);
                       break;
       case TRIANGLE:
@@ -84,7 +87,8 @@ class PhysicsObject {
                       fd.shape = t;
                       fd.density = density;
                       fd.friction = friction;
-                      fd.restitution = restitution;     
+                      fd.restitution = restitution; 
+                      fd.filter.groupIndex = collisionGroup;
                       body.createFixture(fd);
                       break;
       case CARBODY:
@@ -125,7 +129,8 @@ class PhysicsObject {
                         fd.shape = pShape;
                         fd.density = density;
                         fd.friction = friction;
-                        fd.restitution = restitution;          
+                        fd.restitution = restitution;
+                        fd.filter.groupIndex = collisionGroup;
                         body.createFixture(fd);
                       } 
                       break;

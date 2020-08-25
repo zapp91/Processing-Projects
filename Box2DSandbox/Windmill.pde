@@ -19,8 +19,8 @@ class Windmill {
   Windmill(float x, float y, boolean reverseSpin) {
     
     // Initialize positions of two boxes
-    box1 = new PhysicsObject(x, y, 200, 10, 0, #FC7DC8, #FC7DC8, false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.RECTANGLE); 
-    box2 = new PhysicsObject(x, y, 200, 10, 0, #0F0F0F, #FC7DC8, false, 0, Box2DBodyType.STATIC, 1, 0.4, 0.5, Shape.CIRCLE); 
+    box1 = new PhysicsObject(x, y, 200, 10, 0, #FC7DC8, #FC7DC8, false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.RECTANGLE, -1); 
+    box2 = new PhysicsObject(x, y, 200, 10, 0, #0F0F0F, #FC7DC8, false, 0, Box2DBodyType.STATIC, 1, 0.4, 0.5, Shape.CIRCLE, -1); 
 
     box2.body.getFixtureList().setSensor(true);
     // Define joint as between two bodies
