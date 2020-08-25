@@ -415,7 +415,7 @@ void displayObjects() {
     scaleValue = (float)Math.pow(scaleFactor, i);
     scale(scaleValue);           //changes objects size and location
     scaleValue = scaleValue/1.2; //changes objects darkness and opacity.
-    for (Windmill w: windmills) {w.display(scaleValue, scaleValue);}
+    for (Windmill w: windmills) {w.display(scaleValue);}
     for (PhysicsObject b: boundaries) {b.display(scaleValue);}
     for (PhysicsObject w: worldStaticObjects) {w.display(scaleValue);}
     for (PhysicsObject p: physicsObjects) {p.display(scaleValue);}
