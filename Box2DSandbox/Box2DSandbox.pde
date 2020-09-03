@@ -30,7 +30,7 @@ int numOfDisplayLevels = 12;
 float scaleFactor = 0.998;
 
 int selectedToolInt;
-String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Line", "Draw Square", "Draw Circle"};
+String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Line", "Draw Square", "Draw Circle", "Spawn Bomb"};
 Vec2 mouseClickCords;
 
 ArrayList<PhysicsObject> boundaries;
@@ -38,6 +38,7 @@ ArrayList<PhysicsObject> worldStaticObjects;
 ArrayList<PhysicsObject> physicsObjects;
 ArrayList<Windmill> windmills;
 ArrayList<Truck> trucks;
+ArrayList<Bomb> bombs;
 
 Spring spring;
 
@@ -65,6 +66,7 @@ void setup() {
   physicsObjects = new ArrayList<PhysicsObject>();
   windmills = new ArrayList<Windmill>();
   trucks = new ArrayList<Truck>();
+  bombs = new ArrayList<Bomb>();
   
   spring = new Spring();
   

@@ -157,7 +157,7 @@ class PhysicsObject {
 
     push();
     translate(pos.x-width/2,pos.y-height/2);    // Using the Vec2 position and float angle to
-    rotate(-a);                // translate and rotate the rectangle
+    rotate(-a);                                 // translate and rotate the rectangle
     //fill(colour1, 255*opacityScaleFactor);
     fill(lerpColor(0, lerpColor(#000000, colour1, darknessScaleFactor), opacityScaleFactor));
     if (noFill == true) noFill();

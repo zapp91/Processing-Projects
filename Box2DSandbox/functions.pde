@@ -155,6 +155,15 @@ void destroyWindmills() {
   windmills.clear();
 }
 
+void destroyBombs() {
+  for (Bomb b: bombs) {b.destroy();}
+  bombs.clear();
+}
+
+void detonateBombs() {
+  for (Bomb b: bombs) {b.explode();}
+}
+
 void wakeUpBodies(ArrayList<PhysicsObject> po) {
   for (PhysicsObject p: po) {p.body.setAwake(true);}
 }
@@ -367,6 +376,10 @@ void displaySelectedObjectSilhouette(color silColor, float scalingFactor, boolea
                ellipse((mouseClickCords.x-mouseX)/2, (mouseClickCords.y-mouseY)/2, dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY), dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY));
              }
              break;
+     case 9: if (isDynamic) scale(scalingFactor/0.50);
+             fill(#FF0000);
+             rect(0,0,20,20);
+             break;
      default: println("undefined selectedToolInt (silhouette function)");
     }
   } else if (deleteMode) {
@@ -420,6 +433,7 @@ void displayObjects() {
     for (PhysicsObject w: worldStaticObjects) {w.display(scaleValue);}
     for (PhysicsObject p: physicsObjects) {p.display(scaleValue);}
     for (Truck t: trucks) {t.display(scaleValue);}
+    for (Bomb b: bombs) {b.display(scaleValue);}
     pop();
   }
   
@@ -428,5 +442,6 @@ void displayObjects() {
   for (PhysicsObject w: worldStaticObjects) {w.display();}
   for (PhysicsObject p: physicsObjects) {p.display();}
   for (Truck t: trucks) {t.display();}
+  for (Bomb b: bombs) {b.display();}
   pop();
 }
