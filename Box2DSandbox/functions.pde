@@ -161,7 +161,36 @@ void destroyBombs() {
 }
 
 void detonateBombs() {
-  for (Bomb b: bombs) {b.explode();}
+  for (Bomb b: bombs) {
+    Vec2 bombPosition = box2d.getBodyPixelCoord(b.bombBody.body);
+    for (int i = 0; i < b.numOfParticles; i++) {
+      float angle = radians((i / (float)b.numOfParticles) * 360);
+      Vec2 rayDir = new Vec2(sin(angle),cos(angle));
+      //println(angle, rayDir);
+      bombParticles.add(new PhysicsObject(bombPosition.x, bombPosition.y, 10, 10, 0, #ff0000, randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.CIRCLE, -2));
+      //bombParticles.get(bombParticles.size() - 1).body.setMassData(); //need to make particles act as if heavier.
+      bombParticles.get(bombParticles.size() - 1).body.setBullet(true);
+      bombParticles.get(bombParticles.size() - 1).body.applyForce(rayDir.mulLocal(b.blastPower), bombPosition);
+      //println(bombParticles.get(bombParticles.size() - 1).timeCreated);
+      println(bombParticles.get(bombParticles.size() - 1).body.getMass());
+    }
+  }
+  destroyBombs();
+}
+
+void destroyBombParticlesAfterMilliseconds(int mill) {
+  boolean particleDecayed = false;
+  int particleIndex = 0;
+  
+  for (int i = 0; bombParticles.size() > i; i++) {
+    if(bombParticles.get(i).timeCreated < millis() - mill) {
+      particleDecayed = true;
+      particleIndex = i;
+    }
+  };
+  if(particleDecayed) {box2d.destroyBody(bombParticles.get(particleIndex).body); bombParticles.remove(particleIndex);};
+  particleDecayed = false;
+  particleIndex = 0;
 }
 
 void wakeUpBodies(ArrayList<PhysicsObject> po) {
@@ -434,6 +463,7 @@ void displayObjects() {
     for (PhysicsObject p: physicsObjects) {p.display(scaleValue);}
     for (Truck t: trucks) {t.display(scaleValue);}
     for (Bomb b: bombs) {b.display(scaleValue);}
+    for (PhysicsObject bP: bombParticles) {bP.display(scaleValue);}
     pop();
   }
   

@@ -40,6 +40,8 @@ ArrayList<Windmill> windmills;
 ArrayList<Truck> trucks;
 ArrayList<Bomb> bombs;
 
+ArrayList<PhysicsObject> bombParticles = new ArrayList<PhysicsObject>();
+
 Spring spring;
 
 void setup() {
@@ -92,8 +94,8 @@ void draw() {
   background(0);
   //box2d.step(1.0f/60,20,20);
   box2d.step();
-  
   spring.update(mouseX,mouseY);
+  destroyBombParticlesAfterMilliseconds(2000);
   
   flipOnXInt = (flipOnX) ? -1 : 1;
 

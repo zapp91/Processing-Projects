@@ -204,7 +204,6 @@ void keyPressed() {
     cursor(ARROW);
   }
   if (key == 'k') {
-    println("are you working?");
     detonateBombs();
   }
 }
