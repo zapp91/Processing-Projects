@@ -20,7 +20,7 @@ void mousePressed() {
                  break;
          case 8: mouseClickCords = new Vec2(mouseX, mouseY);
                  break;
-         case 9: bombs.add(new Bomb(mouseX, mouseY, 10, 5000));
+         case 9: bombs.add(new Bomb(mouseX, mouseY, 20, 1000000));
                  break;
          default: println("undefined selectedToolInt (mousePressed function)");
       }

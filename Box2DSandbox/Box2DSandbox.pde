@@ -95,7 +95,7 @@ void draw() {
   //box2d.step(1.0f/60,20,20);
   box2d.step();
   spring.update(mouseX,mouseY);
-  destroyBombParticlesAfterMilliseconds(2000);
+  destroyBombParticlesAfterMilliseconds(1000);
   
   flipOnXInt = (flipOnX) ? -1 : 1;
 

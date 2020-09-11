@@ -167,8 +167,8 @@ void detonateBombs() {
       float angle = radians((i / (float)b.numOfParticles) * 360);
       Vec2 rayDir = new Vec2(sin(angle),cos(angle));
       //println(angle, rayDir);
-      bombParticles.add(new PhysicsObject(bombPosition.x, bombPosition.y, 10, 10, 0, #ff0000, randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.CIRCLE, -2));
-      //bombParticles.get(bombParticles.size() - 1).body.setMassData(); //need to make particles act as if heavier.
+      bombParticles.add(new PhysicsObject(bombPosition.x, bombPosition.y, 3, 3, 0, #ff0000, randomColor(), false, 0, Box2DBodyType.DYNAMIC, 200, 0.4, 0.5, Shape.CIRCLE, -2));
+      //println(bombParticles.get(bombParticles.size() - 1).body.getFixtureList().getDensity());
       bombParticles.get(bombParticles.size() - 1).body.setBullet(true);
       bombParticles.get(bombParticles.size() - 1).body.applyForce(rayDir.mulLocal(b.blastPower), bombPosition);
       //println(bombParticles.get(bombParticles.size() - 1).timeCreated);
@@ -463,7 +463,7 @@ void displayObjects() {
     for (PhysicsObject p: physicsObjects) {p.display(scaleValue);}
     for (Truck t: trucks) {t.display(scaleValue);}
     for (Bomb b: bombs) {b.display(scaleValue);}
-    for (PhysicsObject bP: bombParticles) {bP.display(scaleValue);}
+    //for (PhysicsObject bP: bombParticles) {bP.display(scaleValue);}
     pop();
   }
   
