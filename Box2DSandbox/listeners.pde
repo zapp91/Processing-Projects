@@ -20,6 +20,8 @@ void mousePressed() {
                  break;
          case 8: mouseClickCords = new Vec2(mouseX, mouseY);
                  break;
+         case 9: bombs.add(new Bomb(mouseX, mouseY, 20, 1000000));
+                 break;
          default: println("undefined selectedToolInt (mousePressed function)");
       }
     } else if (deleteMode) {
@@ -200,6 +202,9 @@ void keyPressed() {
   }
   if (!grabMode && !deleteMode) {
     cursor(ARROW);
+  }
+  if (key == 'k') {
+    detonateBombs();
   }
 }
 

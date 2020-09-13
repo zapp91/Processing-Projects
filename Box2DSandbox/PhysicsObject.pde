@@ -1,6 +1,8 @@
 class PhysicsObject {
   //Instead of any of the usual variables, we will store a reference to a Box2D Body
   Body body;      
+  
+  int timeCreated;
 
   float x,y,w,h,angle;
   color colour1;
@@ -23,6 +25,7 @@ class PhysicsObject {
   }
 
   PhysicsObject(float x, float y, float w, float h, float angle, color colour1, color colour2, boolean noFill, int strokeWeight, Box2DBodyType bt, float density, float friction, float restitution, Shape shape, int collisionGroup, PImage img, boolean flipImageOnX) {
+    this.timeCreated = millis();
     this.x = x;
     this.y = y;
     this.w = w;
@@ -157,7 +160,7 @@ class PhysicsObject {
 
     push();
     translate(pos.x-width/2,pos.y-height/2);    // Using the Vec2 position and float angle to
-    rotate(-a);                // translate and rotate the rectangle
+    rotate(-a);                                 // translate and rotate the rectangle
     //fill(colour1, 255*opacityScaleFactor);
     fill(lerpColor(0, lerpColor(#000000, colour1, darknessScaleFactor), opacityScaleFactor));
     if (noFill == true) noFill();

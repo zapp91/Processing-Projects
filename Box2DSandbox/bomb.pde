@@ -1,45 +1,32 @@
-//class Bomb {
+class Bomb {
 
-//  Body body;
-  
-//  float x,y,w,h,angle;
-//  color colour1;
-//  int numRays = 50;
+  PhysicsObject bombBody;
+  ArrayList<PhysicsObject> bombParticles = new ArrayList<PhysicsObject>();
+  int numOfParticles;
+  int blastPower;
 
-//  Bomb() {
-    
-//  }
+  Bomb(float x, float y, int numOfParticles, int blastPower) {
+    bombBody = new PhysicsObject(x, y, 30, 30, 0, #ff0000, randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.RECTANGLE, 1, tntImage);
+    this.numOfParticles = numOfParticles;
+    this.blastPower = blastPower;
+  }
+  
+  void display() {
+    display(1, 1);
+  }
+  
+  void display(float darknessFactor) {
+    display(darknessFactor, 1);
+  }
 
-//  void createRayParticles() {
-//    for (int i = 0; i < numRays; i++) {
-//      float angle = radians((i / (float)numRays) * 360);
-//      Vec2 rayDir( sinf(angle), cosf(angle) );
+  void display(float darknessFactor, float opacityFactor) {
+    //box2.display(darknessFactor, opacityFactor/20);
+    bombBody.display(darknessFactor);
+    for (PhysicsObject p: bombParticles) {p.display();}
+  }
   
-//      BodyDef bd = new BodyDef();
-//      bd.type = BodyType.DYNAMIC;
-//      bd.fixedRotation = true; // rotation not necessary
-//      bd.bullet = true; // prevent tunneling at high speed
-//      bd.linearDamping = 10; // drag due to moving through air
-//      bd.gravityScale = 0; // ignore gravity
-//      bd.position = center; // start at blast center
-//      bd.linearVelocity = blastPower * rayDir;
-//      this.body = box2d.createBody(bd);
-  
-//      CircleShape cs = new CircleShape();
-//      cs.m_radius = 0.05; // very small
-  
-//      b2FixtureDef fd;
-//      fd.shape = cs;
-//      fd.density = 60 / (float)numRays; // very high - shared across all particles
-//      fd.friction = 0; // friction not necessary
-//      fd.restitution = 0.99f; // high restitution to reflect off obstacles
-//      fd.filter.groupIndex = -1; // particles should not collide with each other
-//      body.CreateFixture(fd);
-//    }
-//  }
-  
-//  void display() {
-    
-//  }
+  void destroy() {
+    box2d.destroyBody(bombBody.body);
+  }
 
-//}
+}

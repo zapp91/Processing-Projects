@@ -155,6 +155,57 @@ void destroyWindmills() {
   windmills.clear();
 }
 
+void destroyBombs() {
+  for (Bomb b: bombs) {b.destroy();}
+  bombs.clear();
+}
+
+void detonateBombs() {
+  for (Bomb b: bombs) {
+    Vec2 bombPosition = box2d.getBodyPixelCoord(b.bombBody.body);
+    bombExplosionAnimations.add(new BombExplosionAnimation(bombPosition, millis()));
+    for (int i = 0; i < b.numOfParticles; i++) {
+      float angle = radians((i / (float)b.numOfParticles) * 360);
+      Vec2 rayDir = new Vec2(sin(angle),cos(angle));
+      bombParticles.add(new PhysicsObject(bombPosition.x, bombPosition.y, 3, 3, 0, #FFCD00, randomColor(), false, 0, Box2DBodyType.DYNAMIC, 200, 0.4, 0.5, Shape.CIRCLE, -2));
+      bombParticles.get(bombParticles.size() - 1).body.setBullet(true);
+      bombParticles.get(bombParticles.size() - 1).body.applyForce(rayDir.mulLocal(b.blastPower), bombPosition);
+
+    }
+  }
+  destroyBombs();
+}
+
+void destroyBombParticlesAfterMilliseconds(int mill) {
+  boolean particleDecayed = false;
+  int particleIndex = 0;
+  
+  for (int i = 0; bombParticles.size() > i; i++) {
+    if(bombParticles.get(i).timeCreated < millis() - mill) {
+      particleDecayed = true;
+      particleIndex = i;
+    }
+  };
+  if(particleDecayed) {box2d.destroyBody(bombParticles.get(particleIndex).body); bombParticles.remove(particleIndex);};
+  particleDecayed = false;
+  particleIndex = 0;
+}
+
+void destroyBombExplosionsAfterMilliseconds(int mill) {
+  boolean explosionDecayed = false;
+  int explosionIndex = 0;
+  
+  for (int i = 0; bombExplosionAnimations.size() > i; i++) {
+    if(bombExplosionAnimations.get(i).timeCreated < millis() - mill) {
+      explosionDecayed = true;
+      explosionIndex = i;
+    }
+  };
+  if(explosionDecayed) {bombExplosionAnimations.remove(explosionIndex);};
+  explosionDecayed = false;
+  explosionIndex = 0;
+}
+
 void wakeUpBodies(ArrayList<PhysicsObject> po) {
   for (PhysicsObject p: po) {p.body.setAwake(true);}
 }
@@ -169,6 +220,7 @@ Vec2 gravityVector(float gravityAngle,float gravityStrength) {
     (-1*gravityStrength * sin((gravityAngle+90)*PI/180))
   );
 }
+
 
 void displayGravityDial() {
   Vec2 g = box2d.world.getGravity();
@@ -367,6 +419,10 @@ void displaySelectedObjectSilhouette(color silColor, float scalingFactor, boolea
                ellipse((mouseClickCords.x-mouseX)/2, (mouseClickCords.y-mouseY)/2, dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY), dist(mouseClickCords.x, mouseClickCords.y, mouseX, mouseY));
              }
              break;
+     case 9: if (isDynamic) scale(scalingFactor/0.50);
+             fill(#FF0000);
+             rect(0,0,20,20);
+             break;
      default: println("undefined selectedToolInt (silhouette function)");
     }
   } else if (deleteMode) {
@@ -420,6 +476,9 @@ void displayObjects() {
     for (PhysicsObject w: worldStaticObjects) {w.display(scaleValue);}
     for (PhysicsObject p: physicsObjects) {p.display(scaleValue);}
     for (Truck t: trucks) {t.display(scaleValue);}
+    for (Bomb b: bombs) {b.display(scaleValue);}
+    for (BombExplosionAnimation bE: bombExplosionAnimations) {bE.updateAnimation(); bE.display();}
+    for (PhysicsObject bP: bombParticles) {bP.display(scaleValue);}
     pop();
   }
   
@@ -428,5 +487,6 @@ void displayObjects() {
   for (PhysicsObject w: worldStaticObjects) {w.display();}
   for (PhysicsObject p: physicsObjects) {p.display();}
   for (Truck t: trucks) {t.display();}
+  for (Bomb b: bombs) {b.display();}
   pop();
 }

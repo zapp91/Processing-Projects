@@ -17,6 +17,8 @@ Vec2 gravity;
 PImage truckBodyImage;
 PImage tireImage;
 PImage handImage;
+PImage tntImage;
+PImage explosionImage;
 
 Random rand;
 boolean showSkins;
@@ -30,7 +32,7 @@ int numOfDisplayLevels = 12;
 float scaleFactor = 0.998;
 
 int selectedToolInt;
-String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Line", "Draw Square", "Draw Circle"};
+String[] selectedToolStrings = {"Spawn Random Shapes", "Spawn Rectangle", "Spawn Circle", "Spawn Triangle", "Spawn Truck", "Spawn Windmill", "Draw Line", "Draw Square", "Draw Circle", "Spawn Bomb"};
 Vec2 mouseClickCords;
 
 ArrayList<PhysicsObject> boundaries;
@@ -38,6 +40,9 @@ ArrayList<PhysicsObject> worldStaticObjects;
 ArrayList<PhysicsObject> physicsObjects;
 ArrayList<Windmill> windmills;
 ArrayList<Truck> trucks;
+ArrayList<Bomb> bombs;
+ArrayList<PhysicsObject> bombParticles;
+ArrayList<BombExplosionAnimation> bombExplosionAnimations;
 
 Spring spring;
 
@@ -65,6 +70,9 @@ void setup() {
   physicsObjects = new ArrayList<PhysicsObject>();
   windmills = new ArrayList<Windmill>();
   trucks = new ArrayList<Truck>();
+  bombs = new ArrayList<Bomb>();
+  bombParticles = new ArrayList<PhysicsObject>();
+  bombExplosionAnimations = new ArrayList<BombExplosionAnimation>();
   
   spring = new Spring();
   
@@ -77,6 +85,8 @@ void setup() {
   truckBodyImage = loadImage("dodge4.png");
   tireImage = loadImage("tire2.png");
   handImage = loadImage("hand-cursor-inverted.png");
+  tntImage = loadImage("tnt.png");
+  explosionImage = loadImage("explosion.png");
   
   showSkins = true;
   selectedToolInt = 0;
@@ -90,8 +100,9 @@ void draw() {
   background(0);
   //box2d.step(1.0f/60,20,20);
   box2d.step();
-  
   spring.update(mouseX,mouseY);
+  destroyBombParticlesAfterMilliseconds(1000);
+  destroyBombExplosionsAfterMilliseconds(400);
   
   flipOnXInt = (flipOnX) ? -1 : 1;
 
