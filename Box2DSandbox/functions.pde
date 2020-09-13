@@ -163,16 +163,14 @@ void destroyBombs() {
 void detonateBombs() {
   for (Bomb b: bombs) {
     Vec2 bombPosition = box2d.getBodyPixelCoord(b.bombBody.body);
+    bombExplosionAnimations.add(new BombExplosionAnimation(bombPosition, millis()));
     for (int i = 0; i < b.numOfParticles; i++) {
       float angle = radians((i / (float)b.numOfParticles) * 360);
       Vec2 rayDir = new Vec2(sin(angle),cos(angle));
-      //println(angle, rayDir);
-      bombParticles.add(new PhysicsObject(bombPosition.x, bombPosition.y, 3, 3, 0, #ff0000, randomColor(), false, 0, Box2DBodyType.DYNAMIC, 200, 0.4, 0.5, Shape.CIRCLE, -2));
-      //println(bombParticles.get(bombParticles.size() - 1).body.getFixtureList().getDensity());
+      bombParticles.add(new PhysicsObject(bombPosition.x, bombPosition.y, 3, 3, 0, #FFCD00, randomColor(), false, 0, Box2DBodyType.DYNAMIC, 200, 0.4, 0.5, Shape.CIRCLE, -2));
       bombParticles.get(bombParticles.size() - 1).body.setBullet(true);
       bombParticles.get(bombParticles.size() - 1).body.applyForce(rayDir.mulLocal(b.blastPower), bombPosition);
-      //println(bombParticles.get(bombParticles.size() - 1).timeCreated);
-      println(bombParticles.get(bombParticles.size() - 1).body.getMass());
+
     }
   }
   destroyBombs();
@@ -193,6 +191,21 @@ void destroyBombParticlesAfterMilliseconds(int mill) {
   particleIndex = 0;
 }
 
+void destroyBombExplosionsAfterMilliseconds(int mill) {
+  boolean explosionDecayed = false;
+  int explosionIndex = 0;
+  
+  for (int i = 0; bombExplosionAnimations.size() > i; i++) {
+    if(bombExplosionAnimations.get(i).timeCreated < millis() - mill) {
+      explosionDecayed = true;
+      explosionIndex = i;
+    }
+  };
+  if(explosionDecayed) {bombExplosionAnimations.remove(explosionIndex);};
+  explosionDecayed = false;
+  explosionIndex = 0;
+}
+
 void wakeUpBodies(ArrayList<PhysicsObject> po) {
   for (PhysicsObject p: po) {p.body.setAwake(true);}
 }
@@ -207,6 +220,7 @@ Vec2 gravityVector(float gravityAngle,float gravityStrength) {
     (-1*gravityStrength * sin((gravityAngle+90)*PI/180))
   );
 }
+
 
 void displayGravityDial() {
   Vec2 g = box2d.world.getGravity();
@@ -463,7 +477,8 @@ void displayObjects() {
     for (PhysicsObject p: physicsObjects) {p.display(scaleValue);}
     for (Truck t: trucks) {t.display(scaleValue);}
     for (Bomb b: bombs) {b.display(scaleValue);}
-    //for (PhysicsObject bP: bombParticles) {bP.display(scaleValue);}
+    for (BombExplosionAnimation bE: bombExplosionAnimations) {bE.updateAnimation(); bE.display();}
+    for (PhysicsObject bP: bombParticles) {bP.display(scaleValue);}
     pop();
   }
   

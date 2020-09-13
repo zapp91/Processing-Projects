@@ -6,7 +6,7 @@ class Bomb {
   int blastPower;
 
   Bomb(float x, float y, int numOfParticles, int blastPower) {
-    bombBody = new PhysicsObject(x, y, 20, 20, 0, #ff0000, randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.RECTANGLE, 1);
+    bombBody = new PhysicsObject(x, y, 30, 30, 0, #ff0000, randomColor(), false, 0, Box2DBodyType.DYNAMIC, 1, 0.4, 0.5, Shape.RECTANGLE, 1, tntImage);
     this.numOfParticles = numOfParticles;
     this.blastPower = blastPower;
   }
