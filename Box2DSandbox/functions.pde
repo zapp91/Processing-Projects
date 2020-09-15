@@ -78,6 +78,7 @@ void displayHints() {
             "Press [D] to Delete Trucks and Physics Objects \n" +
             "Press [R] to Reset Game \n" +
             "Press [S] to Show/Hide Skins \n" +
+            "Press [K] to Detonate TNT \n" +
             "Press [1] for Default Gravity Strength \n" +
             "Press [2] for Earth Gravity Strength \n" +
             "Press [3] for 100 Gravity Strength \n" +
@@ -85,8 +86,10 @@ void displayHints() {
             "Press [5] for Random Gravity and Direction \n" +
             "Press UP ARROW or DOWN ARROW to change Gravity Strength \n" +
             "Press LEFT ARROW or RIGHT RIGHT to change Gravity Direction \n" +
-            "Press [+] and [-] to change number of display levels \n" +
-            "Press [/] and [*] to change scaling of display levels \n"
+            "Press [-] and [=] to change number of Display Levels \n" +
+            "Press [{] and [}] to change Scale Factor \n" +
+            "Press [O] to invert Level Shadowing \n" +
+            "Press [P] to disable Level Shadowing \n"
             , 10, 20);
   pop();
 }
@@ -421,7 +424,8 @@ void displaySelectedObjectSilhouette(color silColor, float scalingFactor, boolea
              break;
      case 9: if (isDynamic) scale(scalingFactor/0.50);
              fill(#FF0000);
-             rect(0,0,20,20);
+             rect(0,0,30,30);
+             image(tntImage, 0, 0, 30, 30);
              break;
      default: println("undefined selectedToolInt (silhouette function)");
     }
@@ -465,20 +469,29 @@ void displayObjects() {
   push();
   translate(width/2, height/2);
   float scaleValue = 0;
+  float displayScaling = invertDarknessScaling ? 1 : 0;
   
   for (int i = numOfDisplayLevels - 1; i >= 1; i--) {
     push();
     scaleValue = (float)Math.pow(scaleFactor, i);
     scale(scaleValue);           //changes objects size and location
-    scaleValue = scaleValue/1.2; //changes objects darkness and opacity.
-    for (Windmill w: windmills) {w.display(scaleValue);}
-    for (PhysicsObject b: boundaries) {b.display(scaleValue);}
-    for (PhysicsObject w: worldStaticObjects) {w.display(scaleValue);}
-    for (PhysicsObject p: physicsObjects) {p.display(scaleValue);}
-    for (Truck t: trucks) {t.display(scaleValue);}
-    for (Bomb b: bombs) {b.display(scaleValue);}
-    for (BombExplosionAnimation bE: bombExplosionAnimations) {bE.updateAnimation(); bE.display();}
-    for (PhysicsObject bP: bombParticles) {bP.display(scaleValue);}
+    
+    if (disableDarknessScaling) {
+      displayScaling = 255; 
+    } else if (invertDarknessScaling) {
+      displayScaling = displayScaling/1.02;
+    } else {
+      displayScaling = (float)Math.pow(scaleFactor, i)/1.2;
+    }
+    
+    for (Windmill w: windmills) {w.display(displayScaling);}
+    for (PhysicsObject b: boundaries) {b.display(displayScaling);}
+    for (PhysicsObject w: worldStaticObjects) {w.display(displayScaling);}
+    for (PhysicsObject p: physicsObjects) {p.display(displayScaling);}
+    for (Truck t: trucks) {t.display(displayScaling);}
+    for (Bomb b: bombs) {b.display(displayScaling);}
+    for (BombExplosionAnimation bE: bombExplosionAnimations) {bE.display();}
+    for (PhysicsObject bP: bombParticles) {bP.display(displayScaling);}
     pop();
   }
   
@@ -488,5 +501,7 @@ void displayObjects() {
   for (PhysicsObject p: physicsObjects) {p.display();}
   for (Truck t: trucks) {t.display();}
   for (Bomb b: bombs) {b.display();}
+  for (BombExplosionAnimation bE: bombExplosionAnimations) {bE.updateAnimation(); bE.display();}
+  for (PhysicsObject bP: bombParticles) {bP.display();}
   pop();
 }

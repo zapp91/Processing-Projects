@@ -18,8 +18,8 @@ class BombExplosionAnimation {
   }
   
   void updateAnimation() {
-    angle = angle + 0.005;
-    size = size + 1;
+    angle = angle + 0.05;
+    size = size + 8;
     opacity = opacity - 1;
   }
   

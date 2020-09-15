@@ -166,6 +166,7 @@ void keyPressed() {
   if (keyCode == RIGHT) {
     adjustGravityDirection(1);
     setGravity(gravityVector(gravityDirection,gravityStrength));
+    println("wtf? " + keyCode + millis());
   }
   if (keyCode == LEFT) {
     adjustGravityDirection(-1);
@@ -188,22 +189,28 @@ void keyPressed() {
     deleteMode = !deleteMode;
     cursor(CROSS);
   }
-  if (key == '/') {
+  if (key == '[' || key == '{') {
     adjustScaleFactor(-0.001);
   }
-  if (key == '*') {
+  if (key == ']' || key == '}') {
     adjustScaleFactor(0.001);
   }
-  if (key == '-') {
+  if (key == '-' || key == '_') {
     adjustDisplayLevel(-1);
   }
-  if (key == '+') {
+  if (key == '=' || key == '+') {
     adjustDisplayLevel(1);
+  }
+  if (key == 'o' || key == 'O') {
+    invertDarknessScaling = !invertDarknessScaling;
+  }
+  if (key == 'p' || key == 'P') {
+    disableDarknessScaling = !disableDarknessScaling;
   }
   if (!grabMode && !deleteMode) {
     cursor(ARROW);
   }
-  if (key == 'k') {
+  if (key == 'k' || key == 'K') {
     detonateBombs();
   }
 }

@@ -21,6 +21,8 @@ PImage tntImage;
 PImage explosionImage;
 
 Random rand;
+boolean invertDarknessScaling;
+boolean disableDarknessScaling;
 boolean showSkins;
 boolean flipOnX;
 int flipOnXInt;
@@ -88,6 +90,8 @@ void setup() {
   tntImage = loadImage("tnt.png");
   explosionImage = loadImage("explosion.png");
   
+  invertDarknessScaling  = false;
+  disableDarknessScaling  = false;
   showSkins = true;
   selectedToolInt = 0;
   flipOnX = false;
@@ -129,6 +133,14 @@ void draw() {
   }
   
   if (keyPressed) {
-    if (keyCode == UP || keyCode == DOWN || keyCode == LEFT || keyCode == RIGHT || key == '/' /* / */ || key == '*' /* * */ || key == '-' /* - */ || key == '+' /* + */) keyPressed();
+    if (keyCode == UP || 
+        keyCode == DOWN || 
+        keyCode == LEFT || 
+        keyCode == RIGHT || 
+        key == '-' || key == '_' || 
+        key == '=' || key == '+' || 
+        key == '[' || key == '{' || 
+        key == ']' || key == '}'
+        ) keyPressed();
   }
 }
