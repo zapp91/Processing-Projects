@@ -30,6 +30,7 @@ void mousePressed() {
       for (PhysicsObject p: physicsObjects) {if (p.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, p);}};
       for (Truck t: trucks) {if (t.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, t);}};
       for (Windmill w: windmills) {if (w.box1.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, w.box1);}};
+      for (Bomb b: bombs) {if (b.bombBody.contains(mouseX, mouseY)) {spring.bind(mouseX, mouseY, b.bombBody);}};
     } else {
       //do nothing
     }
@@ -228,4 +229,30 @@ void mouseWheel(MouseEvent event) {
   }
 
   cursor(ARROW);
+}
+
+void beginContact(Contact contact) {
+  Fixture f1 = contact.getFixtureA();
+  Fixture f2 = contact.getFixtureB();
+  
+  Body b1 = f1.getBody();
+  Body b2 = f2.getBody();
+  
+  Object o1 = b1.getUserData();
+  Object o2 = b2.getUserData();
+  
+  if (o1==null || o2==null) return;
+  
+  if (o1.getClass() == Bomb.class && o2.getClass() == Bomb.class) {
+    Bomb bomb1 = (Bomb) o1;
+    Bomb bomb2 = (Bomb) o2;
+    
+    bomb1.numOfParticles = 50;
+    bomb2.numOfParticles = 50;
+    
+    println("Boooom!");
+    
+    //detonateBomb(bomb1);
+    //detonateBomb(bomb2);
+  }
 }

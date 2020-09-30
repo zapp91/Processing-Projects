@@ -139,13 +139,27 @@ void destroyClickedEntity() {
     }
   };
   if(objectClicked) {trucks.get(objectIndex).destroy(); trucks.remove(objectIndex);};
+  objectClicked = false;
+  objectIndex = 0;
+  
+  for (int i = 0; bombs.size() > i && !objectClicked; i++) {
+    if(bombs.get(i).bombBody.contains(mouseX, mouseY)) {
+      objectClicked = true;
+      objectIndex = i;
+    }
+  };
+  if(objectClicked) {box2d.destroyBody(bombs.get(objectIndex).bombBody.body); bombs.remove(objectIndex);};
+  objectClicked = false;
+  objectIndex = 0;
 }
 
 void destroyEntities() {
   for (PhysicsObject p: physicsObjects) {box2d.destroyBody(p.body);}
   for (Truck t: trucks) {t.destroy();}
+  for (Bomb b: bombs) {b.destroy();}
   physicsObjects.clear();
   trucks.clear();
+  bombs.clear();
 }
 
 void destroyStaticObjects() {
@@ -177,6 +191,45 @@ void detonateBombs() {
     }
   }
   destroyBombs();
+}
+
+void detonateBomb(Bomb bomb) {
+  int bombIndex = -1;
+  
+  println("test 1");
+  
+  for (int i = 0; i < bombs.size() &&  bombIndex == -1; i++) {
+    println("test 2: " + i);
+    if(bombs.get(i) == bomb) {
+      bombIndex = i;
+      println("test 2: Found");
+    }
+  }
+  
+  println("test 3: " + bombIndex);
+  
+  if (bombIndex > -1) {
+    println("test 4: " + bombs.get(bombIndex).toString());
+    
+    Vec2 bombPosition = box2d.getBodyPixelCoord(bombs.get(bombIndex).bombBody.body);
+    bombExplosionAnimations.add(new BombExplosionAnimation(bombPosition, millis()));
+    for (int i = 0; i < bombs.get(bombIndex).numOfParticles; i++) {
+      
+      println("test 5?");
+      float angle = radians((i / (float)bombs.get(bombIndex).numOfParticles) * 360);
+      Vec2 rayDir = new Vec2(sin(angle),cos(angle));
+      bombParticles.add(new PhysicsObject(bombPosition.x, bombPosition.y, 3, 3, 0, #FFCD00, randomColor(), false, 0, Box2DBodyType.DYNAMIC, 200, 0.4, 0.5, Shape.CIRCLE, -2));
+      bombParticles.get(bombParticles.size() - 1).body.setBullet(true);
+      bombParticles.get(bombParticles.size() - 1).body.applyForce(rayDir.mulLocal(bombs.get(bombIndex).blastPower), bombPosition);
+    }
+    
+    println("test 6?");
+    
+    bombs.get(bombIndex).destroy();
+    bombs.remove(bombIndex);
+    println("KAABOOM");
+  }
+  
 }
 
 void destroyBombParticlesAfterMilliseconds(int mill) {
@@ -488,10 +541,10 @@ void displayObjects() {
     for (PhysicsObject b: boundaries) {b.display(displayScaling);}
     for (PhysicsObject w: worldStaticObjects) {w.display(displayScaling);}
     for (PhysicsObject p: physicsObjects) {p.display(displayScaling);}
-    for (Truck t: trucks) {t.display(displayScaling);}
     for (Bomb b: bombs) {b.display(displayScaling);}
-    for (BombExplosionAnimation bE: bombExplosionAnimations) {bE.display();}
     for (PhysicsObject bP: bombParticles) {bP.display(displayScaling);}
+    for (Truck t: trucks) {t.display(displayScaling);}
+    for (BombExplosionAnimation bE: bombExplosionAnimations) {bE.display();}
     pop();
   }
   
@@ -499,9 +552,9 @@ void displayObjects() {
   for (PhysicsObject b: boundaries) {b.display();}
   for (PhysicsObject w: worldStaticObjects) {w.display();}
   for (PhysicsObject p: physicsObjects) {p.display();}
-  for (Truck t: trucks) {t.display();}
   for (Bomb b: bombs) {b.display();}
-  for (BombExplosionAnimation bE: bombExplosionAnimations) {bE.updateAnimation(); bE.display();}
   for (PhysicsObject bP: bombParticles) {bP.display();}
+  for (Truck t: trucks) {t.display();}
+  for (BombExplosionAnimation bE: bombExplosionAnimations) {bE.updateAnimation(); bE.display();}
   pop();
 }

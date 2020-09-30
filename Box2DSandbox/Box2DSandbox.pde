@@ -66,6 +66,7 @@ void setup() {
 
   box2d = new Box2DProcessing(this);  
   box2d.createWorld(gravity);
+  box2d.listenForCollisions();
   
   boundaries = new ArrayList<PhysicsObject>();
   worldStaticObjects = new ArrayList<PhysicsObject>();

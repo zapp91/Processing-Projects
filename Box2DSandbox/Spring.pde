@@ -1,6 +1,7 @@
 class Spring {
 
   MouseJoint mouseJoint;
+  PhysicsObject object = null;
   
   Spring() {
     mouseJoint = null;
@@ -8,6 +9,9 @@ class Spring {
 
   void update(float x, float y) {
     if (mouseJoint != null) {
+      
+      //Make spring stronger the further the mouse is from the jointed object
+      
       //Vec2 anchorBCords = new Vec2(0,0);
       //mouseJoint.getAnchorB(anchorBCords);
       
@@ -39,6 +43,9 @@ class Spring {
 
   void bind(float x, float y, PhysicsObject box) {
     if (mouseJoint == null) {
+      object = box;
+      object.strokeWeight = 2;
+      
       MouseJointDef md = new MouseJointDef();
       md.bodyA = box2d.getGroundBody();
       md.bodyB = box.body;
@@ -70,6 +77,7 @@ class Spring {
 
   void destroy() {
     if (mouseJoint != null) {
+      object.strokeWeight = 0;
       box2d.world.destroyJoint(mouseJoint);
       mouseJoint = null;
     }

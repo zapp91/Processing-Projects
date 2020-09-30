@@ -166,7 +166,6 @@ class PhysicsObject {
     if (noFill == true) noFill();
     stroke(colour2);
     strokeWeight(strokeWeight);
-    if (strokeWeight == 0) noStroke();
     
     
     switch (shape){
@@ -177,9 +176,6 @@ class PhysicsObject {
                       break;
       case CIRCLE:
                       ellipse(0,0,w,w);
-                      stroke(0);
-                      strokeWeight(2);
-                      //line(0,0,0,w/2);
                       break;
       case TRIANGLE:
                       PolygonShape ps = (PolygonShape) body.getFixtureList().getShape();
@@ -191,15 +187,17 @@ class PhysicsObject {
                       endShape(CLOSE);
                       break;
       case CARBODY: 
-                      if (!showSkins) {
-                        for (ArrayList<Vec2> b: vecArrays) {
-                          beginShape();
-                          for (int i = 0; i < b.size(); i++) {
-                            Vec2 v = box2d.vectorWorldToPixels(b.get(i));
-                            vertex(v.x,v.y);
-                          }
-                          endShape(CLOSE);
+                      if (showSkins) {
+                        noFill();
+                      }
+                      
+                      for (ArrayList<Vec2> b: vecArrays) {
+                        beginShape();
+                        for (int i = 0; i < b.size(); i++) {
+                          Vec2 v = box2d.vectorWorldToPixels(b.get(i));
+                          vertex(v.x,v.y);
                         }
+                        endShape(CLOSE);
                       }
                       break;
       default:        println("Unknown Shape!");
